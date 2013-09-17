@@ -1,0 +1,3 @@
+Destructible = {
+	healthPoints: 10
+}
