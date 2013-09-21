@@ -19,27 +19,6 @@ Game = function() {
     * Called on every tick
     * */
     var update = function() {
-        // Player character movement
-        if(typeof movementKeyPressed != 'undefined') {
-            switch(movementKeyPressed) {
-                case KEYS.LEFT:
-                    if(Player.x > 0) {
-                        Player.x -= 10;
-                    }
-                break;
-                case KEYS.RIGHT:
-                    if(Player.x < 500) { // KILL ALL HARDCODE
-                        Player.x += 10;
-                    }
-                break;
-            }
-        }
-        // bullets
-        _(Stage.children).each(function(child) {
-            if(child.update) {
-                child.update();
-            }
-        });
         Stage.update();
     };
     /* 
@@ -50,10 +29,10 @@ Game = function() {
         if(Game.state == GAMESTATES.LOADED) {
             switch(event.keyCode) {
                 case 37: // left
-                    movementKeyPressed = KEYS.LEFT;
+                    Game.movementKeyPressed = KEYS.LEFT;
                 break;
                 case 39: // right
-                    movementKeyPressed = KEYS.RIGHT
+                    Game.movementKeyPressed = KEYS.RIGHT
                 break;
             }
         }
@@ -67,7 +46,7 @@ Game = function() {
             switch(event.keyCode) {
                 case 37: // left
                 case 39:
-                    movementKeyPressed = undefined;
+                    Game.movementKeyPressed = undefined;
             }
         }
     };
@@ -78,8 +57,9 @@ Game = function() {
         fireBullet(Stage.mouseX, Stage.mouseY);
     };
     var fireBullet = function(x, y) {
-        var bullet = _.extend({}, Projectile).init(Player.x, Player.y, x, y);
-        bullets.push(bullet);
+        if(PlayerShip) {
+            PlayerShip.fire();
+        }
     }
 
     return {
@@ -87,15 +67,15 @@ Game = function() {
             Game.state = GAMESTATES.LOADED;
 
             Stage = new createjs.Stage('mainCanvas');
-            Player = new createjs.Shape();
-            Player.graphics.beginFill('red').drawCircle(0,0,50);
-            Player.x = 10;
-            Player.y = 450;
-            Stage.addChild(Player);
+            PlayerShip = new Player();
+            PlayerShip.x = 200; // HARDCODE
+            PlayerShip.y = 400; // HARDCODE
+            Stage.addChild(PlayerShip);
 
+            createjs.Ticker.setFPS(60);
             createjs.Ticker.addEventListener('tick', update);
-            window.addEventListener('keydown', handleKeyDown);
-            window.addEventListener('keyup', handleKeyUp);
+            document.addEventListener('keydown', handleKeyDown);
+            document.addEventListener('keyup', handleKeyUp);
             Stage.canvas.addEventListener('click', handleStageClick);
         }
     }
