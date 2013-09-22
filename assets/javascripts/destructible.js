@@ -1,3 +1,3 @@
 Destructible = {
-	healthPoints: 10
+    healthPoints: 10
 }
