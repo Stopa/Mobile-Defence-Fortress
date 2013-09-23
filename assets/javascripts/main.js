@@ -29,9 +29,11 @@ Game = function() {
         if(Game.state == GAMESTATES.LOADED) {
             switch(event.keyCode) {
                 case 37: // left
+                case 65: // a
                     Game.movementKeyPressed = KEYS.LEFT;
                 break;
                 case 39: // right
+                case 68: // d
                     Game.movementKeyPressed = KEYS.RIGHT
                 break;
             }
@@ -45,7 +47,9 @@ Game = function() {
         if(Game.state == GAMESTATES.LOADED) {
             switch(event.keyCode) {
                 case 37: // left
-                case 39:
+                case 39: // right
+                case 65: // a
+                case 68: // d
                     Game.movementKeyPressed = undefined;
             }
         }

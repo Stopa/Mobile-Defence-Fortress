@@ -2,16 +2,16 @@
     function Player() {
         this.initialize();
     }
-    Player.prototype = new createjs.Container();
-    Player.prototype.s_init = Player.prototype.initialize;
-    Player.prototype.s_tick = Player.prototype._tick;
+    Player.prototype = new Actor();
+    Player.prototype.actorInit = Player.prototype.initialize;
+    Player.prototype.actorTick = Player.prototype._tick;
 
     Player.prototype.initialize = function() {
-        this.s_init();
+        this.actorInit();
         this._initGraphics();
     }
     Player.prototype._tick = function() {
-        this.s_tick();
+        this.actorTick();
         this.tickMovement();
         this.tickWeaponRotation();
     }
