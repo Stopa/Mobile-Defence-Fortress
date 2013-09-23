@@ -61,9 +61,7 @@ Game = function() {
         fireBullet(Stage.mouseX, Stage.mouseY);
     };
     var fireBullet = function(x, y) {
-        if(PlayerShip) {
-            PlayerShip.fire();
-        }
+        PlayerShip.weapon.shoot();
     }
 
     return {
