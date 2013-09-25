@@ -32,7 +32,7 @@
     };
     Weapon.prototype._initGraphics = function() {
         this.weaponGraphics = new createjs.Bitmap(this.imagePath);
-        this.weaponGraphics.x = -1*this.width/2;
+        this.weaponGraphics.x = -1*this.width*0.5;
         this.addChild(this.weaponGraphics);
 
         this.regX = 0;

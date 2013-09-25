@@ -71,7 +71,7 @@ Game = function() {
             Stage = new createjs.Stage('mainCanvas');
             PlayerShip = new Player();
             PlayerShip.x = 200; // HARDCODE
-            PlayerShip.y = 400; // HARDCODE
+            PlayerShip.y = 590; // HARDCODE
             Stage.addChild(PlayerShip);
 
 
