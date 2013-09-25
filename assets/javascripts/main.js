@@ -10,7 +10,7 @@ const KEYS =  {
     RIGHT: 1
 }
 
-var Game, Player, Stage;
+var Game, Player, Stage, EnemyShip, Swarm1;
 
 Game = function() {
     var movementKeyPressed;
@@ -73,6 +73,34 @@ Game = function() {
             PlayerShip.x = 200; // HARDCODE
             PlayerShip.y = 400; // HARDCODE
             Stage.addChild(PlayerShip);
+
+
+/**************************************************/
+
+
+            //EnemyShip = new Enemy();
+            //EnemyShip.x = 200;
+            //EnemyShip.y = 200;
+            //Stage.addChild(EnemyShip);
+
+
+
+            Swarm1 = new Swarm(200);
+
+            Swarm1.addChild(new Enemy(true));
+            Swarm1.addChild(new Enemy(true));
+            Swarm1.addChild(new Enemy(true));
+
+            Swarm1.x = 200;
+            Swarm1.y = 200;
+
+            for (var i = 0; i < 3 ; i++){
+                Swarm1.children[i].x=-100 + (i*100);
+            }
+            Stage.addChild(Swarm1);
+            //Stage.addChild(EnemyShip);
+
+/***************************************************/
 
             createjs.Ticker.setFPS(60);
             createjs.Ticker.addEventListener('tick', update);
