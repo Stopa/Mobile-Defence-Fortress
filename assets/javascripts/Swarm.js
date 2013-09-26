@@ -23,7 +23,10 @@
         if (Math.abs(this.origX - this.x) > 100 ) {
             this.curDirection *= -1;
             this.y += verticalDist;
-        } 
+        }
+        if (Math.floor(Math.random()*1000) % 50 == 0) {
+            this.children[Math.floor(Math.random()*this.children.length)].dropBomb();
+        }
         
         //!TODO - call movement / attack pattern method
     }
