@@ -1,16 +1,17 @@
 (function(window) {
-    function Projectile(imagePath, xspeed, yspeed) {
+    function Projectile(imagePath, rotation, xspeed, yspeed) {
         this.xspeed = xspeed*this.speed;
         this.yspeed = yspeed*this.speed;
-        this.initialize(imagePath, xspeed, yspeed);
+        this.initialize(imagePath, rotation, xspeed, yspeed);
     }
     Projectile.prototype = new Destructible();
     Projectile.prototype.destructibleInit = Projectile.prototype.initialize;
     Projectile.prototype.destructibleTick = Projectile.prototype._tick;
-    Projectile.prototype.initialize = function(imagePath) {
+    Projectile.prototype.initialize = function(imagePath, rotation) {
         this.destructibleInit();
 
         this.imagePath = imagePath;
+        this.rotation = rotation*0.5;
 
         this._initGraphics();
     };
@@ -25,6 +26,7 @@
         this.projectileGraphics = new createjs.Bitmap(this.imagePath);
         this.projectileGraphics.x = 0;
         this.projectileGraphics.y = 0;
+        this.projectileGraphics.rotation = this.rotation;
 
         this.addChild(this.projectileGraphics);
     }
