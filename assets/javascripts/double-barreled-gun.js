@@ -19,7 +19,6 @@
             barrelPositionSpeeds = MDF.angleSpeeds(realAngle-90);
 
         var bullet = new Projectile(CANNON_BULLET_GRAPHICS, this.rotation, angleSpeeds.x, angleSpeeds.y);
-        console.log(this.rotation);
         /*
         * Bullet starting point is offset by the weapon length along the weapon rotation axis
         * and offset by 10 pixels by the perpendicular angle depending on which barrel we are currently using
