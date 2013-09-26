@@ -17,7 +17,7 @@
 
     Player.prototype._initGraphics = function() {
         this.hull = new BasicHull();
-        this.weapon = new DoubleBarreledGun();
+        this.weapon = new Cannon();
 
         this.weapon.x = this.hull.width/2;
         this.weapon.y = 7; // HARDCODE

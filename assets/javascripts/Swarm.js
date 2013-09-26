@@ -1,6 +1,5 @@
 (function(window) {
     function Swarm(origX) {
-        console.log("creating swarm");
         this.initialize(origX);
     }
     Swarm.prototype = new createjs.Container();
@@ -12,8 +11,6 @@
         this.containerInit();
 
         this.origX = origX;
-        console.log("init-ed swarm with origX="+this.origX);
-        console.log("init-ed swarm with this.X="+this.x);
     };
 
     Swarm.prototype._tick = function() {
@@ -22,8 +19,6 @@
     };
 
     Swarm.prototype.tickMovement = function(horizontalDist, verticalDist) {
-        console.log("swarm with origX="+this.origX);
-        console.log("swarm with this.X="+this.x);
         this.x += this.curDirection * horizontalDist;
         if (Math.abs(this.origX - this.x) > 100 ) {
             this.curDirection *= -1;
