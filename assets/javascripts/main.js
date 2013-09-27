@@ -13,7 +13,6 @@ const KEYS =  {
 var Game, Player, Stage, EnemyShip, Swarm1;
 
 Game = function() {
-    var movementKeyPressed;
     /*
     * Called on every tick
     * */
@@ -29,11 +28,11 @@ Game = function() {
             switch(event.keyCode) {
                 case 37: // left
                 case 65: // a
-                    Game.movementKeyPressed = KEYS.LEFT;
+                    Game.controls.movementKeyPressed = KEYS.LEFT;
                 break;
                 case 39: // right
                 case 68: // d
-                    Game.movementKeyPressed = KEYS.RIGHT
+                    Game.controls.movementKeyPressed = KEYS.RIGHT
                 break;
             }
         }
@@ -46,22 +45,29 @@ Game = function() {
         if(Game.state == GAMESTATES.LOADED) {
             switch(event.keyCode) {
                 case 37: // left
-                case 39: // right
                 case 65: // a
+                    if(Game.controls.movementKeyPressed == KEYS.LEFT) {
+                        Game.controls.movementKeyPressed = undefined;
+                    }
+                break;
+                case 39: // right
                 case 68: // d
-                    Game.movementKeyPressed = undefined;
+                    if(Game.controls.movementKeyPressed == KEYS.RIGHT) {
+                        Game.controls.movementKeyPressed = undefined;
+                    }
+                break;
             }
         }
     };
     /*
     * Handle Click event on Stage, release a bullet
     * */
-    var handleStageClick = function(event) {
-        fireBullet(Stage.mouseX, Stage.mouseY);
+    var handleMouseDown = function(event) {
+        Game.controls.mouseDown = true;
     };
-    var fireBullet = function(x, y) {
-        PlayerShip.weapon.shoot();
-    }
+    var handleMouseUp = function(event) {
+        Game.controls.mouseDown = false;
+    };
 
     return {
         init: function() {
@@ -105,7 +111,12 @@ Game = function() {
             createjs.Ticker.addEventListener('tick', update);
             document.addEventListener('keydown', handleKeyDown);
             document.addEventListener('keyup', handleKeyUp);
-            Stage.canvas.addEventListener('click', handleStageClick);
+            document.addEventListener('mousedown', handleMouseDown);
+            document.addEventListener('mouseup', handleMouseUp)
+        },
+        controls: {
+            movementKeyPressed: undefined,
+            mouseDown: false
         }
     }
 }();

@@ -17,6 +17,7 @@
     Weapon.prototype._tick = function() {
         this.containerTick();
         this._tickRotation();
+        this._tickShoot();
     };
 
     Weapon.prototype._tickRotation = function() {
@@ -28,6 +29,15 @@
 
         if(degrees < 60 && degrees > -60) {
             this.rotation = degrees;
+        }
+    };
+    Weapon.prototype._tickShoot = function() {
+        if(Game.controls.mouseDown && this.cooldown <= 0) {
+            this.shoot();
+            this.cooldown = this.weaponCooldown;
+        }
+        if(this.cooldown > 0) {
+            this.cooldown--;
         }
     };
     Weapon.prototype._initGraphics = function() {
@@ -52,6 +62,9 @@
         bullet.y = weaponAbsY+angleSpeeds.y*(this.height);
         Stage.addChild(bullet);
     };
+
+    Weapon.prototype.weaponCooldown = 100;
+    Weapon.prototype.cooldown = 0;
 
     window.Weapon = Weapon;
 }(window))

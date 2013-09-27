@@ -26,7 +26,7 @@
         this.addChild(this.hull);
     }
     Player.prototype.tickMovement = function() {
-        switch(Game.movementKeyPressed) {
+        switch(Game.controls.movementKeyPressed) {
             case KEYS.LEFT:
                 if(this.x > 0) {
                     this.x -= 10; // HARDCODE: ship speed

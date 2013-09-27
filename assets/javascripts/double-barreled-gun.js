@@ -30,5 +30,7 @@
         this._nextShotLeft = !this._nextShotLeft;
     }
 
+    Cannon.prototype.weaponCooldown = 20;
+
     window.Cannon = Cannon;
 }(window))
