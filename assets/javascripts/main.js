@@ -14,7 +14,6 @@ var Game, Player, Stage, EnemyShip, Swarm1;
 
 Game = function() {
     var movementKeyPressed;
-    var bullets = [];
     /*
     * Called on every tick
     * */

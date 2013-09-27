@@ -18,8 +18,12 @@
 
     Projectile.prototype._tick = function() {
         this.destructibleTick();
-        this.x += this.xspeed;
-        this.y += this.yspeed;
+        if(this.isOutOfParentBounds()) {
+            this._die();
+        } else {
+            this.x += this.xspeed;
+            this.y += this.yspeed;
+        }
     };
 
     Projectile.prototype._initGraphics = function() {

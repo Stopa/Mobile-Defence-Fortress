@@ -22,6 +22,10 @@
     Destructible.prototype._die = function() {
         Stage.removeChild(this);
     };
+    Destructible.prototype.isOutOfParentBounds = function() {
+        return this.x < 0 || this.y < 0 || 
+                this.x > Stage.canvas.clientWidth || this.y > Stage.canvas.clientHeight;
+    };
 
     window.Destructible = Destructible;
 }(window))
