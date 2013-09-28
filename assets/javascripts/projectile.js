@@ -37,7 +37,6 @@
         this.projectileGraphics.x = 0;
         this.projectileGraphics.y = 0;
         this.projectileGraphics.rotation = this.rotation;
-
         MDF.createDebugRect(this);
         this.addChild(this.projectileGraphics);
     }
