@@ -11,14 +11,14 @@
     Projectile.prototype.initialize = function(imagePath, rotation, aoe) {
         this.destructibleInit();
 
-        this.width = 30;// TEMP HARDCODE
+        this.width = 5;// TEMP HARDCODE
         this.height = 30; // TEMP HARDCODE
         this.imagePath = imagePath;
-        this.rotation = rotation*0.5;
+        this.rotation = rotation;
         this.aoe = aoe;
         Game.colliders.push(this);
 
-        this._initGraphics();
+        this.graphics = this._initGraphics();
     };
 
     Projectile.prototype._tick = function() {
@@ -39,10 +39,10 @@
         this.projectileGraphics = new createjs.Bitmap(this.imagePath);
         this.projectileGraphics.x = 0;
         this.projectileGraphics.y = 0;
-        this.projectileGraphics.rotation = this.rotation;
-
+        this.projectileGraphics.rotation = 0;
         MDF.createDebugRect(this);
         this.addChild(this.projectileGraphics);
+        return this.projectileGraphics;
     }
 
     Projectile.prototype._initExplosionGraphics = function () {
@@ -72,11 +72,13 @@
 
     Projectile.prototype.collision = function() {
         this.hasCollided = 1;
-        explosionGraphics = this._initExplosionGraphics();
+        this.explosionGraphics = this._initExplosionGraphics();
+        this.graphics.visible = false;
     }
 
     Projectile.prototype.speed = 7;
     Projectile.prototype.hasCollided = 0;
+    Projectile.prototype.graphics = 0;
     Projectile.prototype.explosionGraphics = 0;
 
     window.Projectile = Projectile;
