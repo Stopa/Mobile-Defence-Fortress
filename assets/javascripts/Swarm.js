@@ -27,13 +27,8 @@
         }
 
 
-        //create a rectangle which shows the swarms height and width, for debugging
-        if (Game.debug){
-            this.shape2 = new createjs.Shape();
-            this.shape2.x = 0;
-            this.shape2.y = 0;
-            this.addChild(this.shape2);
-        }
+        if (Game.debug) MDF.createDebugRect(this);
+
     };
 
     Swarm.prototype._tick = function() {
@@ -55,14 +50,14 @@
         
             //update swarm containers width and height, if necessary
             if (this.width < (col+1)*ship.width+ col*this.shipxPadding){
-                this.width += ship.width + this.shipxPadding;
+                this.width = (col+1) *ship.width + col*this.shipxPadding;
             }
             this.height += (this.height < (row+1)*ship.height) ? ship.height: 0;
             
             this.regX = this.width*0.5;
         }
 
-        if (Game.debug) this.updateDebuggingRectangle();
+        if (Game.debug) MDF.updateDebugRect(this);
     }
 
 
@@ -72,7 +67,6 @@
 
     Swarm.prototype.tickMovement = function(xSpeed, ySpeed) {
         this.x += this.curDirection * xSpeed;
-
         if (this.x < 0 + this.width*0.5 || this.x >= Game.canvasWidth - this.width*0.5 ){
             this.curDirection *=-1;
             this.y += ySpeed;
