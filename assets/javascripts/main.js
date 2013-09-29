@@ -18,7 +18,8 @@ Game = function() {
     * */
     var update = function() {
         Stage.update();
-    };
+
+    }
     /* 
     * Handle KeyDown event on window,
     * mark if any control keys are pressed
@@ -73,38 +74,36 @@ Game = function() {
         init: function() {
             Game.state = GAMESTATES.LOADED;
 
+            //get a reference to the canvas element
+
             Stage = new createjs.Stage('mainCanvas');
+
+            
+
             PlayerShip = new Player();
-            PlayerShip.x = 200; // HARDCODE
+            PlayerShip.x = Game.canvasWidth/2; // HARDCODE
             PlayerShip.y = 590; // HARDCODE
             Stage.addChild(PlayerShip);
 
 
 /**************************************************/
 
+            var swarmRows = 3;
+            var swarmCols = 6;
+            var swarmHorizontalPadding = 50;
+            enemiesToAdd = swarmRows * swarmCols;
 
-            //EnemyShip = new Enemy();
-            //EnemyShip.x = 200;
-            //EnemyShip.y = 200;
-            //Stage.addChild(EnemyShip);
-
-
-
-            Swarm1 = new Swarm(200);
-
-            Swarm1.addChild(new Enemy(true));
-            Swarm1.addChild(new Enemy(true));
-            Swarm1.addChild(new Enemy(true));
-
-            Swarm1.x = 200;
+            Swarm1 = new Swarm(swarmRows,swarmCols,swarmHorizontalPadding);
+            Swarm1.x = Game.canvasWidth/2;
             Swarm1.y = 200;
 
-            for (var i = 0; i < 3 ; i++){
-                Swarm1.children[i].x=-100 + (i*100);
+
+            for (var i = 0; i < enemiesToAdd ; i++){
+                var row = Math.floor(i/swarmCols);
+                var col = i - swarmCols*Math.floor(i/swarmCols);
+                Swarm1.addShip(new Enemy(true,69,50), [row,col]);
             }
             Stage.addChild(Swarm1);
-            //Stage.addChild(EnemyShip);
-
 /***************************************************/
 
             createjs.Ticker.setFPS(60);
@@ -117,6 +116,9 @@ Game = function() {
         controls: {
             movementKeyPressed: undefined,
             mouseDown: false
-        }
+        },
+        bullets : [],
+        debug : false,
+        canvasWidth : document.getElementById('mainCanvas').width
     }
 }();
