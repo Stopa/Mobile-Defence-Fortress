@@ -61,7 +61,7 @@
 
         bomb.x = this.parent.x + this.x + 35 + angleSpeeds.x; // 35 is bitmap width / 2
         bomb.y = this.parent.y + this.y + angleSpeeds.y;
-
+        bomb.regX = this.parent.width* 0.5; //this is required because the swarm object also uses the same regX
         Stage.addChild(bomb);
     }
 
