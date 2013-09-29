@@ -38,7 +38,7 @@
 
     Swarm.prototype._tick = function() {
         this.containerTick();
-        this.tickMovement(5,30); // HARDCODE: swarm x-speed, y-speed
+        this.tickMovement(2,30); // HARDCODE: swarm x-speed, y-speed
     };
 
 
@@ -76,6 +76,10 @@
         if (this.x < 0 + this.width*0.5 || this.x >= Game.canvasWidth - this.width*0.5 ){
             this.curDirection *=-1;
             this.y += ySpeed;
+        }
+
+        if (Math.floor(Math.random()*1000) % 50 == 0) {
+            this.children[Math.floor(Math.random()*this.children.length)].dropBomb();
         }
 
         //!TODO: Handle land approaching
