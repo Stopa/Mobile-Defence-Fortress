@@ -34,7 +34,7 @@
     Weapon.prototype._tickShoot = function() {
         if(Game.controls.mouseDown && this.cooldown <= 0) {
             this.shoot();
-            this.cooldown = this.weaponCooldown;
+            this.cooldown = this.attackSpeed;
         }
         if(this.cooldown > 0) {
             this.cooldown--;
@@ -63,7 +63,9 @@
         Stage.addChild(bullet);
     };
 
-    Weapon.prototype.weaponCooldown = 100;
+    // Default attackSpeed
+    Weapon.prototype.attackSpeed = 100;
+    // If cooldown <= 0 then fire new projectile.
     Weapon.prototype.cooldown = 0;
 
     window.Weapon = Weapon;
