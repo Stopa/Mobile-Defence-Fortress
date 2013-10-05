@@ -18,7 +18,7 @@
         this.aoe = aoe;
         Game.colliders.push(this);
 
-        this._initGraphics();
+        this.graphics = this._initGraphics();
     };
 
     Projectile.prototype._tick = function() {
@@ -42,6 +42,7 @@
         this.projectileGraphics.rotation = this.rotation;
         MDF.createDebugRect(this);
         this.addChild(this.projectileGraphics);
+        return this.projectileGraphics;
     }
 
     Projectile.prototype._initExplosionGraphics = function () {
@@ -72,10 +73,12 @@
     Projectile.prototype.collision = function() {
         this.hasCollided = 1;
         explosionGraphics = this._initExplosionGraphics();
+        this.graphics.visible = false;
     }
 
     Projectile.prototype.speed = 7;
     Projectile.prototype.hasCollided = 0;
+    Projectile.prototype.graphics = 0;
     Projectile.prototype.explosionGraphics = 0;
 
     window.Projectile = Projectile;
