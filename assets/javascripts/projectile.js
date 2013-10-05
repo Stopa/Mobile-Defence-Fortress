@@ -73,7 +73,7 @@
 
     Projectile.prototype.collision = function() {
         this.hasCollided = 1;
-        explosionGraphics = this._initExplosionGraphics();
+        this.explosionGraphics = this._initExplosionGraphics();
         this.graphics.visible = false;
     }
 
