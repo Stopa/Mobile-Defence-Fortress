@@ -1,14 +1,14 @@
 (function(window) {
 
-    function Swarm(rows,cols, shipxPadding) {
-        this.initialize(rows,cols,shipxPadding);
+    function Swarm(x,y,rows, cols, shipxPadding) {
+        this.initialize(x,y,rows,cols,shipxPadding);
     }
     Swarm.prototype = new createjs.Container();
     Swarm.prototype.containerInit = Swarm.prototype.initialize;
     Swarm.prototype.containerTick = Swarm.prototype._tick;
 
     Swarm.prototype.curDirection = 1; //1 for right, -1 for left
-    Swarm.prototype.initialize = function(rows,cols,shipxPadding) {
+    Swarm.prototype.initialize = function(x,y,rows,cols,shipxPadding) {
         this.containerInit();
 
         //for n ships, we have (n-1) paddings. 
@@ -26,48 +26,46 @@
             }
         }
 
+        this.fillMatrix(rows,cols);
+        MDF.createDebugRect(this);
 
-        if (Game.debug) MDF.createDebugRect(this);
 
     };
 
     Swarm.prototype._tick = function() {
         this.containerTick();
         this.tickMovement(2,30); // HARDCODE: swarm x-speed, y-speed
+        MDF.updateDebugRect(this);
+
+    };
+
+    Swarm.prototype.fillMatrix = function(rows, cols) {
+            enemiesToAdd = rows * cols;
+            var shipWidth = 69;  //HARDCODEEEE
+            var shipHeight = 50; //HARDCODEEEE
+
+            for (var i = 0; i < enemiesToAdd ; i++){
+                var row = Math.floor(i/rows);
+                var col = i - rows*Math.floor(i/rows);
+                this.addChild(new Enemy(true,shipWidth, shipHeight,
+                    (col* shipWidth + col*this.shipxPadding),
+                    (row * shipHeight),
+                    [row,col]));
+            }
+
+            this.width = cols*shipWidth + (cols-1) * this.shipxPadding;
+            this.height = rows * shipHeight;
+            this.regX = this.width*0.5;
     };
 
 
-    /** Adds an enemy of type 'ship' to the matrix of this swarm. 'swarmPos' is
-    a 2 element array [row,col] to position the ship within the matrix */
-    Swarm.prototype.addShip = function(ship, swarmPos) {
-        this.addChild(ship);
-        if (swarmPos != undefined){
-            var row = swarmPos[0];
-            var col = swarmPos[1];
-
-            ship.x = col*ship.width + col*this.shipxPadding;
-            ship.y = row * ship.height;
-        
-            //update swarm containers width and height, if necessary
-            if (this.width < (col+1)*ship.width+ col*this.shipxPadding){
-                this.width = (col+1) *ship.width + col*this.shipxPadding;
-            }
-            this.height += (this.height < (row+1)*ship.height) ? ship.height: 0;
-            
-            this.regX = this.width*0.5;
-        }
-
-        if (Game.debug) MDF.updateDebugRect(this);
-    }
-
-
-    Swarm.prototype.updateDebuggingRectangle = function () {
-         this.shape2.graphics.clear().beginStroke("#F00").rect(0,0,this.width,this.height);
+    Swarm.prototype.destroy = function() {
+        // body...
     }
 
     Swarm.prototype.tickMovement = function(xSpeed, ySpeed) {
         this.x += this.curDirection * xSpeed;
-        if (this.x < 0 + this.width*0.5 || this.x >= Game.canvasWidth - this.width*0.5 ){
+        if (this.x < 0 + this.regX || this.x >= (Game.canvasWidth - this.regX) ){
             this.curDirection *=-1;
             this.y += ySpeed;
         }
@@ -77,7 +75,7 @@
         }
 
         //!TODO: Handle land approaching
-    }
+    }   //!TODO : If swarm has run out of enemies, delete it
 
     
     window.Swarm = Swarm;

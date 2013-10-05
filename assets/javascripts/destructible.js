@@ -20,7 +20,7 @@
         }
     };
     Destructible.prototype._die = function() {
-        Stage.removeChild(this);
+        this.parent.removeChild(this);
     };
     Destructible.prototype.isOutOfParentBounds = function() {
         return this.x < 0 || this.y < 0 || 

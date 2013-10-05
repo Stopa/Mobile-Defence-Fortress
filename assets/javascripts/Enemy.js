@@ -1,6 +1,6 @@
 (function(window) {
-    function Enemy(belongsToSwarm, width, height) { //position to start the enemy at, referenced during attack
-        this.initialize(belongsToSwarm, width, height);
+    function Enemy(belongsToSwarm, width, height, x, y) {
+        this.initialize(belongsToSwarm, width, height, x, y);
     }
     Enemy.prototype = new Actor();
     Enemy.prototype.actorInit = Enemy.prototype.initialize;
@@ -8,48 +8,44 @@
     Enemy.prototype.actorDie = Enemy.prototype._die;
     Enemy.prototype.curDirection = 1;  //1 for right, -1 for left
 
-    Enemy.prototype.initialize = function(belongsToSwarm, width, height) {
+    Enemy.prototype.initialize = function(belongsToSwarm, width, height, x, y) {
         this.actorInit();
 
-
+        this.x = x;
+        this.y = y;
         this.width = width;
         this.height = height;
         
         this.belongsToSwarm = belongsToSwarm;
 
         this._initGraphics();
-        this.origX = this.x;
-        this.origY = this.y;
-        
+        Game.colliders.push(this);
     }
     Enemy.prototype._tick = function() {
         this.actorTick();
-        if (! this.belongsToSwarm) {
-            this.tickMovement();
-        }
+        if (!this.belongsToSwarm) this.tickMovement(2,30); // HARDCODE: x-speed, y-speed
+        MDF.updateDebugRect(this);
     }
 
     Enemy.prototype._initGraphics = function() {
         this.shipBitmap = new createjs.Bitmap('assets/images/enemy/enemy.png');
         this.addChild(this.shipBitmap);
+        MDF.createDebugRect(this, "#FFFF00");
     }
 
     Enemy.prototype._die = function() {
         this.actorDie();
+        delete this;
         //call death animation
         //call death sound
     }
-
-
-    Enemy.prototype.tickMovement = function() {
-
-        this.x += this.curDirection * 1;
-        if (Math.abs(this.origX + this.x) > 500 ) {
-            //this.curAttackPos = 0;
-            this.curDirection *= -1;
-            this.y += 20;
-        } 
-        
+    Enemy.prototype.tickMovement = function(xSpeed, ySpeed) {
+        this.x += this.curDirection * xSpeed;
+        if (this.x < 0 + this.regX || 
+            this.x >= Game.canvasWidth - this.regX ){
+            this.curDirection *=-1;
+            this.y += ySpeed;
+        }
     }
 
     Enemy.prototype.dropBomb = function() {

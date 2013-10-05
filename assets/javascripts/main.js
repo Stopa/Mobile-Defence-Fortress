@@ -10,7 +10,7 @@ const KEYS =  {
     RIGHT: 1
 }
 
-var Game, Player, Stage, EnemyShip, Swarm1;
+var Game, Quadtree, Player, Stage, EnemyShip, Swarm1;
 
 Game = function() {
     /*
@@ -18,8 +18,8 @@ Game = function() {
     * */
     var update = function() {
         Stage.update();
-
-    }
+        Collision.QuadtreeTick(Game, Quadtree, Stage);
+    };
     /* 
     * Handle KeyDown event on window,
     * mark if any control keys are pressed
@@ -69,42 +69,41 @@ Game = function() {
     var handleMouseUp = function(event) {
         Game.controls.mouseDown = false;
     };
+    //get a reference to the canvas element
+    Stage = new createjs.Stage('mainCanvas');
 
     return {
         init: function() {
             Game.state = GAMESTATES.LOADED;
 
-            //get a reference to the canvas element
+            //used for collision detection (spatial partitioning)
+            var QuadTreeRect = new createjs.Rectangle(0,0,
+                document.getElementById('mainCanvas').width,
+                document.getElementById('mainCanvas').height);
+            Quadtree = new QuadTree(0, QuadTreeRect);
 
-            Stage = new createjs.Stage('mainCanvas');
-
-            
 
             PlayerShip = new Player();
             PlayerShip.x = Game.canvasWidth/2; // HARDCODE
             PlayerShip.y = 590; // HARDCODE
             Stage.addChild(PlayerShip);
 
-
 /**************************************************/
-
             var swarmRows = 3;
-            var swarmCols = 6;
+            var swarmCols = 3;
             var swarmHorizontalPadding = 50;
-            enemiesToAdd = swarmRows * swarmCols;
+            Swarm1 = new Swarm(200, 150, swarmRows,swarmCols,swarmHorizontalPadding);
 
-            Swarm1 = new Swarm(swarmRows,swarmCols,swarmHorizontalPadding);
+
             Swarm1.x = Game.canvasWidth/2;
             Swarm1.y = 200;
-
-
-            for (var i = 0; i < enemiesToAdd ; i++){
-                var row = Math.floor(i/swarmCols);
-                var col = i - swarmCols*Math.floor(i/swarmCols);
-                Swarm1.addShip(new Enemy(true,69,50), [row,col]);
-            }
             Stage.addChild(Swarm1);
-/***************************************************/
+
+            TestEnemy1 = new Enemy(false,69,50,0,100);
+            Stage.addChild(TestEnemy1);
+
+            TestEnemy2 = new Enemy(false,69,50,200,200);
+            Stage.addChild(TestEnemy2);
 
             createjs.Ticker.setFPS(60);
             createjs.Ticker.addEventListener('tick', update);
@@ -117,8 +116,8 @@ Game = function() {
             movementKeyPressed: undefined,
             mouseDown: false
         },
-        bullets : [],
-        debug : false,
+        colliders : [],
+        debug : true,
         canvasWidth : document.getElementById('mainCanvas').width
     }
 }();
