@@ -28,17 +28,29 @@
     Player.prototype.tickMovement = function() {
         switch(Game.controls.movementKeyPressed) {
             case KEYS.LEFT:
-                if(this.x > 0) {
-                    this.x -= 10; // HARDCODE: ship speed
-                }
+                this.moveLeft();
             break;
             case KEYS.RIGHT:
-                if(this.x < Stage.canvas.clientWidth-this.hull.width) {
-                    this.x += 10; // HARDCODE: ship speed
-                }
+                this.moveRight();
             break;
         }
     }
+
+    Player.prototype.moveLeft = function() {
+        if(this.x > 0) {
+            this.x -= this.baseMovementSpeed;
+        }
+    }
+
+    Player.prototype.moveRight = function() {
+        if(this.x < Stage.canvas.clientWidth-this.hull.width) {
+            this.x += this.baseMovementSpeed;
+        }        
+    }
+
+    Player.prototype.baseHitpoints = 100;
+    Player.prototype.baseMovementSpeed = 10;
+
 
     window.Player = Player;
 }(window));
