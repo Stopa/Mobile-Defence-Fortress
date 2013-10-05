@@ -11,10 +11,10 @@
     Projectile.prototype.initialize = function(imagePath, rotation, aoe) {
         this.destructibleInit();
 
-        this.width = 30;// TEMP HARDCODE
+        this.width = 5;// TEMP HARDCODE
         this.height = 30; // TEMP HARDCODE
         this.imagePath = imagePath;
-        this.rotation = rotation*0.5;
+        this.rotation = rotation;
         this.aoe = aoe;
         Game.colliders.push(this);
 
@@ -39,7 +39,8 @@
         this.projectileGraphics = new createjs.Bitmap(this.imagePath);
         this.projectileGraphics.x = 0;
         this.projectileGraphics.y = 0;
-        this.projectileGraphics.rotation = this.rotation;
+        this.projectileGraphics.rotation = 0;
+        console.log(this.projectileGraphics.rotation);
         MDF.createDebugRect(this);
         this.addChild(this.projectileGraphics);
         return this.projectileGraphics;
