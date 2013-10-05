@@ -7,6 +7,7 @@
     Projectile.prototype = new Destructible();
     Projectile.prototype.destructibleInit = Projectile.prototype.initialize;
     Projectile.prototype.destructibleTick = Projectile.prototype._tick;
+
     Projectile.prototype.initialize = function(imagePath, rotation, aoe) {
         this.destructibleInit();
 
@@ -25,6 +26,8 @@
         if(this.isOutOfParentBounds()) {
             this._die();
             Collision.removeFromArray(this, Game.colliders);
+        } else if(this.hasCollided == 1) {
+            this.animateExplosion(this.explosionGraphics);
         } else {
             this.x += this.xspeed;
             this.y += this.yspeed;
@@ -42,7 +45,39 @@
         this.addChild(this.projectileGraphics);
     }
 
+    Projectile.prototype._initExplosionGraphics = function () {
+        this.explosionGraphics = new createjs.Bitmap('assets/images/enemy/explosion.png');
+        this.explosionGraphics.x = 0;
+        this.explosionGraphics.y = 0;
+        this.explosionGraphics.scaleX = 0;
+        this.explosionGraphics.scaleY = 0;
+        this.addChild(this.explosionGraphics);
+        
+        var _this = this;
+        setTimeout(function() {
+            _this._die();
+        }, 400);
+
+        return this.explosionGraphics;
+    }
+
+    Projectile.prototype.animateExplosion = function(explosionGraphics) {
+        if (explosionGraphics.scaleX < 2) {
+            explosionGraphics.x -= 4.15;
+            explosionGraphics.y -= 4.15;
+            explosionGraphics.scaleX += 0.05;
+            explosionGraphics.scaleY += 0.05;            
+        }
+    }
+
+    Projectile.prototype.collision = function() {
+        this.hasCollided = 1;
+        explosionGraphics = this._initExplosionGraphics();
+    }
+
     Projectile.prototype.speed = 7;
+    Projectile.prototype.hasCollided = 0;
+    Projectile.prototype.explosionGraphics = 0;
 
     window.Projectile = Projectile;
 }(window))
