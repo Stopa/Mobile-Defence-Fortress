@@ -78,8 +78,11 @@
     }
 
     Projectile.prototype.speed = 7;
+    // Boolean
     Projectile.prototype.hasCollided = 0;
+    // _initGraphics()
     Projectile.prototype.graphics = 0;
+    // _initExplosionGraphics()
     Projectile.prototype.explosionGraphics = 0;
 
     window.Projectile = Projectile;
