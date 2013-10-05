@@ -33,7 +33,8 @@ Collision.handleCollision = function(object1, object2){
 
     //handle object1(projectile) related behaviour
     Collision.removeFromArray(object1, Game.colliders);
-    object1.parent.removeChild(object1);
+    object1.collision();
+    //object1._die();
 
     //handle object2 (actor) behaviour
     Collision.removeFromArray(object2, Game.colliders);
