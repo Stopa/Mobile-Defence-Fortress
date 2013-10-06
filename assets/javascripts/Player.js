@@ -10,6 +10,7 @@
         this.actorInit();
         this._initGraphics();
     }
+
     Player.prototype._tick = function() {
         this.actorTick();
         this.tickMovement();
@@ -25,6 +26,7 @@
         this.addChild(this.weapon);
         this.addChild(this.hull);
     }
+
     Player.prototype.tickMovement = function() {
         switch(Game.controls.movementKeyPressed) {
             case KEYS.LEFT:
@@ -46,6 +48,10 @@
         if(this.x < Stage.canvas.clientWidth-this.hull.width) {
             this.x += this.baseMovementSpeed;
         }        
+    }
+
+    Player.prototype.getHitpoints = function() {
+        return this.baseHitpoints;
     }
 
     Player.prototype.baseHitpoints = 100;
