@@ -12,7 +12,7 @@
         this.destructibleInit();
 
         this.width = 5;// TEMP HARDCODE
-        this.height = 30; // TEMP HARDCODE
+        this.height = 15; // TEMP HARDCODE
         this.imagePath = imagePath;
         this.rotation = rotation;
         this.aoe = aoe;
