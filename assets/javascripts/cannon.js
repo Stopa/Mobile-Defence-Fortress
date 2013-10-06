@@ -30,7 +30,7 @@
         this._nextShotLeft = !this._nextShotLeft;
     }
 
-    Cannon.prototype.attackSpeed = 10;
+    Cannon.prototype.attackSpeed = 7;
 
     window.Cannon = Cannon;
 }(window))

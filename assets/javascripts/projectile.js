@@ -12,7 +12,7 @@
         this.destructibleInit();
 
         this.width = 5;// TEMP HARDCODE
-        this.height = 30; // TEMP HARDCODE
+        this.height = 15; // TEMP HARDCODE
         this.imagePath = imagePath;
         this.rotation = rotation;
         this.aoe = aoe;
@@ -40,7 +40,6 @@
         this.projectileGraphics.x = 0;
         this.projectileGraphics.y = 0;
         this.projectileGraphics.rotation = 0;
-        console.log(this.projectileGraphics.rotation);
         MDF.createDebugRect(this);
         this.addChild(this.projectileGraphics);
         return this.projectileGraphics;
@@ -78,8 +77,11 @@
     }
 
     Projectile.prototype.speed = 7;
+    // Boolean
     Projectile.prototype.hasCollided = 0;
+    // _initGraphics()
     Projectile.prototype.graphics = 0;
+    // _initExplosionGraphics()
     Projectile.prototype.explosionGraphics = 0;
 
     window.Projectile = Projectile;

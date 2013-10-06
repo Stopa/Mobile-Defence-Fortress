@@ -32,7 +32,7 @@
         }
     };
     Weapon.prototype._tickShoot = function() {
-        if(Game.controls.mouseDown && this.cooldown <= 0) {
+        if(Game.controls.leftMouseDown && this.cooldown <= 0) {
             this.shoot();
             this.cooldown = this.attackSpeed;
         }

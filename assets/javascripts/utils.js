@@ -4,7 +4,7 @@ var MDF = {};
 * Get the X and Y speeds for moving a point at a given angle (in degrees)
 */
 MDF.angleSpeeds = function(angle) {
-	return {
+    return {
         x: Math.cos(angle*Math.PI/180),
         y: -1*Math.sin(angle*Math.PI/180)
     };
@@ -47,7 +47,7 @@ MDF.updateDebugRect = function (object) {
             rectX = object.x;
             rectY = object.y;
         }
-    	object.box.graphics.clear();
+        object.box.graphics.clear();
         object.box.graphics.beginStroke(object.box.color);
         object.box.graphics.rect(
             rectX,
