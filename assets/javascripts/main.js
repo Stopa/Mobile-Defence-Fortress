@@ -64,10 +64,28 @@ Game = function() {
     * Handle Click event on Stage, release a bullet
     * */
     var handleMouseDown = function(event) {
-        Game.controls.mouseDown = true;
+        switch(event.which) {
+            case 1:
+                Game.controls.leftMouseDown = true;
+            break;
+            case 3:
+                Game.controls.rightMouseDown = true;
+            break;
+        }
     };
     var handleMouseUp = function(event) {
-        Game.controls.mouseDown = false;
+        switch(event.which) {
+            case 1:
+                Game.controls.leftMouseDown = false;
+            break;
+            case 3:
+                Game.controls.rightMouseDown = false;
+            break;   
+        }
+    };
+    var handleContextMenu = function(event) {
+        // prevent browser from opening a context menu
+        event.preventDefault();
     };
     //get a reference to the canvas element
     Stage = new createjs.Stage('mainCanvas');
@@ -113,11 +131,13 @@ Game = function() {
             document.addEventListener('keydown', handleKeyDown);
             document.addEventListener('keyup', handleKeyUp);
             document.addEventListener('mousedown', handleMouseDown);
-            document.addEventListener('mouseup', handleMouseUp)
+            document.addEventListener('mouseup', handleMouseUp);
+            document.addEventListener('contextmenu', handleContextMenu);
         },
         controls: {
             movementKeyPressed: undefined,
-            mouseDown: false
+            leftMouseDown: false,
+            rightMouseDown: false
         },
         colliders : [],
         debug : true,
