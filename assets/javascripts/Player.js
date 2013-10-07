@@ -58,7 +58,7 @@
         return this.baseHitpoints;
     }
 
-    Player.prototype.baseMovementSpeed = 10;
+    Player.prototype.baseMovementSpeed = 5;
 
     window.Player = Player;
 }(window));

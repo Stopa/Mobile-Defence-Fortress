@@ -76,7 +76,7 @@
         this.graphics.visible = false;
     }
 
-    Projectile.prototype.speed = 7;
+    Projectile.prototype.speed = 5;
     // Boolean
     Projectile.prototype.hasCollided = 0;
     // _initGraphics()
