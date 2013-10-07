@@ -38,7 +38,7 @@ Collision.handleCollision = function(object1, object2){
 
     //handle object2 (actor) behaviour
     Collision.removeFromArray(object2, Game.colliders);
-    object2.hitPoints -=101;
+    object2.takesDamage(101);
 }
 
 /**

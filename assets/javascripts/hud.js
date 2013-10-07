@@ -8,10 +8,11 @@
 
     HUD.prototype.initialize = function() {
         this.containerInit();
-        this._initGraphics();
+        this.hudGraphics = this._initGraphics();
     }
     HUD.prototype._tick = function() {
         this.containerTick();
+        this.tickUpdateHUD();
     }
 
     HUD.prototype._initGraphics = function() {
@@ -21,7 +22,16 @@
         this.hitpointsHUDText.x = 60;
         this.hitpointsHUDText.y = 10;
         this.addChild(this.hitpointsHUDText);
+
+        return this.hitpointsHUDText;
     }
+
+    HUD.prototype.tickUpdateHUD = function() {
+        this.hitpointsString = "Health: " + window.Player.getHitpoints();
+        this.hudGraphics.text = this.hitpointsString;
+    }
+
+    HUD.prototype.hudGraphics = 0;
 
     window.HUD = HUD;
 }(window));

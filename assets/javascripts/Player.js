@@ -51,12 +51,14 @@
     }
 
     Player.prototype.getHitpoints = function() {
+        /**
+        *   Temporarily returns base hitpoints, in the future
+        *   should return actual hitpoints.
+        */
         return this.baseHitpoints;
     }
 
-    Player.prototype.baseHitpoints = 100;
     Player.prototype.baseMovementSpeed = 10;
-
 
     window.Player = Player;
 }(window));
