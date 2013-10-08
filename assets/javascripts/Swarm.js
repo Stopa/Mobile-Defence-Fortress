@@ -36,7 +36,6 @@
         this.containerTick();
         this.tickMovement(2,30); // HARDCODE: swarm x-speed, y-speed
         MDF.updateDebugRect(this);
-
     };
 
     Swarm.prototype.fillMatrix = function(rows, cols) {
@@ -60,7 +59,7 @@
 
 
     Swarm.prototype.destroy = function() {
-        // body...
+        Stage.removeChild(this);
     }
 
     Swarm.prototype.tickMovement = function(xSpeed, ySpeed) {
@@ -71,12 +70,15 @@
         }
 
         if (Math.floor(Math.random()*1000) % 50 == 0) {
+            if (this.getNumChildren() == 1) {
+                this.destroy();
+                return;
+            }
             this.children[Math.floor(Math.random()*this.children.length)].dropBomb();
         }
 
         //!TODO: Handle land approaching
     }   //!TODO : If swarm has run out of enemies, delete it
-
     
     window.Swarm = Swarm;
 }(window));
