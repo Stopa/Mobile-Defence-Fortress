@@ -14,16 +14,17 @@
     Player.prototype._tick = function() {
         this.actorTick();
         this.tickMovement();
+        this._tickPrimaryWeapon();
     }
 
     Player.prototype._initGraphics = function() {
         this.hull = new BasicHull();
-        this.weapon = new Cannon();
+        this.primaryWeapon = new Cannon();
 
-        this.weapon.x = this.hull.width/2;
-        this.weapon.y = 7; // HARDCODE
+        this.primaryWeapon.x = this.hull.width/2;
+        this.primaryWeapon.y = 7; // HARDCODE
 
-        this.addChild(this.weapon);
+        this.addChild(this.primaryWeapon);
         this.addChild(this.hull);
     }
 
@@ -37,6 +38,15 @@
             break;
         }
     }
+
+    Player.prototype._tickPrimaryWeapon = function() {
+        if(this.primaryWeapon) {
+            this.primaryWeapon.rotateToCursor();
+            if(Game.controls.leftMouseDown) {
+                this.primaryWeapon.shoot();
+            }
+        }
+    };
 
     Player.prototype.moveLeft = function() {
         if(this.x > 0) {

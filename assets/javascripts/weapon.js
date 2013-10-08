@@ -16,11 +16,12 @@
     };
     Weapon.prototype._tick = function() {
         this.containerTick();
-        this._tickRotation();
-        this._tickShoot();
+        if(this.cooldown > 0) {
+            this.cooldown--;
+        }
     };
 
-    Weapon.prototype._tickRotation = function() {
+    Weapon.prototype.rotateToCursor = function() {
         var weaponAbsX = this.parent.x+this.x,
             weaponAbsY = this.parent.y+this.y,
             deltaX = Stage.mouseX-weaponAbsX,
@@ -29,15 +30,6 @@
 
         if(degrees < 60 && degrees > -60) {
             this.rotation = degrees;
-        }
-    };
-    Weapon.prototype._tickShoot = function() {
-        if(Game.controls.leftMouseDown && this.cooldown <= 0) {
-            this.shoot();
-            this.cooldown = this.attackSpeed;
-        }
-        if(this.cooldown > 0) {
-            this.cooldown--;
         }
     };
     Weapon.prototype._initGraphics = function() {
@@ -49,18 +41,22 @@
         this.regY = this.height-10;
     };
     Weapon.prototype.shoot = function() {
-        var realAngle = (this.rotation-90)*-1,
-            angleSpeeds = MDF.angleSpeeds(realAngle),
-            weaponAbsX = this.parent.x+this.x,
-            weaponAbsY = this.parent.y+this.y;
+        if(this.cooldown <= 0) {
+            var realAngle = (this.rotation-90)*-1,
+                angleSpeeds = MDF.angleSpeeds(realAngle),
+                weaponAbsX = this.parent.x+this.x,
+                weaponAbsY = this.parent.y+this.y;
 
-        var bullet = new Projectile(angleSpeeds.x, angleSpeeds.y);
-        /*
-        * Bullet starting point is offset by the weapon length along the weapon rotation axis
-        */
-        bullet.x = weaponAbsX+angleSpeeds.x*(this.height);
-        bullet.y = weaponAbsY+angleSpeeds.y*(this.height);
-        Stage.addChild(bullet);
+            var bullet = new Projectile(angleSpeeds.x, angleSpeeds.y);
+            /*
+            * Bullet starting point is offset by the weapon length along the weapon rotation axis
+            */
+            bullet.x = weaponAbsX+angleSpeeds.x*(this.height);
+            bullet.y = weaponAbsY+angleSpeeds.y*(this.height);
+            Stage.addChild(bullet);
+
+            this.cooldown = this.attackSpeed;
+        }
     };
 
     // Default attackSpeed
