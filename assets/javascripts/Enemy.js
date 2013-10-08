@@ -34,8 +34,8 @@
     }
 
     Enemy.prototype._die = function() {
+        if(this.belongsToSwarm) this.parent.removeShip(this);
         this.actorDie();
-        delete this;
         //call death animation
         //call death sound
     }
