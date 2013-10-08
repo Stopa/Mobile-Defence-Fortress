@@ -140,7 +140,7 @@ Game = function() {
             rightMouseDown: false
         },
         colliders : [],
-        debug : true,
+        debug : false,
         canvasWidth : document.getElementById('mainCanvas').width
     }
 }();
