@@ -5,7 +5,7 @@
     Cannon.prototype = new Weapon();
     Cannon.prototype.weaponInit = Cannon.prototype.initialize;
     Cannon.prototype.initialize = function() {
-        this.weaponInit('assets/images/player_ship/cannon.png', 41, 45);
+        this.weaponInit('assets/images/player_ship/cannon.png', 36, 40);
     };
 
     Cannon.prototype._nextShotLeft = false; // whether the next shot will be fired from the left or right cannon
@@ -30,7 +30,7 @@
         this._nextShotLeft = !this._nextShotLeft;
     }
 
-    Cannon.prototype.attackSpeed = 7;
+    Cannon.prototype.attackSpeed = 14;
 
     window.Cannon = Cannon;
 }(window))

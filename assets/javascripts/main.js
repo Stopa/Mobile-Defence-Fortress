@@ -101,10 +101,13 @@ Game = function() {
             Quadtree = new QuadTree(0, QuadTreeRect);
 
 
-            PlayerShip = new Player();
-            PlayerShip.x = Game.canvasWidth/2; // HARDCODE
-            PlayerShip.y = 590; // HARDCODE
-            Stage.addChild(PlayerShip);
+            Player = new Player();
+            Player.x = Game.canvasWidth/2; // HARDCODE
+            Player.y = 590; // HARDCODE
+            Stage.addChild(Player);
+
+            HUD = new HUD();
+            Stage.addChild(HUD);
 
 /**************************************************/
             var swarmRows = 3;

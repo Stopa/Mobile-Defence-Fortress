@@ -10,6 +10,7 @@
         this.actorInit();
         this._initGraphics();
     }
+
     Player.prototype._tick = function() {
         this.actorTick();
         this.tickMovement();
@@ -25,6 +26,7 @@
         this.addChild(this.weapon);
         this.addChild(this.hull);
     }
+
     Player.prototype.tickMovement = function() {
         switch(Game.controls.movementKeyPressed) {
             case KEYS.LEFT:
@@ -48,9 +50,15 @@
         }        
     }
 
-    Player.prototype.baseHitpoints = 100;
-    Player.prototype.baseMovementSpeed = 10;
+    Player.prototype.getHitpoints = function() {
+        /**
+        *   Temporarily returns base hitpoints, in the future
+        *   should return actual hitpoints.
+        */
+        return this.baseHitpoints;
+    }
 
+    Player.prototype.baseMovementSpeed = 5;
 
     window.Player = Player;
 }(window));
