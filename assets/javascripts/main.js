@@ -123,10 +123,11 @@ Game = function() {
             TestEnemy2 = new Enemy(false,69,50,200,200);
             Stage.addChild(TestEnemy2);
 
-            for (i=5; i < 1200; i+=85) {
-                if (Math.floor(Math.random()*2) % 2 == 0) continue;
-                var f = new Facility("", i, 635);
-                Stage.addChild(f);
+            for (i=0; i < 1280; i+=40) {
+                for (j=640; j<= 680; j+=40) {
+                    var f = new GroundPiece("", i, j);
+                    Stage.addChild(f);
+                }
             };
 
             createjs.Ticker.setFPS(60);
