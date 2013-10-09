@@ -6,7 +6,6 @@ Collision.QuadtreeTick = function (game, quadtree, stage){
     for (var i = 0; i < game.colliders.length; i++) {
         quadtree.insert(game.colliders[i]);
     }
-
     //go through each object and retrieve a list of objects it could 
     //possibly collide with.
     var returnObjects = [];
@@ -26,19 +25,15 @@ Collision.handleCollision = function(object1, object2){
     //should projectile and actor stats be taken into account here or
     //somewhere else?
 
-
-    //AN EXTREMELY QUICK TEMP WORKAROUND TO MAKE ENEMY BOMBS NOT COLLIDE WITH
-    //ENEMIES THEMSELVES:
-    if (object1.imagePath == 'assets/images/enemy/enemy_bomb.png') return;
-
     //handle object1(projectile) related behaviour
     Collision.removeFromArray(object1, Game.colliders);
-    object1.collision();
+    object1.collision(object2);
+    object2.collision(object1);
     //object1._die();
 
     //handle object2 (actor) behaviour
-    Collision.removeFromArray(object2, Game.colliders);
-    object2.takesDamage(101);
+    
+    
 }
 
 /**
@@ -49,10 +44,16 @@ Collision.handleCollision = function(object1, object2){
 *	@returns boolean- whether the objects collide 
 */
 Collision.algorithm = function (object1, object2){
-	//Let's agree that projectiles hurt actors, not the other way around (ie actors get hurt  by projectiles) 
-	//So skip any call where object1 isn't a projectile
-	if (!(object1 instanceof Projectile) || !(object2 instanceof Enemy)) return false;
-	//!TODO make the collision system work with object2 being instanceof Destructible
+	/*Check that object1 is a projectile, and object2 is a destructible and NOT a projectile
+    This is needed to avoid doublechecking collisions, 
+     (ie., we want to avoid the scenario where): 
+          1st check: did A collide with B?
+        , 2nd check: did B collide with A? */
+    if (! (object1 instanceof Projectile)) return false;
+    if (! (object2 instanceof Destructible)) return false;
+    if (object2 instanceof Projectile) return false;
+    if (object1.faction == object2.faction) return false;
+    //also check that the object1 and object2 are not of the same faction
 
 	var point1 = object1.localToGlobal(0,0);
 	var point2 = object2.localToGlobal(0,0);

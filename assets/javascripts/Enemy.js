@@ -35,6 +35,7 @@
 
     Enemy.prototype._die = function() {
         if(this.belongsToSwarm) this.parent.removeShip(this);
+        Collision.removeFromArray(this, Game.colliders);
         this.actorDie();
         //call death animation
         //call death sound
@@ -48,6 +49,9 @@
         }
     }
 
+    Enemy.prototype.collision = function(object){
+        this.baseHitpoints -= 101; //HARDCODE
+    }
     Enemy.prototype.dropBomb = function() {
         var ENEMY_BOMB_GRAPHICS = 'assets/images/enemy/enemy_bomb.png';
 

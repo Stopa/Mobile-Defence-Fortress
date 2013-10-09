@@ -69,6 +69,10 @@
         return this.baseHitpoints;
     }
 
+    Player.prototype.collision = function(object) {
+        this.baseHitpoints -= 101; // HARDCODE
+    }
+
     Player.prototype.baseMovementSpeed = 5;
 
     window.Player = Player;

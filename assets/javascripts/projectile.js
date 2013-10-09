@@ -69,7 +69,7 @@
         }
     }
 
-    Projectile.prototype.collision = function() {
+    Projectile.prototype.collision = function(object) {
         this.hasCollided = 1;
         this.explosionGraphics = this._initExplosionGraphics();
         this.graphics.visible = false;
