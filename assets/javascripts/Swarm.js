@@ -74,7 +74,6 @@
         this.x += this.curDirection * xSpeed;
         if (this.x < 0 + this.regX || this.x >= (Game.canvasWidth - this.regX) ){
             this.curDirection *=-1;
-            console.log(this.y, Stage.canvas.clientHeight*0.5)
             if(this.y < Stage.canvas.clientHeight*0.5) {
                 this.y += ySpeed;
             }
