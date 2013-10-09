@@ -11,7 +11,7 @@
     Destructible.prototype = new createjs.Container();
     Destructible.prototype.containerInit = Destructible.prototype.initialize;
     Destructible.prototype.containerTick = Destructible.prototype._tick;
-    
+
     Destructible.prototype.initialize = function() {
         this.containerInit();
         Game.colliders.push(this);

@@ -59,6 +59,7 @@
         }
     };
 
+    Weapon.prototype.attackDamage = 50;
     // Default attackSpeed
     Weapon.prototype.attackSpeed = 100;
     // If cooldown <= 0 then fire new projectile.
