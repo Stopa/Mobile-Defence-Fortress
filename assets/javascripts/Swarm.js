@@ -15,14 +15,15 @@
         //so first ship will not add a padding to width
         this.width = -shipxPadding;
         this.height= 0;
+        this.totalShips = 0;
         this.shipxPadding = shipxPadding;
 
         //create a (rows x cols) matrix to store the ships in
-        this.ships = [];
+        this.shipsMatrix = [];
         for (var i=0 ; i < rows; i++){
-            this.ships[i] = [];
+            this.shipsMatrix[i] = [];
             for (var j=0; j < cols; j++ ) {
-                this.ships[i][j] = undefined;
+                this.shipsMatrix[i][j] = undefined;
             }
         }
 
@@ -39,8 +40,8 @@
     };
 
     Swarm.prototype.fillMatrix = function(rows, cols) {
-            enemiesToAdd = rows * cols;
-            var shipWidth = 69;  //HARDCODEEEE
+            var enemiesToAdd = rows * cols;
+            var shipWidth = 69; // HARDCODEEE
             var shipHeight = 50; //HARDCODEEEE
 
             for (var i = 0; i < enemiesToAdd ; i++){
@@ -51,12 +52,19 @@
                     (row * shipHeight),
                     [row,col]));
             }
+            this.totalShips = enemiesToAdd;
 
             this.width = cols*shipWidth + (cols-1) * this.shipxPadding;
             this.height = rows * shipHeight;
             this.regX = this.width*0.5;
     };
 
+    Swarm.prototype.removeShip = function(ship){
+        this.totalShips--;
+        if (this.totalShips === 0){
+            this.destroy();
+        }
+    }
 
     Swarm.prototype.destroy = function() {
         Stage.removeChild(this);
@@ -70,15 +78,12 @@
         }
 
         if (Math.floor(Math.random()*1000) % 50 == 0) {
-            if (this.getNumChildren() == 1) {
-                this.destroy();
-                return;
-            }
-            this.children[Math.floor(Math.random()*this.children.length)].dropBomb();
+            this.children[Math.floor(Math.random()*this.children.length)].dropBomb(); 
+            //!TODO : using this.children also tries to call dropBomb() from the debugrect
         }
 
         //!TODO: Handle land approaching
-    }   //!TODO : If swarm has run out of enemies, delete it
+    }
     
     window.Swarm = Swarm;
 }(window));

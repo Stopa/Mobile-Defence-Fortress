@@ -7,33 +7,34 @@
   <canvas id="mainCanvas" height="720" width="1280"></canvas><!-- NOTE: canvas is dynamically resized in javascript later -->
 
   <!-- External libraries -->
-  <script src="assets/javascripts/lib/createjs-2013.05.14.min.js?1"></script>
+  <script src="assets/javascripts/lib/createjs-2013.09.25.min.js?1"></script>
   <script src="assets/javascripts/lib/underscore.js"></script>
-
-  <!-- Utilities -->
-  <script src="assets/javascripts/utils.js"></script>
-  <script src="assets/javascripts/collision/Quadtree.js"></script>
-  <script src="assets/javascripts/collision/Collision.js"></script>
-
-  <!-- Base classes -->
-  <script src="assets/javascripts/destructible.js"></script>
-  <script src="assets/javascripts/actor.js"></script>
-  <script src="assets/javascripts/projectile.js"></script>
-  <script src="assets/javascripts/hull.js"></script>
-  <script src="assets/javascripts/weapon.js"></script>
-  <script src="assets/javascripts/Player.js"></script>
-  <script src="assets/javascripts/Enemy.js"></script>
-  <script src="assets/javascripts/Swarm.js"></script>
-  <script src="assets/javascripts/GroundPiece.js"></script>
-  <script src="assets/javascripts/hud.js"></script>
-
-  <!-- Content, advanced subclasses -->
-  <script src="assets/javascripts/basic-hull.js"></script>
-  <script src="assets/javascripts/cannon.js"></script>
-
   <script src="assets/javascripts/main.js"></script>
   <script>
-    window.addEventListener("load", Game.init);
+    var queue = new createjs.LoadQueue();
+    queue.addEventListener("complete", Game.init);
+    queue.addEventListener("fileload", function(event) {
+      document.body.appendChild(event.result);
+    });
+    queue.loadManifest([
+      // utilities
+      'assets/javascripts/utils.js',
+      'assets/javascripts/collision/Quadtree.js',
+      'assets/javascripts/collision/Collision.js',
+      // base classes
+      'assets/javascripts/destructible.js',
+      'assets/javascripts/actor.js',
+      'assets/javascripts/projectile.js',
+      'assets/javascripts/hull.js',
+      'assets/javascripts/weapon.js',
+      'assets/javascripts/Player.js',
+      'assets/javascripts/Enemy.js',
+      'assets/javascripts/Swarm.js',
+      'assets/javascripts/hud.js',
+      // content, subclasses
+      'assets/javascripts/basic-hull.js',
+      'assets/javascripts/cannon.js'
+    ]);
   </script>
 </body>
 </html>
