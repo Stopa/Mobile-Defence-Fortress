@@ -17,6 +17,7 @@
         this.height = height;
         
         this.belongsToSwarm = belongsToSwarm;
+        this.faction =  Game.factions.aliens;
 
         this._initGraphics();
     }
@@ -52,7 +53,7 @@
 
         var angleSpeeds = MDF.angleSpeeds(270);
 
-        var bomb = new Projectile(ENEMY_BOMB_GRAPHICS, this.rotation, angleSpeeds.x, angleSpeeds.y);
+        var bomb = new Projectile(ENEMY_BOMB_GRAPHICS, this.rotation, angleSpeeds.x, angleSpeeds.y, this.faction);
 
         bomb.x = this.parent.x + this.x + 35 + angleSpeeds.x; // 35 is bitmap width / 2
         bomb.y = this.parent.y + this.y + angleSpeeds.y;

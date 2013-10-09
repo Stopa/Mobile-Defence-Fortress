@@ -139,6 +139,10 @@ Game = function() {
             leftMouseDown: false,
             rightMouseDown: false
         },
+        factions: {
+            humans: 0,
+            aliens: 1
+        },
         colliders : [],
         debug : false,
         canvasWidth : document.getElementById('mainCanvas').width

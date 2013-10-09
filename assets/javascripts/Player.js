@@ -8,6 +8,7 @@
 
     Player.prototype.initialize = function() {
         this.actorInit();
+        this.faction =  Game.factions.humans;
         this._initGraphics();
     }
 

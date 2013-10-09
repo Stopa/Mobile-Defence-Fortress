@@ -1,21 +1,21 @@
 (function(window) {
-    function Projectile(imagePath, rotation, xspeed, yspeed) {
+    function Projectile(imagePath, rotation, xspeed, yspeed, faction) {
         this.xspeed = xspeed*this.speed;
         this.yspeed = yspeed*this.speed;
-        this.initialize(imagePath, rotation, xspeed, yspeed);
+        this.initialize(imagePath, rotation, xspeed, yspeed, faction);
     }
     Projectile.prototype = new Destructible();
     Projectile.prototype.destructibleInit = Projectile.prototype.initialize;
     Projectile.prototype.destructibleTick = Projectile.prototype._tick;
 
-    Projectile.prototype.initialize = function(imagePath, rotation, aoe) {
+    Projectile.prototype.initialize = function(imagePath, rotation, xspeed, yspeed, faction) {
         this.destructibleInit();
 
         this.width = 5;// TEMP HARDCODE
         this.height = 15; // TEMP HARDCODE
         this.imagePath = imagePath;
         this.rotation = rotation;
-        this.aoe = aoe;
+        this.faction = faction;
 
         this.graphics = this._initGraphics();
     };

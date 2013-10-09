@@ -5,6 +5,7 @@
         } else {
             this.baseHitpoints = 100;
         }
+        this.faction = null;
         this.initialize();
     }
     Destructible.prototype = new createjs.Container();
