@@ -19,7 +19,6 @@
         this.belongsToSwarm = belongsToSwarm;
 
         this._initGraphics();
-        Game.colliders.push(this);
     }
     Enemy.prototype._tick = function() {
         this.actorTick();

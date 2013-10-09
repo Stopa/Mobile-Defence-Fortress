@@ -16,7 +16,6 @@
         this.imagePath = imagePath;
         this.rotation = rotation;
         this.aoe = aoe;
-        Game.colliders.push(this);
 
         this.graphics = this._initGraphics();
     };

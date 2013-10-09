@@ -49,10 +49,10 @@ Collision.handleCollision = function(object1, object2){
 *	@returns boolean- whether the objects collide 
 */
 Collision.algorithm = function (object1, object2){
-	//Let's agree that projectiles hurt actors, not the other way around. 
-	//So skip anything that isn't a projectile
+	//Let's agree that projectiles hurt actors, not the other way around (ie actors get hurt  by projectiles) 
+	//So skip any call where object1 isn't a projectile
 	if (!(object1 instanceof Projectile) || !(object2 instanceof Enemy)) return false;
-	//!TODO make the collision system work with object2 being instanceof Actor
+	//!TODO make the collision system work with object2 being instanceof Destructible
 
 	var point1 = object1.localToGlobal(0,0);
 	var point2 = object2.localToGlobal(0,0);
