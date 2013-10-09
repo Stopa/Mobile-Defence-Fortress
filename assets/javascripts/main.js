@@ -10,7 +10,7 @@ const KEYS =  {
     RIGHT: 1
 }
 
-var Game, Quadtree, Player, Stage, EnemyShip, Swarm1;
+var Game, Quadtree, Player, Stage, EnemyShip, Swarm1, Facility1;
 
 Game = function() {
     /*
@@ -125,6 +125,13 @@ Game = function() {
 
             TestEnemy2 = new Enemy(false,69,50,200,200);
             Stage.addChild(TestEnemy2);
+
+            for (i=0; i < 1280; i+=40) {
+                for (j=640; j<= 680; j+=40) {
+                    var f = new GroundPiece("", i, j);
+                    Stage.addChild(f);
+                }
+            };
 
             createjs.Ticker.setFPS(60);
             createjs.Ticker.addEventListener('tick', update);
