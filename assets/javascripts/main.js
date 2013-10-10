@@ -129,7 +129,9 @@ Game = function() {
             //Add ground tiles
             for (i=0; i < 1280; i+=40) {
                 for (j=640; j<= 680; j+=40) {
-                    var f = new GroundPiece("", i, j);
+                    var f = new GroundPiece("");
+                    f.x = i;
+                    f.y = j;
                     Stage.addChild(f);
                 }
             };

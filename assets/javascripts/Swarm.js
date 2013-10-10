@@ -74,15 +74,15 @@
         this.x += this.curDirection * xSpeed;
         if (this.x < 0 + this.regX || this.x >= (Game.canvasWidth - this.regX) ){
             this.curDirection *=-1;
-            this.y += ySpeed;
+            if(this.y < Stage.canvas.clientHeight*0.5) {
+                this.y += ySpeed;
+            }
         }
 
         if (Math.floor(Math.random()*1000) % 50 == 0) {
             this.children[Math.floor(Math.random()*this.children.length)].dropBomb(); 
             //!TODO : using this.children also tries to call dropBomb() from the debugrect
         }
-
-        //!TODO: Handle land approaching
     }
     
     window.Swarm = Swarm;

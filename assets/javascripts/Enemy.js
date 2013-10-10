@@ -42,10 +42,14 @@
     }
     Enemy.prototype.tickMovement = function(xSpeed, ySpeed) {
         this.x += this.curDirection * xSpeed;
-        if (this.x < 0 + this.regX || 
-            this.x >= Game.canvasWidth - this.regX ){
+        if (
+            this.x < 0 + this.regX || 
+            this.x >= Game.canvasWidth - this.regX
+        ){
             this.curDirection *=-1;
-            this.y += ySpeed;
+            if(this.y < Stage.canvas.clientHeight*0.7) {
+                this.y += ySpeed;
+            }
         }
     }
 
