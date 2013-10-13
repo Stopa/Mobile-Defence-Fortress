@@ -18,13 +18,7 @@
 
     Missile.prototype._tick = function() {
         this.containerTick();
-        if(
-            (this.xspeed > 0 && this.x <= this.xtarget && this.x+this.xspeed > this.xtarget ||
-            this.xspeed < 0 && this.x >= this.xtarget && this.x+this.xspeed < this.xtarget)
-            &&
-            (this.yspeed > 0 && this.y <= this.ytarget && this.y+this.yspeed > this.ytarget ||
-            this.yspeed < 0 && this.y >= this.ytarget && this.y+this.yspeed < this.ytarget)
-        ) {
+        if(this.hasReachedTarget()) {
             if(this.exploded) {
                 if(this.explosionTimeToLive) {
                     this.explosionTimeToLive--;
@@ -55,6 +49,14 @@
         this.explosionGraphics.x = -83;
         this.explosionGraphics.y = -83;
         this.addChild(this.explosionGraphics);
+    };
+
+    Missile.prototype.hasReachedTarget = function() {
+        return (this.xspeed > 0 && this.x <= this.xtarget && this.x+this.xspeed > this.xtarget ||
+            this.xspeed < 0 && this.x >= this.xtarget && this.x+this.xspeed < this.xtarget)
+            &&
+            (this.yspeed > 0 && this.y <= this.ytarget && this.y+this.yspeed > this.ytarget ||
+            this.yspeed < 0 && this.y >= this.ytarget && this.y+this.yspeed < this.ytarget);
     };
 
     Missile.prototype._die = function() {
