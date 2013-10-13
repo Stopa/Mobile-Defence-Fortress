@@ -16,6 +16,7 @@
         this.actorTick();
         this.tickMovement();
         this._tickPrimaryWeapon();
+        this._tickSecondaryWeapon();
     }
 
     Player.prototype._initGraphics = function() {
@@ -25,7 +26,12 @@
         this.primaryWeapon.x = this.hull.width/2;
         this.primaryWeapon.y = 7; // HARDCODE
 
+        this.secondaryWeapon = new MissileLauncher();
+        this.secondaryWeapon.x = this.hull.width/2;
+        this.secondaryWeapon.y = 7; // HARDCODE
+
         this.addChild(this.primaryWeapon);
+        this.addChild(this.secondaryWeapon);
         this.addChild(this.hull);
     }
 
@@ -45,6 +51,15 @@
             this.primaryWeapon.rotateToCursor();
             if(Game.controls.leftMouseDown) {
                 this.primaryWeapon.shoot();
+            }
+        }
+    };
+
+    Player.prototype._tickSecondaryWeapon = function() {
+        if(this.secondaryWeapon) {
+            this.secondaryWeapon.rotateToCursor();
+            if(Game.controls.rightMouseDown) {
+                this.secondaryWeapon.shoot();
             }
         }
     };
