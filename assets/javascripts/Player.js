@@ -70,7 +70,7 @@
     }
 
     Player.prototype.collision = function(object) {
-        this.baseHitpoints -= 10; // HARDCODE
+        this.takesDamage(10); // HARDCODE
     }
 
     Player.prototype.baseMovementSpeed = 5;

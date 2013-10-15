@@ -29,11 +29,8 @@ Collision.handleCollision = function(object1, object2){
     Collision.removeFromArray(object1, Game.colliders);
     object1.collision(object2);
     object2.collision(object1);
-    //object1._die();
 
-    //handle object2 (actor) behaviour
-    
-    
+    //handle object2 (actor) behaviour  
 }
 
 /**
