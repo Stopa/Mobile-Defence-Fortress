@@ -1,18 +1,44 @@
 <html>
-<head>
-  <meta charset="utf-8">
-  <title>QUnit basic example</title>
-  <link rel="stylesheet" href="assets/stylesheets/qunit-1.12.0.css">
-</head>
-<body>
-  <div id="qunit"></div>
-  <div id="qunit-fixture"></div>
-  <script src="assets/javascripts/lib/qunit-1.12.0.js"></script>
-  <script>
-    test( "a basic test example", function() {
-      var value = "hello";
-      equal( value, "hello", "We expect value to be hello" );
-    });
-  </script>
-</body>
+  <head>
+    <meta charset="utf-8">
+    <title>QUnit testsuit</title>
+    <link rel="stylesheet" href="assets/stylesheets/qunit-1.12.0.css">
+  </head>
+  <body>
+    <div id="qunit"></div>
+    <div id="qunit-fixture"></div>
+    <script src="assets/javascripts/lib/qunit-1.12.0.js"></script>
+    <script src="assets/javascripts/lib/createjs-2013.09.25.min.js?1"></script>
+    <script src="assets/javascripts/lib/underscore.js"></script>
+    <script src="assets/javascripts/test_main.js"></script>
+    <script>
+      var queue = new createjs.LoadQueue();
+      queue.addEventListener("complete", Game.init);
+      queue.addEventListener("fileload", function(event) {
+        document.body.appendChild(event.result);
+      });
+      queue.loadManifest([
+        // utilities
+        'assets/javascripts/utils.js',
+        'assets/javascripts/collision/Quadtree.js',
+        'assets/javascripts/collision/Collision.js',
+        // base classes
+        'assets/javascripts/destructible.js',
+        'assets/javascripts/actor.js',
+        'assets/javascripts/projectile.js',
+        'assets/javascripts/hull.js',
+        'assets/javascripts/weapon.js',
+        'assets/javascripts/missile.js',
+        'assets/javascripts/missilelauncher.js',
+        'assets/javascripts/Player.js?1',
+        'assets/javascripts/Enemy.js',
+        'assets/javascripts/Swarm.js',
+        'assets/javascripts/hud.js',
+        'assets/javascripts/GroundPiece.js',
+        // content, subclasses
+        'assets/javascripts/basic-hull.js',
+        'assets/javascripts/cannon.js'
+      ]);
+    </script>
+  </body>
 </html>
