@@ -102,6 +102,7 @@
      * objects to their corresponding nodes.
      */
     QuadTree.prototype.insert = function (pRect) {
+        //if this quadtree node isnt partitioned, add it to the current nodes objects
         if (this.nodes[0] !== undefined){
             var index = this.getIndex(pRect);
 
@@ -113,6 +114,7 @@
 
         this.objects.push(pRect);
 
+        //If this node now contains more objects than allowed, split/partition it
         if (this.objects.length > this.MAX_OBJECTS && this.level < this.MAX_LEVELS) {
             if (this.nodes[0] === undefined) {
                 this.split();
@@ -137,8 +139,7 @@
     QuadTree.prototype.retrieve = function(returnObjects, pRect) {
         var index = this.getIndex(pRect);
         if (index != -1 && this.nodes[0] !== undefined) {
-            returnObjects.push.apply(returnObjects,
-                this.nodes[index].retrieve(returnObjects, pRect));
+            this.nodes[index].retrieve(returnObjects, pRect);
         }
         returnObjects.push.apply(returnObjects, this.objects); //add this nodes objects 
      
