@@ -12,6 +12,7 @@
 
         this.x = x;
         this.y = y;
+        this.faction = Game.factions.humans;
 
         this._initGraphics();
     }
