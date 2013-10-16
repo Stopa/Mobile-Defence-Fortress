@@ -14,7 +14,6 @@
         this.objects = [];
         this.nodes = []; //subnodes
 
-
         MDF.createDebugRect(this.bounds, "#F00", Stage);
         MDF.updateDebugRect(this.bounds);
 
@@ -47,10 +46,10 @@
         var x = this.bounds.x;
         var y = this.bounds.y;
 
-            this.nodes[0] = new QuadTree(this.level+1, new createjs.Rectangle(x + subWidth, y, subWidth, subHeight));
-            this.nodes[1] = new QuadTree(this.level+1, new createjs.Rectangle(x, y, subWidth, subHeight));
-            this.nodes[2] = new QuadTree(this.level+1, new createjs.Rectangle(x, y + subHeight, subWidth, subHeight));
-            this.nodes[3] = new QuadTree(this.level+1, new createjs.Rectangle(x + subWidth, y + subHeight, subWidth, subHeight));
+        this.nodes[0] = new QuadTree(this.level+1, new createjs.Rectangle(x + subWidth, y, subWidth, subHeight));
+        this.nodes[1] = new QuadTree(this.level+1, new createjs.Rectangle(x, y, subWidth, subHeight));
+        this.nodes[2] = new QuadTree(this.level+1, new createjs.Rectangle(x, y + subHeight, subWidth, subHeight));
+        this.nodes[3] = new QuadTree(this.level+1, new createjs.Rectangle(x + subWidth, y + subHeight, subWidth, subHeight));
     };
 
 
@@ -93,8 +92,6 @@
         }
         return index;
     };
-
-
 
     /*
      * Insert the object into the quadtree. If the node
@@ -145,8 +142,6 @@
      
         return returnObjects;
     };
-
-    
 
     window.QuadTree = QuadTree;
 }(window))

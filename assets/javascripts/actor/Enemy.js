@@ -54,7 +54,7 @@
 
     Enemy.prototype.collision = function(object){
         if(this.swarm) this.swarm.removeShip(this);
-        this.baseHitpoints -= 101; //HARDCODE
+        this.takesDamage(101); //HARDCODE
     }
     Enemy.prototype.dropBomb = function() {
         var ENEMY_BOMB_GRAPHICS = 'assets/images/enemy/enemy_bomb.png';

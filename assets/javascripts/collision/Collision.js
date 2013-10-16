@@ -30,8 +30,7 @@ Collision.handleCollision = function(object1, object2){
 
     object1.collision(object2);
     object2.collision(object1);
-    
-    
+
 }
 
 /**
