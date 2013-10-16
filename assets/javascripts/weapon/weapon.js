@@ -32,13 +32,16 @@
             this.rotation = degrees;
         }
     };
+    
     Weapon.prototype._initGraphics = function() {
-        this.weaponGraphics = new createjs.Bitmap(this.imagePath);
-        this.weaponGraphics.x = -1*this.width*0.5;
-        this.addChild(this.weaponGraphics);
+        if(this.imagePath) {
+            this.weaponGraphics = new createjs.Bitmap(this.imagePath);
+            this.weaponGraphics.x = -1*this.width*0.5;
+            this.addChild(this.weaponGraphics);
 
-        this.regX = 0;
-        this.regY = this.height-10;
+            this.regX = 0;
+            this.regY = this.height-10;
+        }
     };
     Weapon.prototype.shoot = function() {
         if(this.cooldown <= 0) {

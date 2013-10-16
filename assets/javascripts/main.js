@@ -109,26 +109,34 @@ Game = function() {
             HUD = new HUD();
             Stage.addChild(HUD);
 
+            OrbitalDefence1 = new OrbitalDefence(200,450);
+            Stage.addChild(OrbitalDefence1);
+            OrbitalDefence2 = new OrbitalDefence(600,450);
+            Stage.addChild(OrbitalDefence2);
+            OrbitalDefence3 = new OrbitalDefence(1000,450);
+            Stage.addChild(OrbitalDefence3);
+
 /**************************************************/
             var swarmRows = 3;
             var swarmCols = 3;
             var swarmHorizontalPadding = 50;
-            Swarm1 = new Swarm(200, 150, swarmRows,swarmCols,swarmHorizontalPadding);
-
+            var swarm1x = Game.canvasWidth/2;
+            var swarm1y = 200;
+            Swarm1 = new Swarm(swarm1x, swarm1y, swarmRows,swarmCols,swarmHorizontalPadding);
 
             Swarm1.x = Game.canvasWidth/2;
-            Swarm1.y = 200;
+            Swarm1.y = 50;
             Stage.addChild(Swarm1);
 
-            TestEnemy1 = new Enemy(false,69,50,0,100);
+            TestEnemy1 = new Enemy(35,100,69,50);
             Stage.addChild(TestEnemy1);
 
-            TestEnemy2 = new Enemy(false,69,50,200,200);
+            TestEnemy2 = new Enemy(200,200,69,50);
             Stage.addChild(TestEnemy2);
 
             //Add ground tiles
             for (i=0; i < 1280; i+=40) {
-                for (j=640; j<= 680; j+=40) {
+                for (j=635; j<= 680; j+=40) {
                     var f = new GroundPiece("");
                     f.x = i;
                     f.y = j;
@@ -153,7 +161,6 @@ Game = function() {
             humans: 0,
             aliens: 1
         },
-        colliders : [],
         debug : false,
         canvasWidth : document.getElementById('mainCanvas').width
     }
