@@ -124,12 +124,8 @@ Game = function() {
             var swarm1y = 200;
             Swarm1 = new Swarm(swarm1x, swarm1y, swarmRows,swarmCols,swarmHorizontalPadding);
 
-<<<<<<< HEAD
-=======
-
             Swarm1.x = Game.canvasWidth/2;
             Swarm1.y = 50;
->>>>>>> Temporary Orbital Defence
             Stage.addChild(Swarm1);
 
             TestEnemy1 = new Enemy(35,100,69,50);
