@@ -109,6 +109,13 @@ Game = function() {
             HUD = new HUD();
             Stage.addChild(HUD);
 
+            OrbitalDefence1 = new OrbitalDefence(200,450);
+            Stage.addChild(OrbitalDefence1);
+            OrbitalDefence2 = new OrbitalDefence(600,450);
+            Stage.addChild(OrbitalDefence2);
+            OrbitalDefence3 = new OrbitalDefence(1000,450);
+            Stage.addChild(OrbitalDefence3);
+
 /**************************************************/
             var swarmRows = 3;
             var swarmCols = 3;
@@ -117,6 +124,12 @@ Game = function() {
             var swarm1y = 200;
             Swarm1 = new Swarm(swarm1x, swarm1y, swarmRows,swarmCols,swarmHorizontalPadding);
 
+<<<<<<< HEAD
+=======
+
+            Swarm1.x = Game.canvasWidth/2;
+            Swarm1.y = 50;
+>>>>>>> Temporary Orbital Defence
             Stage.addChild(Swarm1);
 
             TestEnemy1 = new Enemy(35,100,69,50);
