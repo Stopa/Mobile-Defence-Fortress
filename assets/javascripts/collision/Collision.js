@@ -1,21 +1,24 @@
 var Collision = {};
 
 Collision.QuadtreeTick = function (game, quadtree, stage){
-	//Clear the quadtree and add all colliding objects
+    //Clear the quadtree and add all collider objects
     quadtree.clear();
-    for (var i = 0; i < game.colliders.length; i++) {
-        quadtree.insert(game.colliders[i]);
+    for (var i = 0; i < stage.children.length; i++) {
+        var child = stage.getChildAt(i);
+        if (child instanceof Destructible) quadtree.insert(child);
     }
     //go through each object and retrieve a list of objects it could 
     //possibly collide with.
     var returnObjects = [];
-    for (var i = 0; i < game.colliders.length; i++) {
-        returnObjects.length = 0;
-        quadtree.retrieve(returnObjects, game.colliders[i]);
+    for (var i = 0; i < stage.children.length; i++) {
+        if (stage.getChildAt(i) instanceof Projectile){
+            returnObjects.length = 0;
+            quadtree.retrieve(returnObjects, stage.getChildAt(i));
 
-        for (var j = 0; j < returnObjects.length; j++) {
-            if (Collision.algorithm(game.colliders[i], returnObjects[j])) {
-                Collision.handleCollision(game.colliders[i], returnObjects[j]);
+            for (var j = 0; j < returnObjects.length; j++) {
+                if (Collision.algorithm(stage.getChildAt(i), returnObjects[j])) {
+                    Collision.handleCollision(stage.getChildAt(i), returnObjects[j]);
+                }
             }
         }
     }
@@ -25,13 +28,8 @@ Collision.handleCollision = function(object1, object2){
     //should projectile and actor stats be taken into account here or
     //somewhere else?
 
-    //handle object1(projectile) related behaviour
-    Collision.removeFromArray(object1, Game.colliders);
     object1.collision(object2);
     object2.collision(object1);
-    //object1._die();
-
-    //handle object2 (actor) behaviour
     
     
 }
@@ -53,7 +51,6 @@ Collision.algorithm = function (object1, object2){
     if (! (object2 instanceof Destructible)) return false;
     if (object2 instanceof Projectile) return false;
     if (object1.faction == object2.faction) return false;
-    //also check that the object1 and object2 are not of the same faction
 
 	var point1 = object1.localToGlobal(0,0);
 	var point2 = object2.localToGlobal(0,0);
