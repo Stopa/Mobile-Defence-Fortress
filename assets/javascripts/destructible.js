@@ -14,7 +14,6 @@
 
     Destructible.prototype.initialize = function() {
         this.containerInit();
-        Game.colliders.push(this);
     };
 
     Destructible.prototype._tick = function() {

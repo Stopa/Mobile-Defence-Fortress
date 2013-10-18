@@ -24,7 +24,6 @@
         this.destructibleTick();
         if(this.isOutOfParentBounds()) {
             this._die();
-            Collision.removeFromArray(this, Game.colliders);
         } else if(this.hasCollided == 1) {
             this.animateExplosion(this.explosionGraphics);
         } else {

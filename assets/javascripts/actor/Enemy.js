@@ -1,6 +1,6 @@
 (function(window) {
-    function Enemy(belongsToSwarm, width, height, x, y) {
-        this.initialize(belongsToSwarm, width, height, x, y);
+    function Enemy(x, y, width, height, swarm) {
+        this.initialize(x, y, width, height, swarm);
     }
     Enemy.prototype = new Actor();
     Enemy.prototype.actorInit = Enemy.prototype.initialize;
@@ -8,22 +8,23 @@
     Enemy.prototype.actorDie = Enemy.prototype._die;
     Enemy.prototype.curDirection = 1;  //1 for right, -1 for left
 
-    Enemy.prototype.initialize = function(belongsToSwarm, width, height, x, y) {
+    Enemy.prototype.initialize = function(x, y, width, height, swarm) {
         this.actorInit();
 
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
+        // this.regX = 0.5 * this.width;
         
-        this.belongsToSwarm = belongsToSwarm;
+        this.swarm = swarm;
         this.faction =  Game.factions.aliens;
 
         this._initGraphics();
     }
     Enemy.prototype._tick = function() {
         this.actorTick();
-        if (!this.belongsToSwarm) this.tickMovement(2,30); // HARDCODE: x-speed, y-speed
+        if (!this.swarm) this.tickMovement(2,30); // HARDCODE: x-speed, y-speed
         MDF.updateDebugRect(this);
     }
 
@@ -34,8 +35,6 @@
     }
 
     Enemy.prototype._die = function() {
-        if(this.belongsToSwarm) this.parent.removeShip(this);
-        Collision.removeFromArray(this, Game.colliders);
         this.actorDie();
         //call death animation
         //call death sound
@@ -54,7 +53,8 @@
     }
 
     Enemy.prototype.collision = function(object){
-        this.baseHitpoints -= 101; //HARDCODE
+        if(this.swarm) this.swarm.removeShip(this);
+        this.takesDamage(101); //HARDCODE
     }
     Enemy.prototype.dropBomb = function() {
         var ENEMY_BOMB_GRAPHICS = 'assets/images/enemy/enemy_bomb.png';
