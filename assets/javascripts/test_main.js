@@ -31,7 +31,7 @@ Game = function() {
       });
       test("Death", function() {
         player.takesDamage(81);
-        equal(Stage.children.indexOf(player), -1, "Player is dead");
+        ok(player.baseHitpoints < 0, "Player is dead");
       });
       
       module("Enemy");
@@ -48,14 +48,15 @@ Game = function() {
       });
 
       module("Swarm");
-      swarm = new Swarm(0,0,2,3,0);
+      shipsRow = 2;
+      shipsCol = 3;
+      swarm = new Swarm(0,0,shipsCol,shipsRow,0);
       test("Ships count by totalShips", function() {
-        equal(swarm.totalShips, 2 * 3, "Swarm's totalShips variable is 6");
+        equal(swarm.totalShips, shipsCol * shipsRow, "Swarm's totalShips variable is 6");
       });
-      test("Ships count by array size", function() {
-        equal(swarm.shipsArray.length, 2 * 3, "Swarm's shipsArray size is 6")
+      test("Ships count by shipsArray size", function() {
+        equal(swarm.shipsArray.length, shipsCol * shipsRow, "Swarm's shipsArray size is 6")
       });
-
     },
     controls: {
         movementKeyPressed: undefined,
