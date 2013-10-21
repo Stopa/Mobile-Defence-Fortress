@@ -67,7 +67,7 @@
     };
 
     Swarm.prototype.removeShip = function(ship){
-        Collision.removeFromArray(ship, this.shipsArray);
+        MDF.removeFromArray(ship, this.shipsArray);
         this.totalShips--;
         if (this.totalShips === 0){
             this._die();

@@ -45,3 +45,9 @@ MDF.updateDebugRect = function (object,color) {
         );
     }
 }
+
+/** remove an object from some argument array */
+MDF.removeFromArray = function (object, array){
+    var index = array.indexOf(object);
+    array.splice(index,1);
+}
