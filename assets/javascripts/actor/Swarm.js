@@ -29,10 +29,7 @@
                 this.shipsMatrix[i][j] = undefined;
             }
         }
-
         this.fillMatrix(rows,cols);
-        MDF.createDebugRect(this);
-
 
     };
 
@@ -60,7 +57,7 @@
                     swarmGlobalCoords.x + (col * shipWidth + col*this.shipxPadding),
                     swarmGlobalCoords.y + (row * shipHeight),
                     shipWidth, shipHeight,
-                    this);  //parent swarm
+                    this);  //reference to ships swarm
 
                 this.shipsArray.push( Stage.addChild(enemy));
             }
@@ -70,10 +67,10 @@
     };
 
     Swarm.prototype.removeShip = function(ship){
-        Collision.removeFromArray(ship, this.shipsArray);
+        MDF.removeFromArray(ship, this.shipsArray);
         this.totalShips--;
         if (this.totalShips === 0){
-            this.destroy();
+            this._die();
         }
     }
 
@@ -86,7 +83,8 @@
     }
 
 
-    Swarm.prototype.destroy = function() {
+    Swarm.prototype._die = function() {
+        Stage.removeChild(this.box); //remove debugging rectangle
         Stage.removeChild(this);
     }
 

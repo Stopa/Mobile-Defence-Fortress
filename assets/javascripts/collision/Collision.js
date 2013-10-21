@@ -61,8 +61,3 @@ Collision.algorithm = function (object1, object2){
 	}
 };
 
-/** remove an object from some argument array */
-Collision.removeFromArray = function (object, array){
-	var index = array.indexOf(object);
-	array.splice(index,1);
-}

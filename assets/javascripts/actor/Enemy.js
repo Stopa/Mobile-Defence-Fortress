@@ -23,18 +23,18 @@
         this._initGraphics();
     }
     Enemy.prototype._tick = function() {
+        MDF.updateDebugRect(this);
         this.actorTick();
         if (!this.swarm) this.tickMovement(2,30); // HARDCODE: x-speed, y-speed
-        MDF.updateDebugRect(this);
     }
 
     Enemy.prototype._initGraphics = function() {
         this.shipBitmap = new createjs.Bitmap('assets/images/enemy/enemy.png');
         this.addChild(this.shipBitmap);
-        MDF.createDebugRect(this, "#FFFF00");
     }
 
     Enemy.prototype._die = function() {
+        if (this.swarm) this.swarm.removeShip(this);
         this.actorDie();
         //call death animation
         //call death sound
@@ -53,7 +53,6 @@
     }
 
     Enemy.prototype.collision = function(object){
-        if(this.swarm) this.swarm.removeShip(this);
         this.takesDamage(101); //HARDCODE
     }
     Enemy.prototype.dropBomb = function() {
