@@ -13,9 +13,7 @@
         this.bounds = bounds;
         this.objects = [];
         this.nodes = []; //subnodes
-
-        MDF.createDebugRect(this.bounds, "#F00", Stage);
-        MDF.updateDebugRect(this.bounds);
+        MDF.updateDebugRect(this.bounds, "#E6B85C");
 
     };
 

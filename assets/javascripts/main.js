@@ -124,8 +124,6 @@ Game = function() {
             var swarm1y = 200;
             Swarm1 = new Swarm(swarm1x, swarm1y, swarmRows,swarmCols,swarmHorizontalPadding);
 
-            Swarm1.x = Game.canvasWidth/2;
-            Swarm1.y = 50;
             Stage.addChild(Swarm1);
 
             TestEnemy1 = new Enemy(35,100,69,50);
@@ -162,6 +160,7 @@ Game = function() {
             aliens: 1
         },
         debug : false,
+        godmode: false,
         canvasWidth : document.getElementById('mainCanvas').width
     }
 }();
