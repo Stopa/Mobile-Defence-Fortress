@@ -31,10 +31,6 @@ MDF.updateDebugRect = function (object,color) {
 
         rectX = object.x;
         rectY = object.y;
-        //if the container is something other than the object itself,
-        // we need to take that into account
-        if (object.box.container !== undefined){
-        }
         object.box.graphics.clear();
         object.box.graphics.beginStroke(object.box.color);
         object.box.graphics.rect(
