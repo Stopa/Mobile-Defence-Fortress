@@ -29,7 +29,7 @@
     }
 
     Enemy.prototype._initGraphics = function() {
-        this.shipBitmap = new createjs.Bitmap('assets/images/enemy/enemy.png');
+        this.shipBitmap = new createjs.Bitmap('images/enemy/enemy.png');
         this.addChild(this.shipBitmap);
     }
 
@@ -56,7 +56,7 @@
         this.takesDamage(101); //HARDCODE
     }
     Enemy.prototype.dropBomb = function() {
-        var ENEMY_BOMB_GRAPHICS = 'assets/images/enemy/enemy_bomb.png';
+        var ENEMY_BOMB_GRAPHICS = 'images/enemy/enemy_bomb.png';
 
         var angleSpeeds = MDF.angleSpeeds(270);
 

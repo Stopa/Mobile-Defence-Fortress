@@ -43,7 +43,7 @@
     }
 
     Projectile.prototype._initExplosionGraphics = function () {
-        this.explosionGraphics = new createjs.Bitmap('assets/images/enemy/explosion.png');
+        this.explosionGraphics = new createjs.Bitmap('images/enemy/explosion.png');
         this.explosionGraphics.x = 0;
         this.explosionGraphics.y = 0;
         this.explosionGraphics.scaleX = 0;

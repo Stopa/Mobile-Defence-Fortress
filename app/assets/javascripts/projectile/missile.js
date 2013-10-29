@@ -35,7 +35,7 @@
     };
 
     Missile.prototype.initGraphics = function() {
-        this.graphics = new createjs.Bitmap('assets/images/player_ship/bullet.png');
+        this.graphics = new createjs.Bitmap('images/player_ship/bullet.png');
         this.graphics.x = 0;
         this.graphics.y = 0;
         this.addChild(this.graphics);
@@ -45,7 +45,7 @@
         this.removeChild(this.graphics);
         this.exploded = true;
         
-        this.explosionGraphics = new createjs.Bitmap('assets/images/enemy/explosion.png');
+        this.explosionGraphics = new createjs.Bitmap('images/enemy/explosion.png');
         this.explosionGraphics.x = -83;
         this.explosionGraphics.y = -83;
         this.addChild(this.explosionGraphics);

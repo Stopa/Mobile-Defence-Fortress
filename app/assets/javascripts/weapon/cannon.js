@@ -5,13 +5,13 @@
     Cannon.prototype = new Weapon();
     Cannon.prototype.weaponInit = Cannon.prototype.initialize;
     Cannon.prototype.initialize = function() {
-        this.weaponInit('assets/images/player_ship/cannon.png', 36, 40);
+        this.weaponInit('images/player_ship/cannon.png', 36, 40);
     };
 
     Cannon.prototype._nextShotLeft = false; // whether the next shot will be fired from the left or right cannon
     Cannon.prototype.shoot = function() {
         if(this.cooldown <= 0) {
-            var CANNON_BULLET_GRAPHICS = 'assets/images/player_ship/bullet.png';
+            var CANNON_BULLET_GRAPHICS = 'images/player_ship/bullet.png';
 
             var realAngle = (this.rotation-90)*-1,
                 angleSpeeds = MDF.angleSpeeds(realAngle),
