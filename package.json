@@ -1,12 +1,12 @@
 {
-  "author": "Your Name",
-  "name": "package-name",
-  "description": "Package description",
-  "version": "1.5.4",
-  "homepage": "",
+  "author": "Taavi Kala",
+  "name": "mobile-defence-fortress",
+  "description": "Mobile Defence Fortress is an updated version of Space Invaders",
+  "version": "0.1.0",
+  "homepage": "http://stopa.github.io/Mobile-Defence-Fortress/",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/Stopa/Mobile-Defence-Fortress.git"
   },
   "engines": {
     "node": "~0.6.10 || 0.8 || 0.9"
