@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+  <link rel="stylesheet" href="stylesheets/index.css?1">
+</head>
+<body>
+  <canvas id="mainCanvas" height="720" width="1280"></canvas><!-- NOTE: canvas is dynamically resized in javascript later -->
+
+  <!-- External libraries -->
+  <script src="javascripts/lib/createjs-2013.09.25.min.js?1"></script>
+  <script src="javascripts/lib/underscore.js"></script>
+  <script src="javascripts/main.js"></script>
+  <script>
+    var queue = new createjs.LoadQueue();
+    queue.addEventListener("complete", Game.init);
+    queue.addEventListener("fileload", function(event) {
+      document.body.appendChild(event.result);
+    });
+    queue.loadManifest([
+      // utilities
+      'javascripts/utils.js',
+      'javascripts/collision/Quadtree.js',
+      'javascripts/collision/Collision.js',
+      // base classes
+      'javascripts/destructible.js',
+      'javascripts/hull.js',
+      'javascripts/GroundPiece.js',
+      'javascripts/orbitaldefence.js',
+        // actor
+          'javascripts/actor/actor.js',
+          'javascripts/actor/Player.js?1',
+          'javascripts/actor/Enemy.js',
+          'javascripts/actor/Swarm.js',
+        // projectile
+          'javascripts/projectile/projectile.js',
+          'javascripts/projectile/missile.js',
+        // weapon
+          'javascripts/weapon/weapon.js',
+          'javascripts/weapon/missilelauncher.js',
+          'javascripts/weapon/cannon.js',
+        // ui
+          'javascripts/ui/hud.js',
+      // content, subclasses
+      'javascripts/basic-hull.js'
+    ]);
+  </script>
+</body>
+</html>
