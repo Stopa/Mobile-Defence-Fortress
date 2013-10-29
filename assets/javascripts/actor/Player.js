@@ -85,7 +85,7 @@
     }
 
     Player.prototype.collision = function(object) {
-        this.takesDamage(10); // HARDCODE
+        if (!Game.godmode) this.takesDamage(10); // HARDCODE
     }
 
     Player.prototype.baseMovementSpeed = 5;
