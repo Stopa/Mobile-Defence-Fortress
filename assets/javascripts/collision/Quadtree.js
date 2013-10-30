@@ -7,7 +7,7 @@
     }
     QuadTree.prototype.initialize = function (level, bounds) {
         this.MAX_OBJECTS = 1;
-        this.MAX_LEVELS = 5;
+        this.MAX_LEVELS = 4;
 
         this.level = level;
         this.bounds = bounds;
@@ -28,7 +28,7 @@
 
         for (var i=0; i < this.nodes.length; i++){
             if (this.nodes[i] !== undefined){
-                Stage.removeChild(this.nodes[i].bounds.box);
+                if (Game.debug) Stage.removeChild(this.nodes[i].bounds.box);
                 this.nodes[i].clear();
                 this.nodes[i] = undefined;
             }
@@ -58,20 +58,19 @@
     */
     QuadTree.prototype.getIndex = function (object) {
 
-        var objectPt = object.localToGlobal(0, 0); // transform the coordinates
         var index = -1;
         var verticalMidpoint = this.bounds.x + this.bounds.width / 2;
         var horizontalMidpoint = this.bounds.y + this.bounds.height / 2;
 
     // Object can completely fit within the top quadrants
-        var topQuadrant = (objectPt.y < horizontalMidpoint &&
-            objectPt.y + object.height < horizontalMidpoint);
+        var topQuadrant = (object.y < horizontalMidpoint &&
+            object.y + object.height < horizontalMidpoint);
     // Object can completely fit within the bottom quadrants
-        var bottomQuadrant = (objectPt.y > horizontalMidpoint);
+        var bottomQuadrant = (object.y > horizontalMidpoint);
 
     // Object can completely fit within the left quadrants
-        if (objectPt.x < verticalMidpoint &&
-            objectPt.x + object.width < verticalMidpoint) {
+        if (object.x < verticalMidpoint &&
+            object.x + object.width < verticalMidpoint) {
             if (topQuadrant) {
                 index = 1;
             }
@@ -80,7 +79,7 @@
             }
         }
     // Object can completely fit within the right quadrants
-        else if (objectPt.x > verticalMidpoint) {
+        else if (object.x > verticalMidpoint) {
             if (topQuadrant) {
                 index = 0;
             }

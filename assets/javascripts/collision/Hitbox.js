@@ -27,14 +27,14 @@
         var dotY = 0;
         switch (i){
             case 1: //top-right corner
-                dotX = this.width;
+                dotX += this.width;
                 break;
             case 2: //bottom-right corner
-                dotX = this.width;
-                dotY = this.height;
+                dotX += this.width;
+                dotY += this.height;
                 break;
             case 3: //bottom-left corner
-                dotY = this.height;
+                dotY += this.height;
                 break;
             case 4: //top-left corner
                 break;
@@ -42,22 +42,21 @@
         if (this.rotation === undefined || this.rotation == 0) {
             return new createjs.Point(dotX,dotY);
         } else {
-            //return the transformation of the dot around this rects center
-            return new MDF.rotatePoint (dotX, dotY, this.rotation, 0,0);
+            //return the transformation of the dot around this rects CENTER
+            return new MDF.rotatePoint (dotX, dotY, this.rotation, 0.5*this.width, 0.5*this.height);
         }
     }
 
     Hitbox.prototype.drawCorners= function (){
-    var cornerPt;
-    for(var i = 0; i<4;i++){
-        cornerPt = this.vectorBox.points[i];
-        //mindot
-        circle = new createjs.Shape();
-        circle.graphics.beginFill("red").drawCircle(0, 0, 3);
-        circle.x = this.vectorBox.pos.x + cornerPt.x;
-        circle.y = this.vectorBox.pos.y + cornerPt.y;
-        Stage.addChild(circle);
-    }
+        var cornerPt;
+        for(var i = 0; i<4;i++){
+            cornerPt = this.vectorBox.points[i];
+            circle = new createjs.Shape();
+            circle.graphics.beginFill("red").drawCircle(0, 0, 3);
+            circle.x = this.vectorBox.pos.x + cornerPt.x;
+            circle.y = this.vectorBox.pos.y + cornerPt.y;
+            Stage.addChild(circle);
+        }
 }
 
     window.Hitbox = Hitbox;

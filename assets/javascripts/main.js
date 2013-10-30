@@ -33,7 +33,7 @@ Game = function() {
                 break;
                 case 39: // right
                 case 68: // d
-                    Game.controls.movementKeyPressed = KEYS.RIGHT
+                    Game.controls.movementKeyPressed = KEYS.RIGHT;
                 break;
             }
         }

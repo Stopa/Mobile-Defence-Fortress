@@ -15,8 +15,8 @@ MDF.angleSpeeds = function(angle) {
 *   based on objects width and height. for 'visual debugging'
 */
 MDF.updateDebugRect = function (object,color) {
-    Stage.removeChild(object.box);
     if (Game.debug){
+        Stage.removeChild(object.box);
 
         object.box = new createjs.Shape();
         object.box.color = (color !== undefined) ? color : "#F00";

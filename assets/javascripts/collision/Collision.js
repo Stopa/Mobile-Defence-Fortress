@@ -11,13 +11,14 @@ Collision.QuadtreeTick = function (game, quadtree, stage){
     //possibly collide with.
     var returnObjects = [];
     for (var i = 0; i < stage.children.length; i++) {
-        if (stage.getChildAt(i) instanceof Projectile){
+        var child = stage.getChildAt(i);
+        if (child instanceof Projectile){
             returnObjects.length = 0;
-            quadtree.retrieve(returnObjects, stage.getChildAt(i));
+            quadtree.retrieve(returnObjects, child);
 
             for (var j = 0; j < returnObjects.length; j++) {
-                if (Collision.algorithm(stage.getChildAt(i), returnObjects[j])) {
-                    Collision.handleCollision(stage.getChildAt(i), returnObjects[j]);
+                if (Collision.algorithm(child, returnObjects[j])) {
+                    Collision.handleCollision(child, returnObjects[j]);
                 }
             }
         }
@@ -49,13 +50,9 @@ Collision.algorithm = function (object1, object2){
 
 
 
-	var pt1 = object1.localToGlobal(0,0);
-	var pt2 = object2.localToGlobal(0,0);
-
-
     //Construct hitboxes
-    var obj1Box = new Hitbox(pt1.x, pt1.y, object1.width, object1.height, object1.rotation);
-    var obj2Box = new Hitbox(pt2.x, pt2.y, object2.width, object2.height, object2.rotation);
+    var obj1Box = new Hitbox(object1.x, object1.y, object1.width, object1.height, object1.rotation);
+    var obj2Box = new Hitbox(object2.x, object2.y, object2.width, object2.height, object2.rotation);
 
     //check if the hitboxes collided
     var collided = SAT.testPolygonPolygon(obj1Box.vectorBox,obj2Box.vectorBox);
