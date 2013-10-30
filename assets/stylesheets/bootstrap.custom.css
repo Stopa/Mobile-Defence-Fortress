@@ -1,3 +1,11 @@
 .container {
 	max-width: 610px;
+	background-color: #fff;
+	float: left;
+	margin-left: 20px;
+	margin-top: 15px;
+}
+
+form.form-inline {
+	margin-top: 5px;
 }
