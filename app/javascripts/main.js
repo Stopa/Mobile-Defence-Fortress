@@ -145,7 +145,7 @@ Game = function() {
 
             Player = new Player();
             Player.x = Game.transformedSize.x/2; // HARDCODE
-            Player.y = Game.transformedSize.y-350; // HARDCODE
+            Player.y = Game.transformedSize.y-400; // HARDCODE
             Stage.addChild(Player);
 
             HUD = new HUD();
@@ -159,15 +159,6 @@ Game = function() {
             Stage.addChild(OrbitalDefence3);
 
 /**************************************************/
-            var swarmRows = 3;
-            var swarmCols = 3;
-            var swarmHorizontalPadding = 50;
-            var swarm1x = Game.transformedSize.x/2;
-            var swarm1y = 200;
-            Swarm1 = new Swarm(swarm1x, swarm1y, swarmRows,swarmCols,swarmHorizontalPadding);
-
-            Stage.addChild(Swarm1);
-
             TestEnemy1 = new Enemy(35,100,69,50);
             Stage.addChild(TestEnemy1);
 

@@ -1,10 +1,14 @@
 $(document).ready(function(){
-	newWave();
-	newSwarm(1)
+	$('.spawn-engine').load('spawn_engine.html', function() {
+		newWave();
+		newSwarm(1);
+	});
 });
 
 var waveCount = 0;
 var swarmCount = 0;
+var spawnedSwarmsArray = new Array();
+var	spawnedSwarms = 0; 
 
 function newWave() {
 	waveCount++;
@@ -57,7 +61,20 @@ function deleteSwarm(swarm) {
 }
 
 function spawnWaves() {
-	getWaves();
+	swarmsArray = getWaves();
+
+	for (var i = 0; i < swarmsArray.length; i++) {
+
+		var swarmRows = swarmsArray[i][1];
+		var swarmCols = swarmsArray[i][2];
+	    var swarm1x = Game.transformedSize.x/2;
+    	var swarm1y = 200;
+    	var swarmHorizontalPadding = 50;
+
+		spawnedSwarmsArray[spawnedSwarms] = new Swarm(swarm1x, swarm1y, swarmRows,swarmCols,swarmHorizontalPadding);
+   		Stage.addChild(spawnedSwarmsArray[spawnedSwarms]);
+   		spawnedSwarms++;
+	}
 }
 
 function getWaves() {
@@ -66,7 +83,9 @@ function getWaves() {
 		var swarmType = '#swarm_' + i + ' .form-group:nth-child(1) option:selected';
 		var swarmShips = '#swarm_' + i + ' .form-group:nth-child(2) input';
 		var swarmTimer = '#swarm_' + i + ' .form-group:nth-child(3) input';
-		swarmsArray.push($(swarmType).text()+";"+$(swarmShips).val()+';'+$(swarmTimer).val());
+		var swarm = [$(swarmType).text(), $(swarmShips).val(), $(swarmTimer).val()];
+		swarmsArray.push(swarm);
 	}
 	return swarmsArray;
 }
+

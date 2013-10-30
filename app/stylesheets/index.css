@@ -9,6 +9,7 @@ html, body {
   background: #000000;
 }
 
+
 canvas {
   display: block;
   
@@ -22,4 +23,8 @@ canvas {
 
 canvas:-webkit-full-screen {
   margin-top: 0;
+}
+
+.spawn-engine {
+  background-color: #000;
 }
