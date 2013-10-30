@@ -159,10 +159,10 @@ Game = function() {
             Stage.addChild(OrbitalDefence3);
 
 /**************************************************/
-            TestEnemy1 = new Enemy(35,100,69,50);
+            TestEnemy1 = new Enemy(35,100);
             Stage.addChild(TestEnemy1);
 
-            TestEnemy2 = new Enemy(200,200,69,50);
+            TestEnemy2 = new Enemy(200,200);
             Stage.addChild(TestEnemy2);
 
             //Add ground tiles

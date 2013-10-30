@@ -1,6 +1,6 @@
 (function(window) {
-    function Enemy(x, y, width, height, swarm) {
-        this.initialize(x, y, width, height, swarm);
+    function Enemy(x, y, swarm) {
+        this.initialize(x, y, swarm);
     }
     Enemy.prototype = new Actor();
     Enemy.prototype.actorInit = Enemy.prototype.initialize;
@@ -8,14 +8,11 @@
     Enemy.prototype.actorDie = Enemy.prototype._die;
     Enemy.prototype.curDirection = 1;  //1 for right, -1 for left
 
-    Enemy.prototype.initialize = function(x, y, width, height, swarm) {
+    Enemy.prototype.initialize = function(x, y, swarm) {
         this.actorInit();
 
         this.x = x;
         this.y = y;
-        this.width = width;
-        this.height = height;
-        // this.regX = 0.5 * this.width;
         
         this.swarm = swarm;
         this.faction =  Game.factions.aliens;
@@ -29,7 +26,9 @@
     }
 
     Enemy.prototype._initGraphics = function() {
-        this.shipBitmap = new createjs.Bitmap('assets/images/enemy/enemy.png');
+        this.width = 99;
+        this.height = 47;
+        this.shipBitmap = new createjs.Bitmap('assets/images/enemy/enemy4.png');
         this.addChild(this.shipBitmap);
     }
 
