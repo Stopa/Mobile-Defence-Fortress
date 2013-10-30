@@ -27,13 +27,12 @@
         this.height = this.hull.height;
 
         this.primaryWeapon = new Cannon();
-
-        this.primaryWeapon.x = this.hull.width/2;
-        this.primaryWeapon.y = 7; // HARDCODE
+        this.primaryWeapon.x = 32;
+        this.primaryWeapon.y = 26; // HARDCODE
 
         this.secondaryWeapon = new MissileLauncher();
-        this.secondaryWeapon.x = this.hull.width/2;
-        this.secondaryWeapon.y = 7; // HARDCODE
+        this.secondaryWeapon.x = 32;
+        this.secondaryWeapon.y = 26; // HARDCODE
 
         this.addChild(this.primaryWeapon);
         this.addChild(this.secondaryWeapon);
@@ -78,7 +77,7 @@
     Player.prototype.moveRight = function() {
         if(this.x < Game.transformedSize.x-this.hull.width) {
             this.x += this.baseMovementSpeed;
-        }        
+        }
     }
 
     Player.prototype.getHitpoints = function() {
