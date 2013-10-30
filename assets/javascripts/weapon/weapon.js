@@ -22,10 +22,9 @@
     };
 
     Weapon.prototype.rotateToCursor = function() {
-        var weaponAbsX = this.parent.x+this.x,
-            weaponAbsY = this.parent.y+this.y,
-            deltaX = Stage.mouseX-weaponAbsX,
-            deltaY = Stage.mouseY-weaponAbsY,
+        var posPoint = this.parent.localToGlobal(this.x, this.y),
+            deltaX = Stage.mouseX-posPoint.x,
+            deltaY = Stage.mouseY-posPoint.y,
             degrees = (Math.atan2(deltaY, deltaX)*180/Math.PI)+90;
 
         if(degrees < 60 && degrees > -60) {

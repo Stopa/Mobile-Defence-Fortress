@@ -5,7 +5,7 @@
 </head>
 <body>
   <canvas id="mainCanvas" height="720" width="1280"></canvas><!-- NOTE: canvas is dynamically resized in javascript later -->
-
+  <button id="gofullscreen">Fullscreen</button>
   <!-- External libraries -->
   <script src="assets/javascripts/lib/createjs-2013.09.25.min.js?1"></script>
   <script src="assets/javascripts/lib/underscore.js"></script>
@@ -14,7 +14,9 @@
     var queue = new createjs.LoadQueue();
     queue.addEventListener("complete", Game.init);
     queue.addEventListener("fileload", function(event) {
-      document.body.appendChild(event.result);
+      if(event.item.type == 'javascript') {
+        document.body.appendChild(event.result);
+      }
     });
     queue.loadManifest([
       // utilities
@@ -41,7 +43,10 @@
         // ui
           'assets/javascripts/ui/hud.js',
       // content, subclasses
-      'assets/javascripts/basic-hull.js'
+      'assets/javascripts/basic-hull.js',
+      // images
+      'assets/images/level_0/sky.png',
+      'assets/images/level_0/terrain_destroyed.png'
     ]);
   </script>
 </body>

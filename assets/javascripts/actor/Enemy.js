@@ -43,10 +43,10 @@
         this.x += this.curDirection * xSpeed;
         if (
             this.x < 0 + this.regX || 
-            this.x >= Game.canvasWidth - this.regX
+            this.x >= Game.transformedSize.x - this.regX
         ){
             this.curDirection *=-1;
-            if(this.y < Stage.canvas.clientHeight*0.7) {
+            if(this.y < Game.transformedSize.y*0.6) {
                 this.y += ySpeed;
             }
         }

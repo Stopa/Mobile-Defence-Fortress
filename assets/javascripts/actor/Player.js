@@ -71,7 +71,7 @@
     }
 
     Player.prototype.moveRight = function() {
-        if(this.x < Stage.canvas.clientWidth-this.hull.width) {
+        if(this.x < Game.transformedSize.x-this.hull.width) {
             this.x += this.baseMovementSpeed;
         }        
     }
