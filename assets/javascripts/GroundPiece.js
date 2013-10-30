@@ -10,9 +10,11 @@
 
         var ground_piece = new createjs.Shape();
         ground_piece.graphics.beginStroke("#000");
-        ground_piece.graphics.beginFill("#999")
+        ground_piece.graphics.beginFill("#999");
         ground_piece.snapToPixel = true;
         ground_piece.graphics.drawRect(0,0, 40, 40);
+        this.width = 40;
+        this.height = 40;
 
         this.faction =  Game.factions.humans;
 
