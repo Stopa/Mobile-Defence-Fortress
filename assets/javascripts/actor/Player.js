@@ -31,8 +31,8 @@
         this.primaryWeapon.y = 26; // HARDCODE
 
         this.secondaryWeapon = new MissileLauncher();
-        this.secondaryWeapon.x = 32;
-        this.secondaryWeapon.y = 26; // HARDCODE
+        this.secondaryWeapon.x = 86;
+        this.secondaryWeapon.y = 21; // HARDCODE
 
         this.addChild(this.primaryWeapon);
         this.addChild(this.secondaryWeapon);
