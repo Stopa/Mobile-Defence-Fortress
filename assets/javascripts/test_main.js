@@ -57,6 +57,15 @@ Game = function() {
       test("Ships count by shipsArray size", function() {
         equal(swarm.shipsArray.length, shipsCol * shipsRow, "Swarm's shipsArray size is 6")
       });
+      ship = swarm.shipsArray[0]
+      current_total = swarm.totalShips
+      test("Ship removal from swarm", function() {
+        ok(swarm.shipsArray.indexOf(ship) != -1, "Ship is currently in swarm");
+        ok(true, "Removing ship from swarm...");
+        swarm.removeShip(ship)
+        equal(swarm.totalShips, current_total -1, "Swarm's totalShips was decremented by 1")
+        ok(swarm.shipsArray.indexOf(ship) == -1, "Ship was removed from swarm");
+      });
     },
     controls: {
         movementKeyPressed: undefined,
