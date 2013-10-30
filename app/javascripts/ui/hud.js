@@ -28,6 +28,7 @@
 
     HUD.prototype.tickUpdateHUD = function() {
         this.hitpointsString = "Health: " + window.Player.getHitpoints();
+        this.hitpointsString += "\n FPS: "+ Math.floor(createjs.Ticker.getMeasuredFPS());
         this.hudGraphics.text = this.hitpointsString;
     }
 

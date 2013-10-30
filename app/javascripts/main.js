@@ -33,7 +33,7 @@ Game = function() {
                 break;
                 case 39: // right
                 case 68: // d
-                    Game.controls.movementKeyPressed = KEYS.RIGHT
+                    Game.controls.movementKeyPressed = KEYS.RIGHT;
                 break;
             }
         }
@@ -80,30 +80,72 @@ Game = function() {
             break;
             case 3:
                 Game.controls.rightMouseDown = false;
-            break;   
+            break;
         }
     };
     var handleContextMenu = function(event) {
         // prevent browser from opening a context menu
         event.preventDefault();
     };
+    var handleFullscreenClick = function() {
+        var canvas = document.getElementById('mainCanvas');
+        canvas.webkitRequestFullscreen();
+    };
+    var handleFullscreenChange = function() {
+        var canvas = document.getElementById('mainCanvas');
+        if(document.webkitCurrentFullScreenElement) {
+            canvas.height = screen.height;
+            canvas.width = screen.width;
+        } else {
+            canvas.height = 720;
+            canvas.width = 1280;
+        }
+        Game.transformModifier = Stage.canvas.clientHeight/1080;
+        Game.transformedSize = {
+            x: canvas.width/Game.transformModifier,
+            y: canvas.height/Game.transformModifier
+        };
+        Stage.setTransform(0, 0, Game.transformModifier, Game.transformModifier);
+        // redraw background
+        var skyImage = queue.getResult('assets/images/level_0/sky.png'),
+            groundImage = queue.getResult('assets/images/level_0/terrain_destroyed.png');
+        Stage.sky.graphics.beginBitmapFill(skyImage, 'repeat-x').rect(0,0,Game.transformedSize.x,Game.transformedSize.y);
+        Stage.ground.graphics.beginBitmapFill(groundImage, 'repeat-x').rect(0,0,Game.transformedSize.x, groundImage.height);
+        Stage.ground.y = Game.transformedSize.y-groundImage.height;
+    };
+
+    var drawBackground = function() {
+        var skyImage = queue.getResult('assets/images/level_0/sky.png'),
+            groundImage = queue.getResult('assets/images/level_0/terrain_destroyed.png');
+        Stage.sky = new createjs.Shape();
+        Stage.ground = new createjs.Shape();
+        Stage.sky.graphics.beginBitmapFill(skyImage, 'repeat-x').rect(0,0,Game.transformedSize.x,Game.transformedSize.y);
+        Stage.ground.graphics.beginBitmapFill(groundImage, 'repeat-x').rect(0,0,Game.transformedSize.x, groundImage.height);
+        
+        Stage.addChild(Stage.sky);
+        Stage.addChild(Stage.ground);
+        Stage.ground.y = Game.transformedSize.y-groundImage.height;
+    };
+
     //get a reference to the canvas element
     Stage = new createjs.Stage('mainCanvas');
 
     return {
         init: function() {
             Game.state = GAMESTATES.LOADED;
+            drawBackground();
+            handleFullscreenChange();
 
             //used for collision detection (spatial partitioning)
             var QuadTreeRect = new createjs.Rectangle(0,0,
-                document.getElementById('mainCanvas').width,
-                document.getElementById('mainCanvas').height);
+                Game.transformedSize.x,
+                Game.transformedSize.y);
             Quadtree = new QuadTree(0, QuadTreeRect);
 
 
             Player = new Player();
-            Player.x = Game.canvasWidth/2; // HARDCODE
-            Player.y = 590; // HARDCODE
+            Player.x = Game.transformedSize.x/2; // HARDCODE
+            Player.y = Game.transformedSize.y-350; // HARDCODE
             Stage.addChild(Player);
 
             HUD = new HUD();
@@ -120,7 +162,7 @@ Game = function() {
             var swarmRows = 3;
             var swarmCols = 3;
             var swarmHorizontalPadding = 50;
-            var swarm1x = Game.canvasWidth/2;
+            var swarm1x = Game.transformedSize.x/2;
             var swarm1y = 200;
             Swarm1 = new Swarm(swarm1x, swarm1y, swarmRows,swarmCols,swarmHorizontalPadding);
 
@@ -133,14 +175,14 @@ Game = function() {
             Stage.addChild(TestEnemy2);
 
             //Add ground tiles
-            for (i=0; i < 1280; i+=40) {
-                for (j=635; j<= 680; j+=40) {
+            for (i=0; i < Game.transformedSize.x; i+=40) {
+                for (j=Game.transformedSize.y-295; j<= Game.transformedSize.y; j+=40) {
                     var f = new GroundPiece("");
                     f.x = i;
                     f.y = j;
                     Stage.addChild(f);
                 }
-            };
+            }
 
             createjs.Ticker.setFPS(60);
             createjs.Ticker.addEventListener('tick', update);
@@ -149,6 +191,9 @@ Game = function() {
             document.addEventListener('mousedown', handleMouseDown);
             document.addEventListener('mouseup', handleMouseUp);
             document.addEventListener('contextmenu', handleContextMenu);
+            document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+
+            document.getElementById('gofullscreen').addEventListener('click', handleFullscreenClick);
         },
         controls: {
             movementKeyPressed: undefined,
@@ -161,6 +206,9 @@ Game = function() {
         },
         debug : false,
         godmode: false,
-        canvasWidth : document.getElementById('mainCanvas').width
+        transformedSize: {
+            x: 1280,
+            y: 720
+        }
     }
 }();

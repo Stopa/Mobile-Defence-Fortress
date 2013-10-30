@@ -21,6 +21,11 @@
 
     Player.prototype._initGraphics = function() {
         this.hull = new BasicHull();
+
+        //describe some dimensions for the player, used for collision:
+        this.width = this.hull.width;
+        this.height = this.hull.height;
+
         this.primaryWeapon = new Cannon();
 
         this.primaryWeapon.x = this.hull.width/2;
@@ -71,7 +76,7 @@
     }
 
     Player.prototype.moveRight = function() {
-        if(this.x < Stage.canvas.clientWidth-this.hull.width) {
+        if(this.x < Game.transformedSize.x-this.hull.width) {
             this.x += this.baseMovementSpeed;
         }        
     }

@@ -15,8 +15,8 @@ MDF.angleSpeeds = function(angle) {
 *   based on objects width and height. for 'visual debugging'
 */
 MDF.updateDebugRect = function (object,color) {
-    Stage.removeChild(object.box);
     if (Game.debug){
+        Stage.removeChild(object.box);
 
         object.box = new createjs.Shape();
         object.box.color = (color !== undefined) ? color : "#F00";
@@ -29,17 +29,11 @@ MDF.updateDebugRect = function (object,color) {
         var rectX = 0;
         var rectY = 0;
 
-        rectX = object.x;
-        rectY = object.y;
-        //if the container is something other than the object itself,
-        // we need to take that into account
-        if (object.box.container !== undefined){
-        }
         object.box.graphics.clear();
         object.box.graphics.beginStroke(object.box.color);
         object.box.graphics.rect(
-            rectX,
-            rectY,
+            object.x,
+            object.y,
             object.box.width,
             object.box.height
         );
@@ -50,4 +44,14 @@ MDF.updateDebugRect = function (object,color) {
 MDF.removeFromArray = function (object, array){
     var index = array.indexOf(object);
     array.splice(index,1);
+}
+
+/** Rotate a 2D point (px,py) by some angle theta in degrees (counterclockwise)
+    around some point (ox,oy) */
+MDF.rotatePoint = function(px,py,thetaDeg,ox,oy){
+    thetaRad = thetaDeg* Math.PI / 180;
+    return {
+        x : Math.cos(thetaRad) * (px-ox) - Math.sin(thetaRad) * (py-oy) + ox,
+        y : Math.sin(thetaRad) * (px-ox) + Math.cos(thetaRad) * (py-oy) + oy
+    };
 }

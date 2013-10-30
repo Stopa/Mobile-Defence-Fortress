@@ -91,9 +91,9 @@
     Swarm.prototype.tickMovement = function(xSpeed, ySpeed) {
         this.x += this.curDirection * xSpeed;
         this.moveEachShip(xSpeed, 0);
-        if (this.x < 0 + this.regX || this.x >= (Game.canvasWidth - this.regX) ){
+        if (this.x < 0 + this.regX || this.x >= (Game.transformedSize.x - this.regX) ){
             this.curDirection *=-1;
-            if(this.y < Stage.canvas.clientHeight*0.5) {
+            if(this.y < Game.transformedSize.y*0.5) {
                 this.y += ySpeed;
                 this.moveEachShip(0, ySpeed);
             }
