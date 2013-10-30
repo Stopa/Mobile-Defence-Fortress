@@ -30,7 +30,7 @@
 
     Destructible.prototype.isOutOfParentBounds = function() {
         return this.x < 0 || this.y < 0 || 
-                this.x > Stage.canvas.clientWidth || this.y > Stage.canvas.clientHeight;
+                this.x > Game.transformedSize.x || this.y > Game.transformedSize.y;
     };
 
     Destructible.prototype.takesDamage = function(damageAmount) {
