@@ -21,6 +21,7 @@
     };
 
     Projectile.prototype._tick = function() {
+        MDF.updateDebugRect(this);
         this.destructibleTick();
         if(this.isOutOfParentBounds()) {
             this._die();
@@ -30,7 +31,6 @@
             this.x += this.xspeed;
             this.y += this.yspeed;
         }
-        MDF.updateDebugRect(this);
     };
 
     Projectile.prototype._initGraphics = function() {
@@ -38,7 +38,6 @@
         this.projectileGraphics.x = 0;
         this.projectileGraphics.y = 0;
         this.projectileGraphics.rotation = 0;
-        MDF.createDebugRect(this);
         this.addChild(this.projectileGraphics);
         return this.projectileGraphics;
     }

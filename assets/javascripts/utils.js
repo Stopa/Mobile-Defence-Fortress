@@ -10,50 +10,48 @@ MDF.angleSpeeds = function(angle) {
     };
 }
 
-/* 
-*   Draws a rectangle around the argument object,
+/*
+* Clear and draw the debug rectangle around the argument object,
 *   based on objects width and height. for 'visual debugging'
-*   @param container - the container which shall hold the rectangle as a child (by default: the arg object itself)
 */
-MDF.createDebugRect = function (object, color, container) {
+MDF.updateDebugRect = function (object,color) {
+    Stage.removeChild(object.box);
     if (Game.debug){
+
         object.box = new createjs.Shape();
-        
         object.box.color = (color !== undefined) ? color : "#F00";
         object.box.width = object.width;
         object.box.height = object.height;
-        //object.box.regX = object.regX;
+        object.box.regX = object.regX;
         object.box.regY = object.regY;
 
-        if (container !== undefined) {
-            object.box.container = container;
-            container.addChild(object.box);
-        } else {
-            object.addChild(object.box);
-        }
-    }
-}
-/*
-* Clear and (re)draw the debug rectangle (for example, call during every tick)
-*/
-MDF.updateDebugRect = function (object) {
-    if (Game.debug){
+        Stage.addChild(object.box);
         var rectX = 0;
         var rectY = 0;
 
-        //if the container is something other than the object itself,
-        // we need to take that into account
-        if (object.box.container !== undefined){
-            rectX = object.x;
-            rectY = object.y;
-        }
         object.box.graphics.clear();
         object.box.graphics.beginStroke(object.box.color);
         object.box.graphics.rect(
-            rectX,
-            rectY,
+            object.x,
+            object.y,
             object.box.width,
             object.box.height
         );
     }
+}
+
+/** remove an object from some argument array */
+MDF.removeFromArray = function (object, array){
+    var index = array.indexOf(object);
+    array.splice(index,1);
+}
+
+/** Rotate a 2D point (px,py) by some angle theta in degrees (counterclockwise)
+    around some point (ox,oy) */
+MDF.rotatePoint = function(px,py,thetaDeg,ox,oy){
+    thetaRad = thetaDeg* Math.PI / 180;
+    return {
+        x : Math.cos(thetaRad) * (px-ox) - Math.sin(thetaRad) * (py-oy) + ox,
+        y : Math.sin(thetaRad) * (px-ox) + Math.cos(thetaRad) * (py-oy) + oy
+    };
 }
