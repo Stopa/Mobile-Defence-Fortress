@@ -99,7 +99,7 @@
         }
 
         if (Math.floor(Math.random()*1000) % 50 == 0) {
-            this.shipsArray[Math.floor(Math.random()*this.children.length)].dropBomb();
+            this.shipsArray[Math.floor(Math.random()*this.shipsArray.length)].dropBomb();
         }
     }
     
