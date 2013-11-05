@@ -18,7 +18,6 @@
     GroundPiece.prototype.destructibleInit = GroundPiece.prototype.initialize;
 
     GroundPiece.prototype.initialize = function(imagePath, x, y) {
-        debugger;
         this.destructibleInit(7);
         this.faction =  Game.factions.humans;
 
