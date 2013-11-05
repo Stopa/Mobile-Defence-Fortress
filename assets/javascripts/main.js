@@ -166,8 +166,8 @@ Game = function() {
             Stage.addChild(TestEnemy2);
 
             //Add ground tiles
-            for (i=0; i < Game.transformedSize.x; i+=40) {
-                for (j=Game.transformedSize.y-295; j<= Game.transformedSize.y; j+=40) {
+            for (i=0; i < Game.transformedSize.x; i+=22) {
+                for (j=Game.transformedSize.y-295; j<= Game.transformedSize.y; j+=22) {
                     var f = new GroundPiece("");
                     f.x = i;
                     f.y = j;
