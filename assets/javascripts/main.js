@@ -195,7 +195,7 @@ Game = function() {
             humans: 0,
             aliens: 1
         },
-        debug : false,
+        debug : true,
         godmode: false,
         transformedSize: {
             x: 1280,
