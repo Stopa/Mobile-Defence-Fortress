@@ -129,6 +129,7 @@ Game = function() {
 
     //get a reference to the canvas element
     Stage = new createjs.Stage('mainCanvas');
+    Stage.snapToPixelEnabled = true;
 
     return {
         init: function() {
@@ -167,12 +168,10 @@ Game = function() {
 
             //Add ground tiles
             for (i=0; i < Game.transformedSize.x; i+=22) {
-                for (j=Game.transformedSize.y-295; j<= Game.transformedSize.y; j+=22) {
-                    var f = new GroundPiece("");
-                    f.x = i;
-                    f.y = j;
-                    Stage.addChild(f);
-                }
+                var g = new GroundColumn();
+                g.x = i;
+                g.y = Game.transformedSize.y-286;
+                Stage.addChild(g);
             }
 
             createjs.Ticker.setFPS(60);
