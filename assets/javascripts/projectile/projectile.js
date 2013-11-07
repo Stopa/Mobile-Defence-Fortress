@@ -25,8 +25,6 @@
         this.destructibleTick();
         if(this.isOutOfParentBounds()) {
             this._die();
-        } else if(this.hasCollided == 1) {
-            this._die();
         } else {
             this.x += this.xspeed;
             this.y += this.yspeed;
@@ -45,7 +43,11 @@
     Projectile.prototype.collision = function(object) {
         this.hasCollided = 1;
         this.graphics.visible = false;
-        this.explosion = new Explosion('assets/images/enemy/explosion.png');
+        var explosion = new Explosion('assets/images/enemy/explosion.png');
+        explosion.x = this.x;
+        explosion.y = this.y;
+        Stage.addChild(explosion);
+        this._die();
     }
 
     Projectile.prototype.speed = 5;

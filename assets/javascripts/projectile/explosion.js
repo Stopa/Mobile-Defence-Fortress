@@ -1,7 +1,7 @@
 (function(window) {
   function Explosion(imagePath) {
     this.initialize(imagePath);
-    alert('Initialized');
+    //alert('Initialized');
   };
 
   Explosion.prototype = new createjs.Container();
@@ -13,7 +13,6 @@
   };
 
   Explosion.prototype._tick = function() {
-    //MDF.updateDebugRect(this);
     this.animateExplosion();
   }
 
@@ -27,11 +26,13 @@
   };
 
   Explosion.prototype.animateExplosion = function() {
-    if (this.explosionGraphics.scaleX < 2) {
+    if (this.explosionGraphics.scaleX < 1) {
       this.explosionGraphics.x -= 4.15;
       this.explosionGraphics.y -= 4.15;
       this.explosionGraphics.scaleX += 0.05;
-      this.explosionGraphics.scaleY += 0.05;            
+      this.explosionGraphics.scaleY += 0.05;
+    } else {
+      Stage.removeChild(this);
     }
   };
 
