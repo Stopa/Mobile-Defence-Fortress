@@ -19,6 +19,7 @@ Collision.QuadtreeTick = function (game, quadtree, stage){
             for (var j = 0; j < returnObjects.length; j++) {
                 if (Collision.algorithm(child, returnObjects[j])) {
                     Collision.handleCollision(child, returnObjects[j]);
+                    break;
                 }
             }
         }
@@ -28,7 +29,6 @@ Collision.QuadtreeTick = function (game, quadtree, stage){
 Collision.handleCollision = function(object1, object2){
     //should projectile and actor stats be taken into account here or
     //somewhere else?
-
     object1.collision(object2);
     object2.collision(object1);
 
