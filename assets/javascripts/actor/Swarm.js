@@ -58,7 +58,7 @@
                     swarmGlobalCoords.y + (row * shipHeight),
                     this);  //reference to ships swarm
 
-                this.shipsArray.push( Stage.addChild(enemy));
+                this.shipsArray.push( Game.gameArea.addChild(enemy));
             }
             this.totalShips = enemiesToAdd;
 
@@ -83,8 +83,8 @@
 
 
     Swarm.prototype._die = function() {
-        Stage.removeChild(this.box); //remove debugging rectangle
-        Stage.removeChild(this);
+        Game.gameArea.removeChild(this.box); //remove debugging rectangle
+        Game.gameArea.removeChild(this);
     }
 
     Swarm.prototype.tickMovement = function(xSpeed, ySpeed) {

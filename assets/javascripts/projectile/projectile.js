@@ -46,7 +46,7 @@
         var explosion = new Explosion('assets/images/enemy/explosion.png');
         explosion.x = this.x;
         explosion.y = this.y;
-        Stage.addChild(explosion);
+        Game.gameArea.addChild(explosion);
         this._die();
     }
 

@@ -32,7 +32,7 @@
       this.explosionGraphics.scaleX += 0.05;
       this.explosionGraphics.scaleY += 0.05;
     } else {
-      Stage.removeChild(this);
+      Game.gameArea.removeChild(this);
     }
   };
 

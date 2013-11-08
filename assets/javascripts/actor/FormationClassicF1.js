@@ -64,7 +64,7 @@
                 swarmGlobalCoords.y + (row * shipHeight),
                 this);  //reference to ships swarm
 
-            this.shipsArray.push( Stage.addChild(flyship));
+            this.shipsArray.push( Game.gameArea.addChild(flyship));
         }
     };
 

@@ -72,7 +72,7 @@ function spawnWaves() {
     	var swarmHorizontalPadding = 50;
 
 		spawnedSwarmsArray[spawnedSwarms] = new Swarm(swarm1x, swarm1y, swarmRows,swarmCols,swarmHorizontalPadding);
-   		Stage.addChild(spawnedSwarmsArray[spawnedSwarms]);
+   		Game.gameArea.addChild(spawnedSwarmsArray[spawnedSwarms]);
    		spawnedSwarms++;
 	}
 }

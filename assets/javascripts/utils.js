@@ -16,7 +16,7 @@ MDF.angleSpeeds = function(angle) {
 */
 MDF.updateDebugRect = function (object,color) {
     if (Game.debug){
-        Stage.removeChild(object.box);
+        Game.gameArea.removeChild(object.box);
 
         object.box = new createjs.Shape();
         object.box.color = (color !== undefined) ? color : "#F00";
@@ -25,7 +25,7 @@ MDF.updateDebugRect = function (object,color) {
         object.box.regX = object.regX;
         object.box.regY = object.regY;
 
-        Stage.addChild(object.box);
+        Game.gameArea.addChild(object.box);
         var rectX = 0;
         var rectY = 0;
 

@@ -25,7 +25,7 @@
             */
             bullet.x = weaponAbsX+angleSpeeds.x*(this.height);
             bullet.y = weaponAbsY+angleSpeeds.y*(this.height);
-            Stage.addChild(bullet);
+            Game.gameArea.addChild(bullet);
 
             this.weaponGraphics.gotoAndPlay('shoot');
             this.weaponFlameGraphics.gotoAndPlay('shoot');

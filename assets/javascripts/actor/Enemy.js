@@ -63,7 +63,7 @@
 
         bomb.x = this.parent.x + this.x + 35 + angleSpeeds.x; // 35 is bitmap width / 2
         bomb.y = this.parent.y + this.y + angleSpeeds.y;
-        Stage.addChild(bomb);
+        Game.gameArea.addChild(bomb);
     }
 
     window.Enemy = Enemy;

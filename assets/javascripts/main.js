@@ -18,7 +18,8 @@ Game = function() {
     * */
     var update = function() {
         Stage.update();
-        Collision.QuadtreeTick(Game, Quadtree, Stage);
+        Collision.QuadtreeTick(Game, Quadtree, Game.gameArea);
+        updateViewport();
     };
     /* 
     * Handle KeyDown event on window,
@@ -101,10 +102,10 @@ Game = function() {
             canvas.width = 1280;
         }
         Game.transformModifier = Stage.canvas.clientHeight/1080;
-        Game.transformedSize = {
+        /*Game.transformedSize = {
             x: canvas.width/Game.transformModifier,
             y: canvas.height/Game.transformModifier
-        };
+        };*/
         Stage.setTransform(0, 0, Game.transformModifier, Game.transformModifier);
         // redraw background
         var skyImage = queue.getResult('assets/images/level_0/sky.png'),
@@ -122,9 +123,34 @@ Game = function() {
         Stage.sky.graphics.beginBitmapFill(skyImage, 'repeat-x').rect(0,0,Game.transformedSize.x,Game.transformedSize.y);
         Stage.ground.graphics.beginBitmapFill(groundImage, 'repeat-x').rect(0,0,Game.transformedSize.x, groundImage.height);
         
-        Stage.addChild(Stage.sky);
-        Stage.addChild(Stage.ground);
+        Game.gameArea.addChild(Stage.sky);
+        Game.gameArea.addChild(Stage.ground);
         Stage.ground.y = Game.transformedSize.y-groundImage.height;
+    };
+
+    var createViewport = function() {
+        Game.gameArea = new createjs.Container();
+        Game.gameArea.setBounds(0,0,2980,1400);
+
+        Game.transformedSize.x = 2980; //TODO: remove hardcode?
+        Game.transformedSize.y = 1400;
+
+        Stage.addChild(Game.gameArea);
+    };
+
+    var updateViewport = function() {
+        var viewportTransformedWidth = Stage.canvas.width/Game.transformModifier,
+            xpos = -1*(Player.x+Player.width/2 - viewportTransformedWidth/2);
+        
+        if(xpos < 0 && xpos > (Game.gameArea.getBounds().width-viewportTransformedWidth)*-1) {
+            Game.gameArea.x = xpos;
+        }
+
+        var mouseYPercent = Stage.mouseY*100/Stage.canvas.height,
+            viewportTransformedHeight = Stage.canvas.height/Game.transformModifier;
+
+        // this last factoid added just for fancy slowdown effect on the top of the screen
+        Game.gameArea.y = -1*(Game.gameArea.getBounds().height-viewportTransformedHeight)*mouseYPercent/100*0.5//Stage.mouseY/Stage.canvas.height;
     };
 
     //get a reference to the canvas element
@@ -134,6 +160,7 @@ Game = function() {
     return {
         init: function() {
             Game.state = GAMESTATES.LOADED;
+            createViewport();
             drawBackground();
             handleFullscreenChange();
 
@@ -147,31 +174,31 @@ Game = function() {
             Player = new Player();
             Player.x = Game.transformedSize.x/2; // HARDCODE
             Player.y = Game.transformedSize.y-400; // HARDCODE
-            Stage.addChild(Player);
+            Game.gameArea.addChild(Player);
 
             HUD = new HUD();
             Stage.addChild(HUD);
 
             OrbitalDefence1 = new OrbitalDefence(200,450);
-            Stage.addChild(OrbitalDefence1);
+            Game.gameArea.addChild(OrbitalDefence1);
             OrbitalDefence2 = new OrbitalDefence(600,450);
-            Stage.addChild(OrbitalDefence2);
+            Game.gameArea.addChild(OrbitalDefence2);
             OrbitalDefence3 = new OrbitalDefence(1000,450);
-            Stage.addChild(OrbitalDefence3);
+            Game.gameArea.addChild(OrbitalDefence3);
 
 /**************************************************/
             TestEnemy1 = new Enemy(35,100);
-            Stage.addChild(TestEnemy1);
+            Game.gameArea.addChild(TestEnemy1);
 
             TestEnemy2 = new Enemy(200,200);
-            Stage.addChild(TestEnemy2);
+            Game.gameArea.addChild(TestEnemy2);
 
             //Add ground tiles
             for (i=0; i < Game.transformedSize.x; i+=22) {
                 var g = new GroundColumn();
                 g.x = i;
                 g.y = Game.transformedSize.y-286;
-                Stage.addChild(g);
+                Game.gameArea.addChild(g);
             }
 
             createjs.Ticker.setFPS(60);

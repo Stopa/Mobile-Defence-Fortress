@@ -23,7 +23,7 @@
     };
 
     Destructible.prototype._die = function() {
-        if (Game.debug) Stage.removeChild(this.box);    //remove debug rectangle
+        if (Game.debug) Game.gameArea.removeChild(this.box);    //remove debug rectangle
         this.parent.removeChild(this);
     };
 
