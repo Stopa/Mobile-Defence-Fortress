@@ -61,8 +61,8 @@
 
         var bomb = new Projectile(ENEMY_BOMB_GRAPHICS, this.rotation, angleSpeeds.x, angleSpeeds.y, this.faction, 7, 12);
 
-        bomb.x = this.parent.x + this.x + 35 + angleSpeeds.x; // 35 is bitmap width / 2
-        bomb.y = this.parent.y + this.y + angleSpeeds.y;
+        bomb.x = this.x + 35 + angleSpeeds.x; // 35 is bitmap width / 2
+        bomb.y = this.y + angleSpeeds.y;
         Game.gameArea.addChild(bomb);
     }
 
