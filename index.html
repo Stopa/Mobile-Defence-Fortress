@@ -12,7 +12,8 @@
   <script src="assets/javascripts/lib/underscore.js"></script>
   <script src="assets/javascripts/main.js"></script>
   <script>
-    var queue = new createjs.LoadQueue();
+    var queue = new createjs.LoadQueue(),
+        now = new Date().getTime();
     queue.addEventListener("complete", Game.init);
     queue.addEventListener("fileload", function(event) {
       if(event.item.type == 'javascript') {
@@ -21,35 +22,35 @@
     });
     queue.loadManifest([
       // utilities
-      'assets/javascripts/utils.js',
-      'assets/javascripts/collision/Quadtree.js',
-      'assets/javascripts/collision/Collision.js',
-      'assets/javascripts/collision/Hitbox.js',
-      'assets/javascripts/lib/SAT.js',
+      'assets/javascripts/utils.js?'+now,
+      'assets/javascripts/collision/Quadtree.js?'+now,
+      'assets/javascripts/collision/Collision.js?'+now,
+      'assets/javascripts/collision/Hitbox.js?'+now,
+      'assets/javascripts/lib/SAT.js?'+now,
       // base classes
-      'assets/javascripts/destructible.js',
-      'assets/javascripts/hull.js',
-      'assets/javascripts/GroundColumn.js',
-      'assets/javascripts/orbitaldefence.js',
+      'assets/javascripts/destructible.js?'+now,
+      'assets/javascripts/hull.js?'+now,
+      'assets/javascripts/GroundColumn.js?'+now,
+      'assets/javascripts/orbitaldefence.js?'+now,
         // actor
-          'assets/javascripts/actor/actor.js',
-          'assets/javascripts/actor/Player.js',
-          'assets/javascripts/actor/Enemy.js',
-          'assets/javascripts/actor/Flyship.js',
-          'assets/javascripts/actor/Swarm.js',
-          'assets/javascripts/actor/FormationClassicF1.js',
+          'assets/javascripts/actor/actor.js?'+now,
+          'assets/javascripts/actor/Player.js?'+now,
+          'assets/javascripts/actor/Enemy.js?'+now,
+          'assets/javascripts/actor/Flyship.js?'+now,
+          'assets/javascripts/actor/Swarm.js?'+now,
+          'assets/javascripts/actor/FormationClassicF1.js?'+now,
         // projectile
-          'assets/javascripts/projectile/explosion.js',
-          'assets/javascripts/projectile/projectile.js',
-          'assets/javascripts/projectile/missile.js',
+          'assets/javascripts/projectile/explosion.js?'+now,
+          'assets/javascripts/projectile/projectile.js?'+now,
+          'assets/javascripts/projectile/missile.js?'+now,
         // weapon
-          'assets/javascripts/weapon/weapon.js',
-          'assets/javascripts/weapon/missilelauncher.js',
-          'assets/javascripts/weapon/cannon.js',
+          'assets/javascripts/weapon/weapon.js?'+now,
+          'assets/javascripts/weapon/missilelauncher.js?'+now,
+          'assets/javascripts/weapon/cannon.js?'+now,
         // ui
-          'assets/javascripts/ui/hud.js',
+          'assets/javascripts/ui/hud.js?'+now,
       // content, subclasses
-      'assets/javascripts/basic-hull.js',
+      'assets/javascripts/basic-hull.js?'+now,
       // images
       'assets/images/level_0/sky.png',
       'assets/images/level_0/terrain_destroyed.png',
@@ -61,7 +62,7 @@
       'assets/images/level_0/earth_tiles/dmgState5.png',
       'assets/images/level_0/earth_tiles/dmgState6.png',
       // spawn engine
-      'assets/javascripts/spawn_engine/spawn_engine.js'
+      'assets/javascripts/spawn_engine/spawn_engine.js?'+now
     ]);
   </script>
 
