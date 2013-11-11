@@ -1,19 +1,18 @@
 (function(window) {
     function Destructible(baseHitpoints) {
-        if(typeof baseHitpoints != 'undefined') {
-            this.baseHitpoints = baseHitpoints;
-        } else {
-            this.baseHitpoints = 100;
-        }
-        this.faction = null;
         this.initialize();
     }
     Destructible.prototype = new createjs.Container();
     Destructible.prototype.containerInit = Destructible.prototype.initialize;
     Destructible.prototype.containerTick = Destructible.prototype._tick;
 
-    Destructible.prototype.initialize = function() {
+    Destructible.prototype.initialize = function(baseHitpoints) {
         this.containerInit();
+        if(typeof baseHitpoints != 'undefined') {
+            this.baseHitpoints = baseHitpoints;
+        } else {
+            this.baseHitpoints = 100;
+        }
     };
 
     Destructible.prototype._tick = function() {
@@ -24,7 +23,7 @@
     };
 
     Destructible.prototype._die = function() {
-        Stage.removeChild(this.box);    //remove debug rectangle
+        if (Game.debug) Stage.removeChild(this.box);    //remove debug rectangle
         this.parent.removeChild(this);
     };
 

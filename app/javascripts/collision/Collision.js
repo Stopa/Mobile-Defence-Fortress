@@ -5,7 +5,7 @@ Collision.QuadtreeTick = function (game, quadtree, stage){
     quadtree.clear();
     for (var i = 0; i < stage.children.length; i++) {
         var child = stage.getChildAt(i);
-        if (child instanceof Destructible) quadtree.insert(child);
+        if (child instanceof Destructible || child instanceof GroundColumn) quadtree.insert(child);
     }
     //go through each object and retrieve a list of objects it could 
     //possibly collide with.
@@ -19,6 +19,7 @@ Collision.QuadtreeTick = function (game, quadtree, stage){
             for (var j = 0; j < returnObjects.length; j++) {
                 if (Collision.algorithm(child, returnObjects[j])) {
                     Collision.handleCollision(child, returnObjects[j]);
+                    break;
                 }
             }
         }
@@ -28,14 +29,13 @@ Collision.QuadtreeTick = function (game, quadtree, stage){
 Collision.handleCollision = function(object1, object2){
     //should projectile and actor stats be taken into account here or
     //somewhere else?
-
     object1.collision(object2);
     object2.collision(object1);
 
 }
 
 /**
-*!! Uses Separated Axes Theorem (SAT) to check if two shapes collide
+*   Uses Separated Axes Theorem (SAT) to check if two shapes collide
 *	@returns boolean- whether the objects collide 
 */
 Collision.algorithm = function (object1, object2){
@@ -44,7 +44,7 @@ Collision.algorithm = function (object1, object2){
           1st check: did A collide with B?
         , 2nd check: did B collide with A? */
     if (! (object1 instanceof Projectile)) return false;
-    if (! (object2 instanceof Destructible)) return false;
+    if (! (object2 instanceof Destructible) && ! (object2 instanceof GroundColumn)) return false;
     if (object2 instanceof Projectile) return false;
     if (object1.faction == object2.faction) return false;
 
