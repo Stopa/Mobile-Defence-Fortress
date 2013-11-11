@@ -28,7 +28,7 @@
 
         for (var i=0; i < this.nodes.length; i++){
             if (this.nodes[i] !== undefined){
-                if (Game.debug) Stage.removeChild(this.nodes[i].bounds.box);
+                if (Game.debug) Game.gameArea.removeChild(this.nodes[i].bounds.box);
                 this.nodes[i].clear();
                 this.nodes[i] = undefined;
             }

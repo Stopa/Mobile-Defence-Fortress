@@ -55,7 +55,7 @@
             circle.graphics.beginFill("red").drawCircle(0, 0, 3);
             circle.x = this.vectorBox.pos.x + cornerPt.x;
             circle.y = this.vectorBox.pos.y + cornerPt.y;
-            Stage.addChild(circle);
+            Game.gameArea.addChild(circle);
         }
 }
 

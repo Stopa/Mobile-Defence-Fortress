@@ -30,7 +30,7 @@
             */
             bullet.x = weaponAbsX+angleSpeeds.x*(this.height)+barrelPositionSpeeds.x*5*(this._nextShotLeft?-1:1);
             bullet.y = weaponAbsY+angleSpeeds.y*(this.height)+barrelPositionSpeeds.y*5*(this._nextShotLeft?-1:1);
-            Stage.addChild(bullet);
+            Game.gameArea.addChild(bullet);
 
             if(this._nextShotLeft) {
                 this.weaponGraphics.gotoAndPlay('shootLeft');
