@@ -3,12 +3,12 @@ const GAMESTATES = {
     LOADING: 1,
     LOADED:  2,
     STARTED: 3
-}
+};
 
 const KEYS =  {
     LEFT:  0,
     RIGHT: 1
-}
+};
 
 var Game, Quadtree, Player, Stage, EnemyShip, Swarm1, Facility1;
 
@@ -140,7 +140,8 @@ Game = function() {
 
     var updateViewport = function() {
         var viewportTransformedWidth = Stage.canvas.width/Game.transformModifier,
-            xpos = -1*(Player.x+Player.width/2 - viewportTransformedWidth/2);
+            mouseModifier = (Stage.mouseX-Stage.canvas.width/2)/Stage.canvas.width*200,
+            xpos = -1*(Player.x+Player.width/2 - viewportTransformedWidth/2)-mouseModifier;
         
         if(xpos < 0 && xpos > (Game.gameArea.getBounds().width-viewportTransformedWidth)*-1) {
             Game.gameArea.x = xpos;
@@ -150,7 +151,8 @@ Game = function() {
             viewportTransformedHeight = Stage.canvas.height/Game.transformModifier;
 
         // this last factoid added just for fancy slowdown effect on the top of the screen
-        Game.gameArea.y = -1*(Game.gameArea.getBounds().height-viewportTransformedHeight)*mouseYPercent/100*0.5//Stage.mouseY/Stage.canvas.height;
+        Game.gameArea.y = -1*(Game.gameArea.getBounds().height-viewportTransformedHeight)*mouseYPercent/100*(Stage.mouseY/Stage.canvas.height)/2;
+
     };
 
     //get a reference to the canvas element
@@ -227,5 +229,5 @@ Game = function() {
             x: 1280,
             y: 720
         }
-    }
+    };
 }();
