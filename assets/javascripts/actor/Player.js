@@ -10,14 +10,14 @@
         this.actorInit();
         this.faction =  Game.factions.humans;
         this._initGraphics();
-    }
+    };
 
     Player.prototype._tick = function() {
         this.actorTick();
         this.tickMovement();
         this._tickPrimaryWeapon();
         this._tickSecondaryWeapon();
-    }
+    };
 
     Player.prototype._initGraphics = function() {
         this.hull = new BasicHull();
@@ -37,7 +37,7 @@
         this.addChild(this.primaryWeapon);
         this.addChild(this.secondaryWeapon);
         this.addChild(this.hull);
-    }
+    };
 
     Player.prototype.tickMovement = function() {
         switch(Game.controls.movementKeyPressed) {
@@ -48,7 +48,7 @@
                 this.moveRight();
             break;
         }
-    }
+    };
 
     Player.prototype._tickPrimaryWeapon = function() {
         if(this.primaryWeapon) {
@@ -72,13 +72,13 @@
         if(this.x > 0) {
             this.x -= this.baseMovementSpeed;
         }
-    }
+    };
 
     Player.prototype.moveRight = function() {
         if(this.x < Game.transformedSize.x-this.hull.width) {
             this.x += this.baseMovementSpeed;
         }
-    }
+    };
 
     Player.prototype.getHitpoints = function() {
         /**
@@ -86,11 +86,11 @@
         *   should return actual hitpoints.
         */
         return this.baseHitpoints;
-    }
+    };
 
     Player.prototype.collision = function(object) {
         if (!Game.godmode) this.takesDamage(10); // HARDCODE
-    }
+    };
 
     Player.prototype.baseMovementSpeed = 5;
 
