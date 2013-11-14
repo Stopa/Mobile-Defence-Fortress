@@ -51,7 +51,7 @@
     };
 
     Player.prototype._tickPrimaryWeapon = function() {
-        if(this.primaryWeapon) {
+        if(this.primaryWeapon && !this.primaryWeapon.isAutomatic) {
             this.primaryWeapon.rotateToCursor();
             if(Game.controls.leftMouseDown) {
                 this.primaryWeapon.shoot();
@@ -60,7 +60,7 @@
     };
 
     Player.prototype._tickSecondaryWeapon = function() {
-        if(this.secondaryWeapon) {
+        if(this.secondaryWeapon && !this.secondaryWeapon.isAutomatic) {
             this.secondaryWeapon.rotateToCursor();
             if(Game.controls.rightMouseDown) {
                 this.secondaryWeapon.shoot();
