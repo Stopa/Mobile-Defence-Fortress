@@ -27,7 +27,7 @@
             deltaY = Stage.mouseY-posPoint.y,
             degrees = (Math.atan2(deltaY, deltaX)*180/Math.PI)+90;
 
-        if(degrees < 60 && degrees > -60) {
+        if(Math.abs(degrees) < this.maxAngle) {
             this.rotation = degrees;
         }
     };
@@ -66,6 +66,8 @@
     Weapon.prototype.attackSpeed = 100;
     // If cooldown <= 0 then fire new projectile.
     Weapon.prototype.cooldown = 0;
+    // Maximum rotation angle
+    Weapon.prototype.maxAngle = 60;
 
     window.Weapon = Weapon;
-}(window))
+}(window));
