@@ -92,7 +92,7 @@
         if (!Game.godmode) this.takesDamage(10); // HARDCODE
     };
 
-    Player.prototype.baseMovementSpeed = 5;
+    Player.prototype.baseMovementSpeed = 7;
 
     window.Player = Player;
 }(window));

@@ -172,11 +172,10 @@ Game = function() {
                 Game.transformedSize.y);
             Quadtree = new QuadTree(0, QuadTreeRect);
 
-
             Player = new Player();
             Player.x = Game.transformedSize.x/2; // HARDCODE
-            Player.y = Game.transformedSize.y-400; // HARDCODE
-            Game.gameArea.addChild(Player);
+            Player.y = Game.transformedSize.y-390; // HARDCODE
+            Stage.addChild(Player);
 
             HUD = new HUD();
             Stage.addChild(HUD);
