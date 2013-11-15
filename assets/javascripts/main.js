@@ -172,14 +172,23 @@ Game = function() {
                 Game.transformedSize.y);
             Quadtree = new QuadTree(0, QuadTreeRect);
 
+            /*
+            *   Player
+            */
             Player = new Player();
             Player.x = Game.transformedSize.x/2; // HARDCODE
             Player.y = Game.transformedSize.y-390; // HARDCODE
             Game.gameArea.addChild(Player);
 
+            /*
+            *   HUD
+            */
             HUD = new HUD();
             Stage.addChild(HUD);
 
+            /*
+            *   Orbital Defence
+            */
             OrbitalDefence1 = new OrbitalDefence(200,450);
             Game.gameArea.addChild(OrbitalDefence1);
             OrbitalDefence2 = new OrbitalDefence(600,450);
@@ -187,14 +196,18 @@ Game = function() {
             OrbitalDefence3 = new OrbitalDefence(1000,450);
             Game.gameArea.addChild(OrbitalDefence3);
 
-/**************************************************/
+            /*
+            *   Enemies
+            */
             TestEnemy1 = new Enemy(35,100);
             Game.gameArea.addChild(TestEnemy1);
 
             TestEnemy2 = new Enemy(200,200);
             Game.gameArea.addChild(TestEnemy2);
 
-            //Add ground tiles
+            /*
+            *   Ground tiles
+            */
             for (i=0; i < Game.transformedSize.x; i+=22) {
                 var g = new GroundColumn();
                 g.x = i;
@@ -202,6 +215,23 @@ Game = function() {
                 Game.gameArea.addChild(g);
             }
 
+            /*
+            *   Facility
+            */
+            Facility1 = new Facility(200, Game.transformedSize.y-350);
+            Game.gameArea.addChild(Facility1);
+            Facility2 = new Facility(800, Game.transformedSize.y-350);
+            Game.gameArea.addChild(Facility2);
+            Facility3 = new Facility(1200, Game.transformedSize.y-350);
+            Game.gameArea.addChild(Facility3);
+            Facility4 = new Facility(2000, Game.transformedSize.y-350);
+            Game.gameArea.addChild(Facility4);
+            Facility5 = new Facility(2200, Game.transformedSize.y-350);
+            Game.gameArea.addChild(Facility5);
+
+            /*
+            *   Misc
+            */
             createjs.Ticker.setFPS(60);
             createjs.Ticker.addEventListener('tick', update);
             document.addEventListener('keydown', handleKeyDown);
