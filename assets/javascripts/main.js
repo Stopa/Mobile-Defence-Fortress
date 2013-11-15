@@ -30,10 +30,12 @@ Game = function() {
             switch(event.keyCode) {
                 case 37: // left
                 case 65: // a
+                    Game.controls.movementKeyReleased = undefined;
                     Game.controls.movementKeyPressed = KEYS.LEFT;
                 break;
                 case 39: // right
                 case 68: // d
+                    Game.controls.movementKeyReleased = undefined;
                     Game.controls.movementKeyPressed = KEYS.RIGHT;
                 break;
             }
@@ -50,12 +52,14 @@ Game = function() {
                 case 65: // a
                     if(Game.controls.movementKeyPressed == KEYS.LEFT) {
                         Game.controls.movementKeyPressed = undefined;
+                        Game.controls.movementKeyReleased = KEYS.LEFT;
                     }
                 break;
                 case 39: // right
                 case 68: // d
                     if(Game.controls.movementKeyPressed == KEYS.RIGHT) {
                         Game.controls.movementKeyPressed = undefined;
+                        Game.controls.movementKeyReleased = KEYS.RIGHT;
                     }
                 break;
             }
@@ -245,6 +249,7 @@ Game = function() {
         },
         controls: {
             movementKeyPressed: undefined,
+            movementKeyReleased: undefined,
             leftMouseDown: false,
             rightMouseDown: false
         },

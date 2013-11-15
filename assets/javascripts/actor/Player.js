@@ -48,6 +48,14 @@
                 this.moveRight();
             break;
         }
+        switch(Game.controls.movementKeyReleased) {
+            case KEYS.LEFT:
+                this.moveLeftInertion();
+            break;
+            case KEYS.RIGHT:
+                this.moveRightInertion();
+            break;
+        }
     };
 
     Player.prototype._tickPrimaryWeapon = function() {
@@ -70,13 +78,29 @@
 
     Player.prototype.moveLeft = function() {
         if(this.x > 0) {
+            this.currentMovementInertion = this.baseMovementInertion;
             this.x -= this.baseMovementSpeed;
+        }
+    };
+
+    Player.prototype.moveLeftInertion = function() {
+        if(this.x > 0 && this.currentMovementInertion > 0) {
+            this.x -= this.currentMovementInertion;
+            this.currentMovementInertion -= 0.05;
         }
     };
 
     Player.prototype.moveRight = function() {
         if(this.x < Game.transformedSize.x-this.hull.width) {
+            this.currentMovementInertion = this.baseMovementInertion;
             this.x += this.baseMovementSpeed;
+        }
+    };
+
+    Player.prototype.moveRightInertion = function() {
+        if(this.x < Game.transformedSize.x-this.hull.width && this.currentMovementInertion > 0) {
+            this.x += this.currentMovementInertion;
+            this.currentMovementInertion -= 0.05;
         }
     };
 
@@ -93,6 +117,8 @@
     };
 
     Player.prototype.baseMovementSpeed = 5;
+    Player.prototype.baseMovementInertion = 5;
+    Player.prototype.currentMovementInertion = 0;
 
     window.Player = Player;
 }(window));
