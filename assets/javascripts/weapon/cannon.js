@@ -21,7 +21,7 @@
 
 
             var bullet = new Projectile(CANNON_BULLET_GRAPHICS,
-                this.rotation, angleSpeeds.x, angleSpeeds.y,
+                this.rotation, angleSpeeds.x*1.5, angleSpeeds.y*1.5,
                 this.parent.faction,
                 5, 5);
             /*

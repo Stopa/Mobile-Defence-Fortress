@@ -175,7 +175,7 @@ Game = function() {
             Player = new Player();
             Player.x = Game.transformedSize.x/2; // HARDCODE
             Player.y = Game.transformedSize.y-390; // HARDCODE
-            Stage.addChild(Player);
+            Game.gameArea.addChild(Player);
 
             HUD = new HUD();
             Stage.addChild(HUD);
