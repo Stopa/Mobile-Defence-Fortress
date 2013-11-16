@@ -65,9 +65,9 @@ function spawnWaves() {
 
   for (var i = 0; i < swarmsArray.length; i++) {  
     var spawn = {
-      x : swarmsArray[i][1],
-      y : swarmsArray[i][2],
-      ticksLeft: swarmsArray[i][3]*60 // Ticks per second = 60
+      x : parseInt(swarmsArray[i][1]),
+      y : parseInt(swarmsArray[i][2]),
+      ticksLeft: parseInt(swarmsArray[i][3]*60) // Ticks per second = 60
     }
 
     spawns.push(spawn);
