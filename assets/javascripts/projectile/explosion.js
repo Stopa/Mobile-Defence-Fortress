@@ -1,24 +1,29 @@
 (function(window) {
-  function Explosion(imagePath) {
-    this.initialize(imagePath);
+  function Explosion(imagePath,x,y) {
+    this.initialize(imagePath,x,y);
   }
 
   Explosion.prototype = new createjs.Container();
   Explosion.prototype.containerInit = Explosion.prototype.initialize;
   Explosion.prototype.containerTick = Explosion.prototype._tick;
-  Explosion.prototype.initialize = function(imagePath) {
+  Explosion.prototype.initialize = function(imagePath,x,y) {
     this.containerInit();
     this._initExplosionGraphics(imagePath);
+    this.height = 166; // HARDCODE
+    this.width = 166; // HARDCODE
+    this.x = x-166/2; // HARDCODE
+    this.y = y-166/2; // HARDCODE
   };
 
   Explosion.prototype._tick = function() {
     this.animateExplosion();
+    MDF.updateDebugRect(this,'green');
   };
 
   Explosion.prototype._initExplosionGraphics = function(imagePath) {
     this.explosionGraphics = new createjs.Bitmap(imagePath);
-    this.explosionGraphics.x = 0;
-    this.explosionGraphics.y = 0;
+    this.explosionGraphics.x = 166/2; // HARDCODE
+    this.explosionGraphics.y = 166/2; // HARDCODE
     this.explosionGraphics.scaleX = 0;
     this.explosionGraphics.scaleY = 0;
     this.addChild(this.explosionGraphics);

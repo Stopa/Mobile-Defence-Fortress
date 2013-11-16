@@ -250,8 +250,8 @@ Game = function() {
             createjs.Ticker.addEventListener('tick', update);
             document.addEventListener('keydown', handleKeyDown);
             document.addEventListener('keyup', handleKeyUp);
-            document.addEventListener('mousedown', handleMouseDown);
-            document.addEventListener('mouseup', handleMouseUp);
+            Stage.canvas.addEventListener('mousedown', handleMouseDown);
+            Stage.canvas.addEventListener('mouseup', handleMouseUp);
             document.addEventListener('contextmenu', handleContextMenu);
             document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
 
