@@ -13,18 +13,21 @@
 
             var realAngle = (this.rotation-90)*-1,
                 angleSpeeds = MDF.angleSpeeds(realAngle),
-                weaponAbsX = this.parent.x+this.x,
-                weaponAbsY = this.parent.y+this.y;
+                weaponAbs = this.parent.localToLocal(this.x,this.y,Game.gameArea),
+                mousePosition = Game.gameArea.globalToLocal(Stage.mouseX,Stage.mouseY);
 
-            var mouseDistance = Math.sqrt(Math.pow(Stage.mouseX-weaponAbsX, 2)+Math.pow(Stage.mouseY-weaponAbsY, 2));
+            var mouseDistance = Math.sqrt(Math.pow(mousePosition.x-weaponAbs.x, 2)+Math.pow(mousePosition.y-weaponAbs.y, 2)),
+                xtarget = weaponAbs.x+angleSpeeds.x*mouseDistance,
+                ytarget = weaponAbs.y+angleSpeeds.y*mouseDistance;
+
             // CANT USE THAT, need to only use allowed mouse positions
-            var bullet = new this.missile(this.rotation, angleSpeeds.x, angleSpeeds.y, weaponAbsX+angleSpeeds.x*mouseDistance, weaponAbsY+angleSpeeds.y*mouseDistance, this.parent.faction);
+            var bullet = new this.missile(this.rotation, angleSpeeds.x, angleSpeeds.y, xtarget, ytarget, this.parent.faction);
             /*
             * Bullet starting point is offset by the weapon length along the weapon rotation axis
             * and offset by 10 pixels by the perpendicular angle depending on which barrel we are currently using
             */
-            bullet.x = weaponAbsX+angleSpeeds.x*(this.height);
-            bullet.y = weaponAbsY+angleSpeeds.y*(this.height);
+            bullet.x = weaponAbs.x+angleSpeeds.x*(this.height);
+            bullet.y = weaponAbs.y+angleSpeeds.y*(this.height);
             Game.gameArea.addChild(bullet);
 
             this.weaponGraphics.gotoAndPlay('shoot');
