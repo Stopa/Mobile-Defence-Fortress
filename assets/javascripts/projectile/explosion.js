@@ -1,7 +1,6 @@
 (function(window) {
   function Explosion(imagePath) {
     this.initialize(imagePath);
-    //alert('Initialized');
   };
 
   Explosion.prototype = new createjs.Container();
