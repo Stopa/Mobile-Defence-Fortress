@@ -52,11 +52,7 @@
     };
 
     Missile.prototype.hasReachedTarget = function() {
-        return (this.xspeed > 0 && this.x <= this.xtarget && this.x+this.xspeed > this.xtarget ||
-            this.xspeed < 0 && this.x >= this.xtarget && this.x+this.xspeed < this.xtarget)
-            &&
-            (this.yspeed > 0 && this.y <= this.ytarget && this.y+this.yspeed > this.ytarget ||
-            this.yspeed < 0 && this.y >= this.ytarget && this.y+this.yspeed < this.ytarget);
+        return Math.abs(this.xtarget-this.x) < Math.abs(this.xspeed) && Math.abs(this.ytarget-this.y) < Math.abs(this.yspeed);
     };
 
     Missile.prototype._die = function() {
