@@ -203,12 +203,12 @@ Game = function() {
 
             /*
             *   Enemies
-            */
+            
             TestEnemy1 = new Enemy(35,100);
             Game.gameArea.addChild(TestEnemy1);
 
             TestEnemy2 = new Enemy(200,200);
-            Game.gameArea.addChild(TestEnemy2);
+            Game.gameArea.addChild(TestEnemy2);*/
 
             /*
             *   Ground tiles
