@@ -65,7 +65,7 @@ function spawnWaves() {
 
 	for (var i = 0; i < swarmsArray.length; i++) {  
     var spawn = {
-      x : Game.transformedSize.x/2,
+      x : 200,
       y : 200,
       ticksLeft: swarmsArray[i][3]*60 // Ticks per second = 60
     }
