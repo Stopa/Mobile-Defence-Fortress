@@ -65,9 +65,9 @@ function spawnWaves() {
 
   for (var i = 0; i < swarmsArray.length; i++) {  
     var spawn = {
-      x : 400,
-      y : 400,
-      ticksLeft: swarmsArray[i][1]*60 // Ticks per second = 60
+      x : swarmsArray[i][1],
+      y : swarmsArray[i][2],
+      ticksLeft: swarmsArray[i][3]*60 // Ticks per second = 60
     }
 
     spawns.push(spawn);
@@ -79,8 +79,10 @@ function getWaves() {
   var swarmsArray = new Array();
   for (var i = 1; i <= swarmCount; i++) {
     var swarmType = '#swarm_' + i + ' .form-group:nth-child(1) option:selected';
-    var swarmTimer = '#swarm_' + i + ' .form-group:nth-child(2) input';
-    var swarm = [$(swarmType).text(), $(swarmTimer).val()];
+    var swarmX = '#swarm_' + i + ' .form-group:nth-child(2) input';
+    var swarmY = '#swarm_' + i + ' .form-group:nth-child(3) input';
+    var swarmTimer = '#swarm_' + i + ' .form-group:nth-child(4) input';
+    var swarm = [$(swarmType).text(), $(swarmX).val(), $(swarmY).val(), $(swarmTimer).val()];
     swarmsArray.push(swarm);
   }
   return swarmsArray;
