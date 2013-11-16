@@ -54,6 +54,7 @@
         this.x += this.curDirection * this.xSpeed;
         this.moveEachShip(this.xSpeed, 0);
         if (this.x < 0 + this.regX || this.x >= (Game.transformedSize.x -this.width) ){
+            console.log("stopping"+ this.x + "; " + this.y);
             this.curDirection *=-1;
             if(this.y < Game.transformedSize.y*0.5) {
                 this.y += this.ySpeed;

@@ -65,9 +65,9 @@ function spawnWaves() {
 
   for (var i = 0; i < swarmsArray.length; i++) {  
     var spawn = {
-      x : swarmsArray[i][1],
-      y : swarmsArray[i][2],
-      ticksLeft: swarmsArray[i][3]*60 // Ticks per second = 60
+      x : parseInt(swarmsArray[i][1]),
+      y : parseInt(swarmsArray[i][2]),
+      ticksLeft: parseInt(swarmsArray[i][3]*60) // Ticks per second = 60
     }
 
     spawns.push(spawn);
@@ -93,6 +93,7 @@ function SpawnEngineTick() {
     for(var i = spawns.length; i > 0; i--) {
       if(spawns[i-1].ticksLeft <= 0) {
         var spawn = spawns[i-1];
+        debugger;
         Game.gameArea.addChild(new FormationClassicF1(spawn.x, spawn.y));
         spawns.splice(i-1,1);
       } else {
