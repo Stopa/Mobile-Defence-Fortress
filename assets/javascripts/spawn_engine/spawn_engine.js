@@ -63,25 +63,17 @@ function deleteSwarm(swarm) {
 function spawnWaves() {
 	swarmsArray = getWaves();
 
-	for (var i = 0; i < swarmsArray.length; i++) {
-
-		var swarmRows = swarmsArray[i][1];
-		var swarmCols = swarmsArray[i][2];
-		var swarmTimer = swarmsArray[i][3];
-	  var swarm1x = Game.transformedSize.x/2;
-   	var swarm1y = 200;
-  	var swarmHorizontalPadding = 50;
-    
+	for (var i = 0; i < swarmsArray.length; i++) {  
     var spawn = {
-      x : swarm1x,
-      y : swarm1y,
-      rows : swarmRows,
-      cols : swarmCols,
-      horizontalPadding : swarmHorizontalPadding,
-      ticksLeft: swarmTimer*60 // Ticks per second = 60
+      x : Game.transformedSize.x/2,
+      y : 200,
+      rows : swarmsArray[i][1],
+      cols : swarmsArray[i][2],
+      horizontalPadding : 50,
+      ticksLeft: swarmsArray[i][3]*60 // Ticks per second = 60
     }
+    
     spawns.push(spawn);
-
  		spawnedSwarms++;
 	}
 }
