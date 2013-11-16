@@ -8,7 +8,8 @@
 
     HUD.prototype.initialize = function() {
         this.containerInit();
-        this.hudGraphics = this._initGraphics();
+        this.hudHealthAndFPS = this._initGraphics();
+        this.hudGameOver = this.gameOver();
     }
     HUD.prototype._tick = function() {
         this.containerTick();
@@ -29,10 +30,27 @@
     HUD.prototype.tickUpdateHUD = function() {
         this.hitpointsString = "Health: " + window.Player.getHitpoints();
         this.hitpointsString += "\n FPS: "+ Math.floor(createjs.Ticker.getMeasuredFPS());
-        this.hudGraphics.text = this.hitpointsString;
+        this.hudHealthAndFPS.text = this.hitpointsString;
+
+        if (!window.Player.getHitpoints() > 0) {
+            this.hudGameOver.visible = true;
+        }
     }
 
-    HUD.prototype.hudGraphics = 0;
+    HUD.prototype.gameOver = function() {
+        this.gameOverString = "Game over, N00B!";
+        this.gameOverHUDText = new createjs.Text(this.gameOverString, "50px Arial", "#FFFFFF");
+        this.gameOverHUDText.textAlign = "center";
+        this.gameOverHUDText.x = 1900/2;
+        this.gameOverHUDText.y = 1080/2;
+        this.gameOverHUDText.visible = false;
+        this.addChild(this.gameOverHUDText);
+
+        return this.gameOverHUDText;
+    }
+
+    HUD.prototype.hudHealthAndFPS = 0;
+    HUD.prototype.hudGameOver = 0;
 
     window.HUD = HUD;
 }(window));

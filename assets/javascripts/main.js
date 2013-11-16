@@ -234,6 +234,16 @@ Game = function() {
             Game.gameArea.addChild(Facility5);
 
             /*
+            *   Turrets
+            */
+            Turret1 = new PlanetaryTurretBaseHigh(400, Game.transformedSize.y-329);
+            Game.gameArea.addChild(Turret1);
+            Turret2 = new PlanetaryTurretBaseLow(1000, Game.transformedSize.y-314);
+            Game.gameArea.addChild(Turret2);
+            Turret3 = new PlanetaryTurretBaseLow(1800, Game.transformedSize.y-314);
+            Game.gameArea.addChild(Turret3);
+
+            /*
             *   Misc
             */
             createjs.Ticker.setFPS(60);
