@@ -7,7 +7,7 @@ $(document).ready(function(){
 
 var waveCount = 0;
 var swarmCount = 0;
-var spawnedSwarmsArray = new Array();
+var spawns = [];
 var	spawnedSwarms = 0; 
 
 function newWave() {
@@ -63,17 +63,18 @@ function deleteSwarm(swarm) {
 function spawnWaves() {
 	swarmsArray = getWaves();
 
-	for (var i = 0; i < swarmsArray.length; i++) {
-
-		var swarmRows = swarmsArray[i][1];
-		var swarmCols = swarmsArray[i][2];
-	    var swarm1x = Game.transformedSize.x/2;
-    	var swarm1y = 200;
-    	var swarmHorizontalPadding = 50;
-
-		spawnedSwarmsArray[spawnedSwarms] = new Swarm(swarm1x, swarm1y, swarmRows,swarmCols,swarmHorizontalPadding);
-   		Game.gameArea.addChild(spawnedSwarmsArray[spawnedSwarms]);
-   		spawnedSwarms++;
+	for (var i = 0; i < swarmsArray.length; i++) {  
+    var spawn = {
+      x : Game.transformedSize.x/2,
+      y : 200,
+      rows : swarmsArray[i][1],
+      cols : swarmsArray[i][2],
+      horizontalPadding : 50,
+      ticksLeft: swarmsArray[i][3]*60 // Ticks per second = 60
+    }
+    
+    spawns.push(spawn);
+ 		spawnedSwarms++;
 	}
 }
 
@@ -81,11 +82,23 @@ function getWaves() {
 	var swarmsArray = new Array();
 	for (var i = 1; i <= swarmCount; i++) {
 		var swarmType = '#swarm_' + i + ' .form-group:nth-child(1) option:selected';
-		var swarmShips = '#swarm_' + i + ' .form-group:nth-child(2) input';
-		var swarmTimer = '#swarm_' + i + ' .form-group:nth-child(3) input';
-		var swarm = [$(swarmType).text(), $(swarmShips).val(), $(swarmTimer).val()];
+		var swarmRows = '#swarm_' + i + ' .form-group:nth-child(2) input';
+		var swarmColumns = '#swarm_' + i + ' .form-group:nth-child(3) input';
+		var swarmTimer = '#swarm_' + i + ' .form-group:nth-child(4) input';
+		var swarm = [$(swarmType).text(), $(swarmRows).val(), $(swarmColumns).val(), $(swarmTimer).val()];
 		swarmsArray.push(swarm);
 	}
 	return swarmsArray;
 }
 
+function SpawnEngineTick() {
+  for(var i = spawns.length; i > 0; i--) {
+    if(spawns[i-1].ticksLeft <= 0) {
+      var spawn = spawns[i-1];
+      Game.gameArea.addChild(new Swarm(spawn.x, spawn.y, spawn.rows, spawn.cols, spawn.horizontalPadding));
+      spawns.splice(i-1,1);
+    } else {
+      spawns[i-1].ticksLeft--;
+    }
+  }
+}

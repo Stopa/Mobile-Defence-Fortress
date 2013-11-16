@@ -19,6 +19,7 @@ Game = function() {
     var update = function() {
         Stage.update();
         Collision.QuadtreeTick(Game, Quadtree, Game.gameArea);
+        SpawnEngineTick();
         updateViewport();
     };
     /* 
