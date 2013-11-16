@@ -1,7 +1,7 @@
 (function(window) {
   function Explosion(imagePath) {
     this.initialize(imagePath);
-  };
+  }
 
   Explosion.prototype = new createjs.Container();
   Explosion.prototype.containerInit = Explosion.prototype.initialize;
@@ -13,7 +13,7 @@
 
   Explosion.prototype._tick = function() {
     this.animateExplosion();
-  }
+  };
 
   Explosion.prototype._initExplosionGraphics = function(imagePath) {
     this.explosionGraphics = new createjs.Bitmap(imagePath);
@@ -38,4 +38,4 @@
   Explosion.prototype.explosionGraphics = 0;
 
   window.Explosion = Explosion;
-}(window))
+}(window));
