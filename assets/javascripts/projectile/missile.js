@@ -46,7 +46,7 @@
         this.parent.removeChild(this);
     };
 
-    Missile.prototype.speed = 20;
+    Missile.prototype.speed = 2;
     Missile.prototype.missile = Missile;
     Missile.prototype.explosionTimeToLive = 100;
 
