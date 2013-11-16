@@ -13,6 +13,11 @@
         this.y = y;
         
         this.faction =  Game.factions.humans;
+
+        this.pointDefence = new PointDefence();
+        this.pointDefence.x = 47;
+        this.pointDefence.y = 0; // HARDCODE
+        this.addChild(this.pointDefence);
         
         this.graphics = this._initGraphics();
     };
@@ -22,8 +27,8 @@
     };
 
     Facility.prototype._initGraphics = function() {
-        //this.width = 99;
-        //this.height = 47;
+        this.width = 65*1.5;
+        this.height = 43*1.5;
         this.facilityBitmap = new createjs.Bitmap('assets/images/facility/building.png');
         this.facilityBitmap.scaleX = 1.5;
         this.facilityBitmap.scaleY = 1.5;
@@ -32,8 +37,8 @@
     };
 
     Facility.prototype._initDamagedGraphics = function() {
-        //this.width = 99;
-        //this.height = 47;
+        this.width = 65*1.5;
+        this.height = 43*1.5;
         this.facilityBitmap = new createjs.Bitmap('assets/images/facility/building_damaged.png');
         this.facilityBitmap.scaleX = 1.5;
         this.facilityBitmap.scaleY = 1.5;
@@ -50,8 +55,10 @@
     };
 
     Facility.prototype.collision = function(object) {
-        if (!Game.godmode) this.takesDamage(10); // HARDCODE
+        if (!Game.godmode) this.takesDamage(50); // HARDCODE
         if (this.getHitpoints() <= 50) {
+            this.removeChild(this.pointDefence);
+            this.graphics.visible = false;
             this.graphics = this._initDamagedGraphics();
         }
     };
