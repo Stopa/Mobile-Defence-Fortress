@@ -128,8 +128,8 @@
 
     Player.prototype.baseMovementSpeed = 5;
     Player.prototype.baseMovementDecelerationDuration = 30;
-    Player.prototype.currentMovementDecelerationDuration = 0;
     Player.prototype.currentMovementSpeed = 0;
+    Player.prototype.currentMovementDecelerationDuration = 0;    
 
     window.Player = Player;
 }(window));
