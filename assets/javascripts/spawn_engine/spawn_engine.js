@@ -93,7 +93,6 @@ function SpawnEngineTick() {
     for(var i = spawns.length; i > 0; i--) {
       if(spawns[i-1].ticksLeft <= 0) {
         var spawn = spawns[i-1];
-        debugger;
         Game.gameArea.addChild(new FormationClassicF1(spawn.x, spawn.y));
         spawns.splice(i-1,1);
       } else {
