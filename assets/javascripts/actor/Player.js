@@ -50,10 +50,10 @@
         }
         switch(Game.controls.movementKeyReleased) {
             case KEYS.LEFT:
-                this.moveLeftInertion();
+                this.moveLeftDeceleration();
             break;
             case KEYS.RIGHT:
-                this.moveRightInertion();
+                this.moveRightDeceleration();
             break;
         }
     };
@@ -78,29 +78,35 @@
 
     Player.prototype.moveLeft = function() {
         if(this.x > 0) {
-            this.currentMovementInertion = this.baseMovementInertion;
-            this.x -= this.baseMovementSpeed;
+            this.currentMovementSpeed = this.baseMovementSpeed;
+            this.currentMovementDecelerationDuration = this.baseMovementDecelerationDuration;
+            this.x -= this.currentMovementSpeed;
         }
     };
 
-    Player.prototype.moveLeftInertion = function() {
-        if(this.x > 0 && this.currentMovementInertion > 0) {
-            this.x -= this.currentMovementInertion;
-            this.currentMovementInertion -= 0.05;
+    Player.prototype.moveLeftDeceleration = function() {
+        if(this.x > 0 && 
+           this.currentMovementDecelerationDuration > 0) {
+            this.currentMovementSpeed -= this.getDeceleration();
+            this.x -= this.currentMovementSpeed;
+            this.currentMovementDecelerationDuration -= 1;
         }
     };
 
     Player.prototype.moveRight = function() {
         if(this.x < Game.transformedSize.x-this.hull.width) {
-            this.currentMovementInertion = this.baseMovementInertion;
-            this.x += this.baseMovementSpeed;
+            this.currentMovementSpeed = this.baseMovementSpeed;
+            this.currentMovementDecelerationDuration = this.baseMovementDecelerationDuration;
+            this.x += this.currentMovementSpeed;
         }
     };
 
-    Player.prototype.moveRightInertion = function() {
-        if(this.x < Game.transformedSize.x-this.hull.width && this.currentMovementInertion > 0) {
-            this.x += this.currentMovementInertion;
-            this.currentMovementInertion -= 0.05;
+    Player.prototype.moveRightDeceleration = function() {
+        if(this.x < Game.transformedSize.x-this.hull.width && 
+           this.currentMovementDecelerationDuration > 0) {
+            this.currentMovementSpeed -= this.getDeceleration();
+            this.x += this.currentMovementSpeed;
+            this.currentMovementDecelerationDuration -= 1;
         }
     };
 
@@ -116,9 +122,14 @@
         if (!Game.godmode) this.takesDamage(10); // HARDCODE
     };
 
+    Player.prototype.getDeceleration = function() {
+        return this.baseMovementSpeed/this.baseMovementDecelerationDuration;
+    }
+
     Player.prototype.baseMovementSpeed = 5;
-    Player.prototype.baseMovementInertion = 5;
-    Player.prototype.currentMovementInertion = 0;
+    Player.prototype.baseMovementDecelerationDuration = 30;
+    Player.prototype.currentMovementDecelerationDuration = 0;
+    Player.prototype.currentMovementSpeed = 0;
 
     window.Player = Player;
 }(window));
