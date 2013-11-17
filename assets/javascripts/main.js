@@ -220,18 +220,9 @@ Game = function() {
             /*
             *   Enemies
             */
-            TestEnemy1 = new FormationClassicF1(100,200);
+            TestEnemy1 = new FormationClassicF1(100,0);
             Game.gameArea.addChild(TestEnemy1);
 
-            /*
-            *   Ground tiles
-            */
-            for (i=0; i < Game.transformedSize.x; i+=22) {
-                var g = new GroundColumn();
-                g.x = i;
-                g.y = Game.transformedSize.y-286;
-                Game.gameArea.addChild(g);
-            }
 
             /*
             *   Facility
@@ -256,6 +247,16 @@ Game = function() {
             Game.gameArea.addChild(Turret2);
             Turret3 = new PlanetaryTurretBaseLow(1800, Game.transformedSize.y-314);
             Game.gameArea.addChild(Turret3);
+            
+            /*
+            *   Ground tiles
+            */
+            for (i=0; i < Game.transformedSize.x; i+=22) {
+                var g = new GroundColumn();
+                g.x = i;
+                g.y = Game.transformedSize.y-286;
+                Game.gameArea.addChild(g);
+            }
 
             /*
             *   Misc

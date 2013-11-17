@@ -55,3 +55,10 @@ MDF.rotatePoint = function(px,py,thetaDeg,ox,oy){
         y : Math.sin(thetaRad) * (px-ox) + Math.cos(thetaRad) * (py-oy) + oy
     };
 }
+
+/** Assumes that an object's x and y coords mark the top
+ * left corner of the object 
+ */
+MDF.getCenterPoint = function(object){
+    return new createjs.Point((object.x + object.width*0.5),(object.y + object.height*0.5));
+}
