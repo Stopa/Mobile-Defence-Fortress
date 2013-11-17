@@ -30,8 +30,8 @@ Game = function() {
         if (!createjs.Sound.initializeDefaultPlugins()) {return;}
         var audioPath = "assets/sounds/";
         var manifest = [
-            {id:"enemy_shoot", src:audioPath+"enemy/enemy_shoot.wav"},
-            {id:"cannon", src:audioPath+"player_ship/cannon.wav"},
+            {id:"enemy_shoot",  src:audioPath+"enemy/enemy_shoot.wav"},
+            {id:"cannon",       src:audioPath+"player_ship/cannon.wav"},
             {id:"turret_shoot", src:audioPath+"turret/turret_shoot.wav"}
         ];
 
@@ -128,16 +128,16 @@ Game = function() {
         };*/
         Stage.setTransform(0, 0, Game.transformModifier, Game.transformModifier);
         // redraw background
-        var skyImage = queue.getResult('assets/images/level_0/sky.png'),
-            groundImage = queue.getResult('assets/images/level_0/terrain_destroyed.png');
+        var skyImage = queue.getResult('sky'),
+            groundImage = queue.getResult('terrain_destroyed');
         Stage.sky.graphics.beginBitmapFill(skyImage, 'repeat-x').rect(0,0,Game.transformedSize.x,Game.transformedSize.y);
         Stage.ground.graphics.beginBitmapFill(groundImage, 'repeat-x').rect(0,0,Game.transformedSize.x, groundImage.height);
         Stage.ground.y = Game.transformedSize.y-groundImage.height;
     };
     
     var drawBackground = function() {
-        var skyImage = queue.getResult('assets/images/level_0/sky.png'),
-            groundImage = queue.getResult('assets/images/level_0/terrain_destroyed.png');
+        var skyImage = queue.getResult('sky'),
+            groundImage = queue.getResult('terrain_destroyed');
         Stage.sky = new createjs.Shape();
         Stage.ground = new createjs.Shape();
         Stage.sky.graphics.beginBitmapFill(skyImage, 'repeat-x').rect(0,0,Game.transformedSize.x,Game.transformedSize.y);

@@ -23,7 +23,6 @@
 
     OrbitalDefence.prototype._initGraphics = function() {
         this.orbitalDefenceBitmap = new createjs.Bitmap('assets/images/orbital_defence/orbital_defence.png');
-        
 
         this.orbitalDefenceBitmap.scaleX = 1/2;
         this.orbitalDefenceBitmap.scaleY = 1/4;
