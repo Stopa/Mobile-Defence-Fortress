@@ -19,6 +19,21 @@
         this.takesDamage(51); //HARDCODE
     }
 
+    /** The following function is currently identical to the one in basicEnemy.js 
+    !TODO describe a separate attack/shot/bomb behaviour function here */
+    Flyship.prototype.dropBomb = function(){
+        var ENEMY_BOMB_GRAPHICS = 'assets/images/enemy/enemy_bombv2.png';
+
+        var angleSpeeds = MDF.angleSpeeds(270);
+
+        var bomb = new Projectile(ENEMY_BOMB_GRAPHICS, this.rotation, angleSpeeds.x, angleSpeeds.y, this.faction, 7, 12);
+        bomb.baseDamage = 10;
+
+        bomb.x = this.x + 35 + angleSpeeds.x; // 35 is bitmap width / 2
+        bomb.y = this.y + angleSpeeds.y;
+        Game.gameArea.addChild(bomb);
+    }
+
 
     /** Global static vars */
     Flyship.width = 45;

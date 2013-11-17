@@ -13,7 +13,7 @@
         this.weaponTick();
                 
         if(!this.currentTarget){ // find target if one is not present
-            this.currentTarget = Actor.prototype.findTarget(this, [Enemy]);
+            this.currentTarget = AI.findTarget(this, [Enemy]);
         } else {
             if(this.currentTarget.baseHitpoints <= 0) { // it's already dead!
                 this.currentTarget = undefined;
