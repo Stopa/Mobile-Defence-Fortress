@@ -49,7 +49,7 @@
                 idle: 3
             }
         });
-        this.gumFlameSpriteSheet = new createjs.SpriteSheet({
+        this.gunFlameSpriteSheet = new createjs.SpriteSheet({
             images: ['assets/images/player_ship/1a/1a_mdf_cannon_right_flame.png'],
             frames: {
                 width: 51,
@@ -65,7 +65,7 @@
         this.weaponGraphics.x = -1*this.width/2;
         this.addChild(this.weaponGraphics);
 
-        this.weaponFlameGraphics = new createjs.Sprite(this.gumFlameSpriteSheet, 'idle');
+        this.weaponFlameGraphics = new createjs.Sprite(this.gunFlameSpriteSheet, 'idle');
         this.weaponFlameGraphics.compositeOperation = 'lighter';
         this.weaponFlameGraphics.x = -1*this.width/2;
         this.addChild(this.weaponFlameGraphics);
