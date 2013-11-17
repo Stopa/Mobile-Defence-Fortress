@@ -11,12 +11,14 @@
 
     PointDefence.prototype._tick = function() {
         this.weaponTick();
-        this.currentTarget || this.findTarget(); // find target it one is not present
-        if(this.currentTarget) {
+                
+        if(!this.currentTarget){ // find target if one is not present
+            this.currentTarget = Actor.prototype.findTarget(this, [Enemy]);
+        } else {
             if(this.currentTarget.baseHitpoints <= 0) { // it's already dead!
                 this.currentTarget = undefined;
                 return; // i am so done
-            }
+        }
 
             var globalPosition = this.parent.localToLocal(this.x,this.y,Game.gameArea),
                 deltaX = this.currentTarget.x-globalPosition.x,
@@ -36,23 +38,6 @@
 
             if(Math.abs(difference) < 10 && Math.abs(this.rotation) < this.maxShootingAngle) { // TODO - should try to get ahead of the enemy?
                 this.shoot();
-            }
-        }
-    };
-
-    PointDefence.prototype.findTarget = function() {
-        var globalPosition = this.parent.localToLocal(this.x,this.y,Game.gameArea);
-
-        for(var i = 0; i < Game.gameArea.children.length; i++) { // TODO - can be done more efficiently, e.g. with collision?
-            if(Game.gameArea.children[i] instanceof Enemy) {
-                var deltaX = Game.gameArea.children[i].x-globalPosition.x,
-                    deltaY = Game.gameArea.children[i].y-globalPosition.y,
-                    distance = Math.sqrt(Math.pow(deltaX,2)+Math.pow(deltaY,2));
-
-                if(distance < this.range) { // TODO - should choose the closest target instead of a random one?
-                    this.currentTarget = Game.gameArea.children[i];
-                    break;
-                }
             }
         }
     };
@@ -80,6 +65,7 @@
             bullet.x = weaponAbsX+angleSpeeds.x*(this.height)+barrelPositionSpeeds.x*5*(this._nextShotLeft?-1:1);
             bullet.y = weaponAbsY+angleSpeeds.y*(this.height)+barrelPositionSpeeds.y*5*(this._nextShotLeft?-1:1);
             Game.gameArea.addChild(bullet);
+            this.playSound("turret_shoot", 0.7);
 
             if(this._nextShotLeft) {
                 this.weaponGraphics.gotoAndPlay('shootLeft');

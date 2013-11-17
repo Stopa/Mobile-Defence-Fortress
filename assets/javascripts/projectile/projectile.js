@@ -43,11 +43,11 @@
     Projectile.prototype.collision = function(object) {
         this.hasCollided = 1;
         this.graphics.visible = false;
-        var explosion = new Explosion('assets/images/enemy/explosion.png');
-        explosion.x = this.x;
-        explosion.y = this.y;
+        var explosion = new Explosion('assets/images/enemy/explosion.png',this.x,this.y);
         Game.gameArea.addChild(explosion);
         this._die();
+
+        if(object.takesDamage) object.takesDamage(this.baseDamage);
     }
 
     Projectile.prototype.speed = 5;
@@ -57,6 +57,8 @@
     Projectile.prototype.graphics = 0;
 
     Projectile.prototype.explosion = 0;
+
+    Projectile.prototype.baseDamage = 100;
 
     window.Projectile = Projectile;
 }(window))

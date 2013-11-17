@@ -42,6 +42,10 @@
             this.regY = this.height-10;
         }
     };
+    Weapon.prototype.playSound = function(soundId) {
+        var instance = createjs.Sound.play(soundId);
+        instance.volume = this.soundVolume;
+    };
     Weapon.prototype.shoot = function() {
         if(this.cooldown <= 0) {
             var realAngle = (this.rotation-90)*-1,
@@ -68,6 +72,8 @@
     Weapon.prototype.cooldown = 0;
     // Maximum rotation angle
     Weapon.prototype.maxAngle = 60;
+    // Sound volume
+    Weapon.prototype.soundVolume = 0.7;
 
     window.Weapon = Weapon;
 }(window));

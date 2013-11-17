@@ -39,10 +39,12 @@
         var angleSpeeds = MDF.angleSpeeds(270);
 
         var bomb = new Projectile(ENEMY_BOMB_GRAPHICS, this.rotation, angleSpeeds.x, angleSpeeds.y, this.faction, 7, 12);
+        bomb.baseDamage = 10;
 
         bomb.x = this.x + 35 + angleSpeeds.x; // 35 is bitmap width / 2
         bomb.y = this.y + angleSpeeds.y;
         Game.gameArea.addChild(bomb);
+        this.playSound("enemy_shoot");
     }
 
    /** Global static vars */

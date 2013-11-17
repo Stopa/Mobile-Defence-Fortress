@@ -22,6 +22,21 @@ Game = function() {
         SpawnEngineTick();
         updateViewport();
     };
+    /*
+    *   Sounds
+    */
+    var loadSounds = function() {
+        // if initializeDefaultPlugins returns false, we cannot play sound in this browser
+        if (!createjs.Sound.initializeDefaultPlugins()) {return;}
+        var audioPath = "assets/sounds/";
+        var manifest = [
+            {id:"enemy_shoot", src:audioPath+"enemy/enemy_shoot.wav"},
+            {id:"cannon", src:audioPath+"player_ship/cannon.wav"},
+            {id:"turret_shoot", src:audioPath+"turret/turret_shoot.wav"}
+        ];
+
+        createjs.Sound.registerManifest(manifest);
+    };
     /* 
     * Handle KeyDown event on window,
     * mark if any control keys are pressed
@@ -119,7 +134,7 @@ Game = function() {
         Stage.ground.graphics.beginBitmapFill(groundImage, 'repeat-x').rect(0,0,Game.transformedSize.x, groundImage.height);
         Stage.ground.y = Game.transformedSize.y-groundImage.height;
     };
-
+    
     var drawBackground = function() {
         var skyImage = queue.getResult('assets/images/level_0/sky.png'),
             groundImage = queue.getResult('assets/images/level_0/terrain_destroyed.png');
@@ -170,6 +185,7 @@ Game = function() {
             createViewport();
             drawBackground();
             handleFullscreenChange();
+            loadSounds();
 
             //used for collision detection (spatial partitioning)
             var QuadTreeRect = new createjs.Rectangle(0,0,
@@ -248,8 +264,8 @@ Game = function() {
             createjs.Ticker.addEventListener('tick', update);
             document.addEventListener('keydown', handleKeyDown);
             document.addEventListener('keyup', handleKeyUp);
-            document.addEventListener('mousedown', handleMouseDown);
-            document.addEventListener('mouseup', handleMouseUp);
+            Stage.canvas.addEventListener('mousedown', handleMouseDown);
+            Stage.canvas.addEventListener('mouseup', handleMouseUp);
             document.addEventListener('contextmenu', handleContextMenu);
             document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
 
