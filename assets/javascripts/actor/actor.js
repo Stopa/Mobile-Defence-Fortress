@@ -11,6 +11,10 @@
     Actor.prototype._tick = function() {
         this.destructibleTick();
     };
+    Actor.prototype.playSound = function(soundId) {
+        var instance = createjs.Sound.play(soundId);
+        instance.volume = this.soundVolume;
+    };
 
     /** Finds the first object in gameArea.children array which matches any of the
     *  provided targetTypes and is within range of targeter, returns it.
@@ -33,5 +37,6 @@
         }
     };
 
+    Actor.prototype.soundVolume = 0.7;
     window.Actor = Actor;
 }(window))

@@ -44,6 +44,7 @@
         bomb.x = this.x + 35 + angleSpeeds.x; // 35 is bitmap width / 2
         bomb.y = this.y + angleSpeeds.y;
         Game.gameArea.addChild(bomb);
+        this.playSound("enemy_shoot");
     }
 
    /** Global static vars */
