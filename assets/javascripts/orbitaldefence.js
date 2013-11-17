@@ -8,18 +8,18 @@
     OrbitalDefence.prototype.destructibleDie = OrbitalDefence.prototype._die;
 
     OrbitalDefence.prototype.initialize = function(x,y) {
-        this.destructibleInit();        
+        this.destructibleInit();
 
         this.x = x;
         this.y = y;
         this.faction = Game.factions.humans;
 
         this._initGraphics();
-    }
+    };
 
     OrbitalDefence.prototype._tick = function() {
         this.destructibleTick();
-    }
+    };
 
     OrbitalDefence.prototype._initGraphics = function() {
         this.orbitalDefenceBitmap = new createjs.Bitmap('assets/images/orbital_defence/orbital_defence.png');
@@ -32,12 +32,12 @@
         this.height=this.orbitalDefenceBitmap.scaleY * 256;
 
         this.addChild(this.orbitalDefenceBitmap);
-    }
+    };
 
     OrbitalDefence.prototype.collision = function(object){
-        this.takesDamage(20); //HARDCODE
-        this._die();
-    }
+    };
+
+    OrbitalDefence.prototype.baseHitpoints = 30;
 
     window.OrbitalDefence = OrbitalDefence;
-}(window))
+}(window));
