@@ -161,7 +161,7 @@ Game = function() {
     var updateViewport = function() {
         var viewportTransformedWidth = Stage.canvas.width/Game.transformModifier,
             mouseModifier = (Stage.mouseX-Stage.canvas.width/2)/Stage.canvas.width*200,
-            xpos = -1*(Player.x+Player.width/2 - viewportTransformedWidth/2)-mouseModifier;
+            xpos = -1*(PlayerFortress.x+PlayerFortress.width/2 - viewportTransformedWidth/2)-mouseModifier;
         
         if(xpos < 0 && xpos > (Game.gameArea.getBounds().width-viewportTransformedWidth)*-1) {
             Game.gameArea.x = xpos;
@@ -196,10 +196,10 @@ Game = function() {
             /*
             *   Player
             */
-            Player = new Player();
-            Player.x = Game.transformedSize.x/2; // HARDCODE
-            Player.y = Game.transformedSize.y-390; // HARDCODE
-            Game.gameArea.addChild(Player);
+            PlayerFortress = new Player();
+            PlayerFortress.x = Game.transformedSize.x/2; // HARDCODE
+            PlayerFortress.y = Game.transformedSize.y-390; // HARDCODE
+            Game.gameArea.addChild(PlayerFortress);
 
             /*
             *   HUD
@@ -220,7 +220,7 @@ Game = function() {
             /*
             *   Enemies
             */
-            TestEnemy1 = new FormationClassicF1(100,0);
+            TestEnemy1 = new FormationClassicF1(600,0);
             Game.gameArea.addChild(TestEnemy1);
 
 
