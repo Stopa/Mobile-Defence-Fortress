@@ -17,7 +17,7 @@
     }
 
     HUD.prototype._initGraphics = function() {
-        this.hitpointsString = "Health: " + window.Player.getHitpoints(); 
+        this.hitpointsString = "Health: " + window.PlayerFortress.getHitpoints(); 
         this.hitpointsHUDText = new createjs.Text(this.hitpointsString, "20px Arial", "#FFFFFF");
         this.hitpointsHUDText.textAlign = "center";
         this.hitpointsHUDText.x = 60;
@@ -28,11 +28,11 @@
     }
 
     HUD.prototype.tickUpdateHUD = function() {
-        this.hitpointsString = "Health: " + window.Player.getHitpoints();
+        this.hitpointsString = "Health: " + window.PlayerFortress.getHitpoints();
         this.hitpointsString += "\n FPS: "+ Math.floor(createjs.Ticker.getMeasuredFPS());
         this.hudHealthAndFPS.text = this.hitpointsString;
 
-        if (!window.Player.getHitpoints() > 0) {
+        if (!window.PlayerFortress.getHitpoints() > 0) {
             this.hudGameOver.visible = true;
         }
     }
