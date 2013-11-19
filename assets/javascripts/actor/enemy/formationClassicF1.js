@@ -13,7 +13,7 @@
 
         this.state = swarmCommon.states.SPAWNED;
         this.fillSwarm();
-        this.range = 1200;
+        //this.range = 1200; // https://www.dropbox.com/s/paqyrdnksc5mgqn/Screenshot%202013-11-20%2000.37.09.png
     };
 
 
