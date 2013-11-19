@@ -144,46 +144,52 @@ Game = function() {
     };
 
     var updateViewport = function() {
-        var mouseYPercent = Stage.mouseY*100/Stage.canvas.height,
-            mousePercentModified = (1/5*(3*mouseYPercent+200));
+        var mouseYPercent,
+            mouseXModifier;
 
-        // this last factoid added just for fancy slowdown effect on the top of the screen
-        //Game.gameArea.y = -1*(Game.gameArea.getBounds().height-viewportTransformedHeight)*mouseYPercent/100*(Stage.mouseY/Stage.canvas.height)/2;
-
-        //Game.gameArea.y = -1*(Game.gameArea.getBounds().height-viewportTransformedHeight)*mouseYPercent/100;
-        //console.log(-1*(Game.gameArea.getBounds().height-viewportTransformedHeight));
-        //console.log(mouseYPercent, (1/5*(3*mouseYPercent+200)))
-        //Game.gameArea.y = -1*(Game.gameArea.getBounds().height-viewportTransformedHeight)*(mouseYPercent-2/3*(100-mouseYPercent))/100;
-        
-        var transmod = 1;
-        /*if(mouseYPercent < 50) {
-            transmod = (mouseYPercent*0.008+0.6);
+        if(Stage.mouseY === 0 && Stage.mouseX === 0 && !$(Stage.canvas).is(':hover')) { // TODO: somehow NOT check it with jQuery?
+            // If we're not hovering the canvas, assume the mouse is in middle right
+            mouseYPercent = 100;
+            mouseXModifier = 0;
         } else {
-            transmod = 1;
+            mouseYPercent = Stage.mouseY*100/Stage.canvas.height;
+            mouseXModifier = ((Stage.mouseX-Stage.canvas.width/2)/Stage.canvas.width*200);
         }
-        Game.gameArea.setTransform(0,0, transmod,transmod);*/
+        
+        var transmod = 1,
+            ypos,
+            xpos;
+        if(mouseYPercent < 30) {
+            // if mouse is in top 30%, zoom out
+            transmod = 0.2/15*mouseYPercent+9/15;
+        }
 
-        if(mouseYPercent > 50) {
-            var viewportTransformedHeight = Stage.canvas.height/Game.transformModifier/transmod,
-                viewportHeightOnePercent = (Game.gameArea.getBounds().height-viewportTransformedHeight)/100;
-            Game.gameArea.y = -1*viewportHeightOnePercent*mousePercentModified;
+        var viewportTransformedHeight = Stage.canvas.height/Game.transformModifier/transmod,
+            viewportHeightOnePercent = (Game.gameArea.getBounds().height-viewportTransformedHeight)/100;
+        
+        if(mouseYPercent < 30) {
+            // if mouse is in top 30%, position viewport so that player is on botto edge
+            ypos = -1*((Player.y+Player.height)-viewportTransformedHeight)*transmod;
+        } else {
+            ypos = -1*viewportHeightOnePercent*(3/7*mouseYPercent+400/7);
         }
 
-        var viewportTransformedWidth = (Stage.canvas.width/Game.transformModifier)/transmod,
-            mouseModifier = ((Stage.mouseX-Stage.canvas.width/2)/Stage.canvas.width*200)*transmod,
-            playerCenter = (Player.x+Player.width/2)*transmod,
-            xpos = -1*(playerCenter-viewportTransformedWidth/(2/transmod))-mouseModifier;
-        //console.log(xpos-viewportTransformedWidth)
-        //if(xpos < 0 && xpos > (Game.gameArea.getBounds().width-viewportTransformedWidth)*-1) {
-        //console.log(xpos-viewportTransformedWidth,Game.gameArea.getBounds().width/transmod)
-        //console.log(xpos-viewportTransformedWidth, Game.gameArea.getBounds().width)
-        //console.log(viewportTransformedWidth)
-        //console.log(xpos)
-        if(xpos < 0 && xpos-viewportTransformedWidth > Game.transformedSize.x*-1) {
-            Game.gameArea.x = xpos;
-        } else if(xpos < 0) {
-            Game.gameArea.x = -1*(Game.transformedSize.x-viewportTransformedWidth);
+        var viewportTransformedWidth = Stage.canvas.width/Game.transformModifier/transmod,
+            playerCenter = (Player.x+Player.width/2)*transmod;
+
+        // horisontally centered on player +- mouse X modifier, as calculated previously
+        xpos = -1*(playerCenter-viewportTransformedWidth/(2/transmod))-mouseXModifier*transmod;
+
+        if(xpos > 0) {
+            // do not allow bigger than 0 (over left edge)
+            xpos = 0;
+        } else if(Game.gameArea.getBounds().width-(-1)*xpos/transmod<viewportTransformedWidth) {
+            // do not allow smaller than gameArea width - viewport width (over right edge)
+            xpos = -1*(Game.gameArea.getBounds().width-viewportTransformedWidth)*transmod;
         }
+
+        // set transformation - position and zoom level
+        Game.gameArea.setTransform(xpos,ypos,transmod,transmod);
     };
 
     //get a reference to the canvas element
@@ -291,7 +297,7 @@ Game = function() {
             humans: 0,
             aliens: 1
         },
-        debug : true,
+        debug : false,
         godmode: false,
         transformedSize: {
             x: 1280,
