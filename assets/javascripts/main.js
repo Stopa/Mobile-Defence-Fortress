@@ -150,29 +150,61 @@ Game = function() {
 
     var createViewport = function() {
         Game.gameArea = new createjs.Container();
-        Game.gameArea.setBounds(0,0,2980,1400);
+        Game.gameArea.setBounds(0,0,4470,2100);
 
-        Game.transformedSize.x = 2980; //TODO: remove hardcode?
-        Game.transformedSize.y = 1400;
+        Game.transformedSize.x = 4470; //TODO: remove hardcode?
+        Game.transformedSize.y = 2100;
 
         Stage.addChild(Game.gameArea);
     };
 
     var updateViewport = function() {
-        var viewportTransformedWidth = Stage.canvas.width/Game.transformModifier,
-            mouseModifier = (Stage.mouseX-Stage.canvas.width/2)/Stage.canvas.width*200,
-            xpos = -1*(PlayerFortress.x+PlayerFortress.width/2 - viewportTransformedWidth/2)-mouseModifier;
+        var mouseYPercent,
+            mouseXModifier;
+
+        if(Stage.mouseY === 0 && Stage.mouseX === 0 && !$(Stage.canvas).is(':hover')) { // TODO: somehow NOT check it with jQuery?
+            // If we're not hovering the canvas, assume the mouse is in middle right
+            mouseYPercent = 100;
+            mouseXModifier = 0;
+        } else {
+            mouseYPercent = Stage.mouseY*100/Stage.canvas.height;
+            mouseXModifier = ((Stage.mouseX-Stage.canvas.width/2)/Stage.canvas.width*200);
+        }
         
-        if(xpos < 0 && xpos > (Game.gameArea.getBounds().width-viewportTransformedWidth)*-1) {
-            Game.gameArea.x = xpos;
+        var transmod = 1,
+            ypos,
+            xpos;
+        if(mouseYPercent < 30) {
+            // if mouse is in top 30%, zoom out
+            transmod = 0.2/15*mouseYPercent+9/15;
         }
 
-        var mouseYPercent = Stage.mouseY*100/Stage.canvas.height,
-            viewportTransformedHeight = Stage.canvas.height/Game.transformModifier;
+        var viewportTransformedHeight = Stage.canvas.height/Game.transformModifier/transmod,
+            viewportHeightOnePercent = (Game.gameArea.getBounds().height-viewportTransformedHeight)/100;
+        
+        if(mouseYPercent < 30) {
+            // if mouse is in top 30%, position viewport so that player is on botto edge
+            ypos = -1*((PlayerFortress.y+PlayerFortress.height)-viewportTransformedHeight)*transmod;
+        } else {
+            ypos = -1*viewportHeightOnePercent*(3/7*mouseYPercent+400/7);
+        }
 
-        // this last factoid added just for fancy slowdown effect on the top of the screen
-        Game.gameArea.y = -1*(Game.gameArea.getBounds().height-viewportTransformedHeight)*mouseYPercent/100*(Stage.mouseY/Stage.canvas.height)/2;
+        var viewportTransformedWidth = Stage.canvas.width/Game.transformModifier/transmod,
+            playerCenter = (PlayerFortress.x+PlayerFortress.width/2)*transmod;
 
+        // horisontally centered on player +- mouse X modifier, as calculated previously
+        xpos = -1*(playerCenter-viewportTransformedWidth/(2/transmod))-mouseXModifier*transmod;
+
+        if(xpos > 0) {
+            // do not allow bigger than 0 (over left edge)
+            xpos = 0;
+        } else if(Game.gameArea.getBounds().width-(-1)*xpos/transmod<viewportTransformedWidth) {
+            // do not allow smaller than gameArea width - viewport width (over right edge)
+            xpos = -1*(Game.gameArea.getBounds().width-viewportTransformedWidth)*transmod;
+        }
+
+        // set transformation - position and zoom level
+        Game.gameArea.setTransform(xpos,ypos,transmod,transmod);
     };
 
     //get a reference to the canvas element
