@@ -19,7 +19,23 @@ Game = function() {
     var update = function() {
         Stage.update();
         Collision.QuadtreeTick(Game, Quadtree, Game.gameArea);
+        SpawnEngineTick();
         updateViewport();
+    };
+    /*
+    *   Sounds
+    */
+    var loadSounds = function() {
+        // if initializeDefaultPlugins returns false, we cannot play sound in this browser
+        if (!createjs.Sound.initializeDefaultPlugins()) {return;}
+        var audioPath = "assets/sounds/";
+        var manifest = [
+            {id:"enemy_shoot",  src:audioPath+"enemy/enemy_shoot.wav"},
+            {id:"cannon",       src:audioPath+"player_ship/cannon.wav"},
+            {id:"turret_shoot", src:audioPath+"turret/turret_shoot.wav"}
+        ];
+
+        createjs.Sound.registerManifest(manifest);
     };
     /* 
     * Handle KeyDown event on window,
@@ -112,16 +128,16 @@ Game = function() {
         };*/
         Stage.setTransform(0, 0, Game.transformModifier, Game.transformModifier);
         // redraw background
-        var skyImage = queue.getResult('assets/images/level_0/sky.png'),
-            groundImage = queue.getResult('assets/images/level_0/terrain_destroyed.png');
+        var skyImage = queue.getResult('sky'),
+            groundImage = queue.getResult('terrain_destroyed');
         Stage.sky.graphics.beginBitmapFill(skyImage, 'repeat-x').rect(0,0,Game.transformedSize.x,Game.transformedSize.y);
         Stage.ground.graphics.beginBitmapFill(groundImage, 'repeat-x').rect(0,0,Game.transformedSize.x, groundImage.height);
         Stage.ground.y = Game.transformedSize.y-groundImage.height;
     };
-
+    
     var drawBackground = function() {
-        var skyImage = queue.getResult('assets/images/level_0/sky.png'),
-            groundImage = queue.getResult('assets/images/level_0/terrain_destroyed.png');
+        var skyImage = queue.getResult('sky'),
+            groundImage = queue.getResult('terrain_destroyed');
         Stage.sky = new createjs.Shape();
         Stage.ground = new createjs.Shape();
         Stage.sky.graphics.beginBitmapFill(skyImage, 'repeat-x').rect(0,0,Game.transformedSize.x,Game.transformedSize.y);
@@ -134,29 +150,61 @@ Game = function() {
 
     var createViewport = function() {
         Game.gameArea = new createjs.Container();
-        Game.gameArea.setBounds(0,0,2980,1400);
+        Game.gameArea.setBounds(0,0,4470,2100);
 
-        Game.transformedSize.x = 2980; //TODO: remove hardcode?
-        Game.transformedSize.y = 1400;
+        Game.transformedSize.x = 4470; //TODO: remove hardcode?
+        Game.transformedSize.y = 2100;
 
         Stage.addChild(Game.gameArea);
     };
 
     var updateViewport = function() {
-        var viewportTransformedWidth = Stage.canvas.width/Game.transformModifier,
-            mouseModifier = (Stage.mouseX-Stage.canvas.width/2)/Stage.canvas.width*200,
-            xpos = -1*(Player.x+Player.width/2 - viewportTransformedWidth/2)-mouseModifier;
+        var mouseYPercent,
+            mouseXModifier;
+
+        if(Stage.mouseY === 0 && Stage.mouseX === 0 && !$(Stage.canvas).is(':hover')) { // TODO: somehow NOT check it with jQuery?
+            // If we're not hovering the canvas, assume the mouse is in middle right
+            mouseYPercent = 100;
+            mouseXModifier = 0;
+        } else {
+            mouseYPercent = Stage.mouseY*100/Stage.canvas.height;
+            mouseXModifier = ((Stage.mouseX-Stage.canvas.width/2)/Stage.canvas.width*200);
+        }
         
-        if(xpos < 0 && xpos > (Game.gameArea.getBounds().width-viewportTransformedWidth)*-1) {
-            Game.gameArea.x = xpos;
+        var transmod = 1,
+            ypos,
+            xpos;
+        if(mouseYPercent < 30) {
+            // if mouse is in top 30%, zoom out
+            transmod = 0.2/15*mouseYPercent+9/15;
         }
 
-        var mouseYPercent = Stage.mouseY*100/Stage.canvas.height,
-            viewportTransformedHeight = Stage.canvas.height/Game.transformModifier;
+        var viewportTransformedHeight = Stage.canvas.height/Game.transformModifier/transmod,
+            viewportHeightOnePercent = (Game.gameArea.getBounds().height-viewportTransformedHeight)/100;
+        
+        if(mouseYPercent < 30) {
+            // if mouse is in top 30%, position viewport so that player is on botto edge
+            ypos = -1*((PlayerFortress.y+PlayerFortress.height)-viewportTransformedHeight)*transmod;
+        } else {
+            ypos = -1*viewportHeightOnePercent*(3/7*mouseYPercent+400/7);
+        }
 
-        // this last factoid added just for fancy slowdown effect on the top of the screen
-        Game.gameArea.y = -1*(Game.gameArea.getBounds().height-viewportTransformedHeight)*mouseYPercent/100*(Stage.mouseY/Stage.canvas.height)/2;
+        var viewportTransformedWidth = Stage.canvas.width/Game.transformModifier/transmod,
+            playerCenter = (PlayerFortress.x+PlayerFortress.width/2)*transmod;
 
+        // horisontally centered on player +- mouse X modifier, as calculated previously
+        xpos = -1*(playerCenter-viewportTransformedWidth/(2/transmod))-mouseXModifier*transmod;
+
+        if(xpos > 0) {
+            // do not allow bigger than 0 (over left edge)
+            xpos = 0;
+        } else if(Game.gameArea.getBounds().width-(-1)*xpos/transmod<viewportTransformedWidth) {
+            // do not allow smaller than gameArea width - viewport width (over right edge)
+            xpos = -1*(Game.gameArea.getBounds().width-viewportTransformedWidth)*transmod;
+        }
+
+        // set transformation - position and zoom level
+        Game.gameArea.setTransform(xpos,ypos,transmod,transmod);
     };
 
     //get a reference to the canvas element
@@ -169,6 +217,7 @@ Game = function() {
             createViewport();
             drawBackground();
             handleFullscreenChange();
+            loadSounds();
 
             //used for collision detection (spatial partitioning)
             var QuadTreeRect = new createjs.Rectangle(0,0,
@@ -179,10 +228,10 @@ Game = function() {
             /*
             *   Player
             */
-            Player = new Player();
-            Player.x = Game.transformedSize.x/2; // HARDCODE
-            Player.y = Game.transformedSize.y-390; // HARDCODE
-            Game.gameArea.addChild(Player);
+            PlayerFortress = new Player();
+            PlayerFortress.x = Game.transformedSize.x/2; // HARDCODE
+            PlayerFortress.y = Game.transformedSize.y-390; // HARDCODE
+            Game.gameArea.addChild(PlayerFortress);
 
             /*
             *   HUD
@@ -203,21 +252,9 @@ Game = function() {
             /*
             *   Enemies
             */
-            TestEnemy1 = new Enemy(35,100);
+            TestEnemy1 = new FormationClassicF1(600,0);
             Game.gameArea.addChild(TestEnemy1);
 
-            TestEnemy2 = new Enemy(200,200);
-            Game.gameArea.addChild(TestEnemy2);
-
-            /*
-            *   Ground tiles
-            */
-            for (i=0; i < Game.transformedSize.x; i+=22) {
-                var g = new GroundColumn();
-                g.x = i;
-                g.y = Game.transformedSize.y-286;
-                Game.gameArea.addChild(g);
-            }
 
             /*
             *   Facility
@@ -234,14 +271,34 @@ Game = function() {
             Game.gameArea.addChild(Facility5);
 
             /*
+            *   Turrets
+            */
+            Turret1 = new PlanetaryTurretBaseHigh(400, Game.transformedSize.y-329);
+            Game.gameArea.addChild(Turret1);
+            Turret2 = new PlanetaryTurretBaseLow(1000, Game.transformedSize.y-314);
+            Game.gameArea.addChild(Turret2);
+            Turret3 = new PlanetaryTurretBaseLow(1800, Game.transformedSize.y-314);
+            Game.gameArea.addChild(Turret3);
+            
+            /*
+            *   Ground tiles
+            */
+            for (i=0; i < Game.transformedSize.x; i+=22) {
+                var g = new GroundColumn();
+                g.x = i;
+                g.y = Game.transformedSize.y-286;
+                Game.gameArea.addChild(g);
+            }
+
+            /*
             *   Misc
             */
             createjs.Ticker.setFPS(60);
             createjs.Ticker.addEventListener('tick', update);
             document.addEventListener('keydown', handleKeyDown);
             document.addEventListener('keyup', handleKeyUp);
-            document.addEventListener('mousedown', handleMouseDown);
-            document.addEventListener('mouseup', handleMouseUp);
+            Stage.canvas.addEventListener('mousedown', handleMouseDown);
+            Stage.canvas.addEventListener('mouseup', handleMouseUp);
             document.addEventListener('contextmenu', handleContextMenu);
             document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
 

@@ -13,11 +13,6 @@
         this.y = y;
         
         this.faction =  Game.factions.humans;
-
-        this.pointDefence = new PointDefence();
-        this.pointDefence.x = 47;
-        this.pointDefence.y = 0; // HARDCODE
-        this.addChild(this.pointDefence);
         
         this.graphics = this._initGraphics();
     };

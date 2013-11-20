@@ -35,7 +35,7 @@
 
     GroundColumn.prototype.initSprite = function() {
         this.snapToPixel = true;
-        this.graphics.beginBitmapFill(queue.getResult('assets/images/level_0/earth_tiles/dmgState0.png'), 'repeat-y').drawRect(0,0,this.width,this.height);
+        this.graphics.beginBitmapFill(queue.getResult('dmgState0'), 'repeat-y').drawRect(0,0,this.width,this.height);
         this.cache(0,0,this.width,this.height);
     };
 
@@ -46,7 +46,7 @@
             this.topTileDamageState = damageStates.dmgState0;
         }
         this.graphics.clear();
-        this.graphics.beginBitmapFill(queue.getResult('assets/images/level_0/earth_tiles/dmgState0.png'),
+        this.graphics.beginBitmapFill(queue.getResult('dmgState0'),
             'repeat-y').drawRect(0, 22, this.width, this.height-22);
 
         this.graphics.beginBitmapFill(queue.getResult(this.getBitmapPath(this.topTileDamageState)),
@@ -59,28 +59,28 @@
         var filename = null;
         switch (currentDamageState){
             case damageStates.dmgState0:
-                filename = 'dmgState0.png';
+                filename = 'dmgState0';
             break;
             case damageStates.dmgState1:
-                filename = 'dmgState1.png';
+                filename = 'dmgState1';
             break;
             case damageStates.dmgState2:
-                filename = 'dmgState2.png';
+                filename = 'dmgState2';
             break;
             case damageStates.dmgState3:
-                filename = 'dmgState3.png';
+                filename = 'dmgState3';
             break;
             case damageStates.dmgState4:
-                filename = 'dmgState4.png';
+                filename = 'dmgState4';
             break;
             case damageStates.dmgState5:
-                filename = 'dmgState5.png';
+                filename = 'dmgState5';
             break;
             case damageStates.dmgState6:
-                filename = 'dmgState6.png';
+                filename = 'dmgState6';
             break;
         }
-        return 'assets/images/level_0/earth_tiles/'+filename;
+        return filename;
     };
 
     window.GroundColumn = GroundColumn;

@@ -1,5 +1,5 @@
 .container {
-	max-width: 610px;
+	max-width: 900px;
 	background-color: #fff;
 	float: left;
 	margin-left: 20px;
@@ -9,3 +9,4 @@
 form.form-inline {
 	margin-top: 5px;
 }
+

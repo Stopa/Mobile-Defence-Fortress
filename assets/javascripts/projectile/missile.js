@@ -19,15 +19,7 @@
     Missile.prototype._tick = function() {
         this.containerTick();
         if(this.hasReachedTarget()) {
-            if(this.exploded) {
-                if(this.explosionTimeToLive) {
-                    this.explosionTimeToLive--;
-                } else {
-                    this._die();
-                }
-            } else {
-                this.explode();
-            }
+            this.explode();
         } else {
             this.x += this.xspeed;
             this.y += this.yspeed;
@@ -42,13 +34,8 @@
     };
 
     Missile.prototype.explode = function() {
-        this.removeChild(this.graphics);
-        this.exploded = true;
-        
-        this.explosionGraphics = new createjs.Bitmap('assets/images/enemy/explosion.png');
-        this.explosionGraphics.x = -83;
-        this.explosionGraphics.y = -83;
-        this.addChild(this.explosionGraphics);
+        this._die();
+        Game.gameArea.addChild(new DamagingExplosion(this.x,this.y));
     };
 
     Missile.prototype.hasReachedTarget = function() {
@@ -61,8 +48,7 @@
 
     Missile.prototype.speed = 2;
     Missile.prototype.missile = Missile;
-    Missile.prototype.exploded = false;
     Missile.prototype.explosionTimeToLive = 100;
 
     window.Missile = Missile;
-}(window))
+}(window));

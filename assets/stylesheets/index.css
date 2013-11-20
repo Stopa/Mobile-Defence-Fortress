@@ -28,3 +28,18 @@ canvas:-webkit-full-screen {
 .spawn-engine {
   background-color: #000;
 }
+
+.progressBar {
+  width: 50%;
+  position: absolute;
+  left: 224px;
+  top: 350px;
+}
+
+.blackOverlay {
+  width: 1280px;
+  height: 720px;
+  position: absolute;
+  background-color: #000;
+  top: 100px;
+}
