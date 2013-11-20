@@ -6,5 +6,13 @@
     "type": "git",
     "url": "https://github.com/Stopa/Mobile-Defence-Fortress.git"
   },
-  "dependencies": ["grunt-contrib-uglify", "grunt-contrib-jshint", "grunt-contrib-qunit", "grunt-contrib-watch"]
+  "dependencies": [
+    "grunt-contrib-uglify",
+    "grunt-contrib-jshint",
+    "grunt-contrib-qunit",
+    "grunt-contrib-watch"
+  ],
+  "devDependencies": {
+    "grunt": "~0.4.1"
+  }
 }
