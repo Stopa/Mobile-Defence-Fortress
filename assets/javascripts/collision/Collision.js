@@ -1,6 +1,5 @@
 var Collision = {};
-
-Collision.QuadtreeTick = function (game, quadtree, stage){
+Collision.QuadtreeTick = function (quadtree, stage){
     if(!this.destructableClasses) {
         this.destructableClasses = [Destructible,GroundColumn];
     }
@@ -75,6 +74,8 @@ Collision.algorithm = function (object1, object2){
     if ((object1.faction == object2.faction || !object1IsDestructing || !object2IsDestructible || !object2IsNotDestructing) || object1.collidedWith && object1.collidedWith.indexOf(object2.id) != -1) return false;
 
     //Construct hitboxes
+    //!TODO add a check here to see if objects have custom predefined hitboxes, before constructing primitive
+    //hitboxes as currently follows:
     var obj1Box = new Hitbox(object1.x, object1.y, object1.width, object1.height, object1.rotation);
     var obj2Box = new Hitbox(object2.x, object2.y, object2.width, object2.height, object2.rotation);
 
@@ -88,6 +89,44 @@ Collision.algorithm = function (object1, object2){
         }
     }
     return collided;
-
 };
 
+    /** This function is used as a placeholder until QuadTrees are implemented neatly*/
+Collision.QuadtreelessIteration = function(stage){
+        if(!this.destructableClasses) {
+        this.destructableClasses = [Destructible,GroundColumn];
+        }
+        if(!this.destructingClasses) {
+            this.destructingClasses = [Projectile,DamagingExplosion];
+        }
+        //Go through each stage child  that is also a destructor
+        for (var i = 0; i < stage.children.length; i++) {
+            var destructor = stage.getChildAt(i);
+            if (Collision.isDestructing(destructor)){
+                //now go through each stage child that is a destructible (and isn't the original object)
+                for (var j=0; j<stage.children.length; j++){
+                    var destructible = stage.getChildAt(j);
+                    if (destructor !== destructible && Collision.isDestructable(destructible)){
+                        if (Collision.algorithm(destructor, destructible)) {
+                            Collision.handleCollision(destructor, destructible);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+};
+
+Collision.isDestructing = function(object){
+    for(var i = 0; i<this.destructingClasses.length;i++) {
+        if (object instanceof this.destructingClasses[i]) return true;
+    }
+    return false;
+};
+
+Collision.isDestructable = function(object){
+    for(var i = 0; i<this.destructableClasses.length;i++) {
+        if (object instanceof this.destructableClasses[i]) return true;
+    }
+    return false;
+};

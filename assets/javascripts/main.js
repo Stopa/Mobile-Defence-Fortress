@@ -18,7 +18,8 @@ Game = function() {
     * */
     var update = function() {
         Stage.update();
-        Collision.QuadtreeTick(Game, Quadtree, Game.gameArea);
+        Collision.QuadtreeTick(Quadtree, Game.gameArea);
+        // Collision.QuadtreelessIteration(Game.gameArea);
         SpawnEngineTick();
         updateViewport();
     };
@@ -252,7 +253,7 @@ Game = function() {
             /*
             *   Enemies
             */
-            TestEnemy1 = new FormationClassicF1(600,0);
+            TestEnemy1 = new FormationClassicF1(700,-200);
             Game.gameArea.addChild(TestEnemy1);
 
 

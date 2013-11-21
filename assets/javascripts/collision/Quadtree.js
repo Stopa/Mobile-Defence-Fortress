@@ -7,7 +7,7 @@
     }
     QuadTree.prototype.initialize = function (level, bounds) {
         this.MAX_OBJECTS = 1;
-        this.MAX_LEVELS = 0;
+        this.MAX_LEVELS = 5;
 
         this.level = level;
         this.bounds = bounds;
