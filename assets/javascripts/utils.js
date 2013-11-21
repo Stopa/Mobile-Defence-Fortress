@@ -8,7 +8,7 @@ MDF.angleSpeeds = function(angle) {
         x: Math.cos(angle*Math.PI/180),
         y: -1*Math.sin(angle*Math.PI/180)
     };
-}
+};
 
 /*
 * Clear and draw the debug rectangle around the argument object,
@@ -38,13 +38,13 @@ MDF.updateDebugRect = function (object,color) {
             object.box.height
         );
     }
-}
+};
 
 /** remove an object from some argument array */
 MDF.removeFromArray = function (object, array){
     var index = array.indexOf(object);
     array.splice(index,1);
-}
+};
 
 /** Rotate a 2D point (px,py) by some angle theta in degrees (counterclockwise)
     around some point (ox,oy) */
@@ -54,11 +54,11 @@ MDF.rotatePoint = function(px,py,thetaDeg,ox,oy){
         x : Math.cos(thetaRad) * (px-ox) - Math.sin(thetaRad) * (py-oy) + ox,
         y : Math.sin(thetaRad) * (px-ox) + Math.cos(thetaRad) * (py-oy) + oy
     };
-}
+};
 
 /** Assumes that an object's x and y coords mark the top
  * left corner of the object 
  */
 MDF.getCenterPoint = function(object){
     return new createjs.Point((object.x + object.width*0.5),(object.y + object.height*0.5));
-}
+};
