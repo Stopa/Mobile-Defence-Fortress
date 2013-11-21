@@ -77,7 +77,7 @@
         //Target someone if we haven't already
         if (!this.currentTarget){
             var targetTypes = [Facility];
-            this.currentTarget= AI.findTarget(this, targetTypes);
+            this.currentTarget= AI.findTarget(this, targetTypes, AI.randomTarget);
             //Adjust our x-speed now that we know where our target is.
             this.spawnOrbitSpeedX = this.determineXSpeedOnTargeting();
         } else {
