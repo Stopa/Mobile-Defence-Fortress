@@ -23,7 +23,7 @@
             var globalPosition = this.parent.localToLocal(this.x,this.y,Game.gameArea),
                 deltaX = this.currentTarget.x-globalPosition.x,
                 deltaY = this.currentTarget.y-globalPosition.y,
-                distance = Math.sqrt(Math.pow(deltaX,2)+Math.pow(deltaY,2));
+                distance = Math.sqrt(Math.pow(deltaX,2)+Math.pow(deltaY,2)); // no sense in using MDF.distance here as we need the deltas later anyway
 
             if(distance > this.range) { // the one that got away
                 this.currentTarget = undefined;
