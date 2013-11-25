@@ -252,9 +252,8 @@ Game = function() {
             /*
             *   Enemies
             */
-            TestEnemy1 = new FormationClassicF1(600,0);
+            TestEnemy1 = new FormationClassicF1(600,swarmCommon.stateBorders.SPAWNED);
             Game.gameArea.addChild(TestEnemy1);
-
 
             /*
             *   Facility

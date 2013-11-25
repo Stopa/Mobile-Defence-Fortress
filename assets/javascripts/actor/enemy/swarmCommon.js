@@ -9,10 +9,10 @@ swarmCommon.states = {
     };
 
 swarmCommon.stateBorders = {
-    SPAWNED: 0,
-    HIGHORBIT: 500,
-    MIDORBIT: swarmCommon.gameAreaHeight-400,
-    LOWORBIT: swarmCommon.gameAreaHeight-286
+    SPAWNED: swarmCommon.gameAreaHeight * -0.2,
+    HIGHORBIT: swarmCommon.gameAreaHeight * 0.25,
+    MIDORBIT: swarmCommon.gameAreaHeight * 0.71,
+    LOWORBIT: swarmCommon.gameAreaHeight * 0.86
     };
 
 swarmCommon.enemyTypes = {
