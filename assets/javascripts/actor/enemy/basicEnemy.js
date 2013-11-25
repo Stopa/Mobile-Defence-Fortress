@@ -12,10 +12,11 @@
         this.ySpeed = 30;
         this.curDirection = 1; //1 for right, -1 for left
         this._initGraphics(BasicEnemy.width, BasicEnemy.height,'assets/images/enemy/enemy4.png');
-    }
+    };
+
     BasicEnemy.prototype._tick = function() {
         this.enemyTick();
-    }
+    };
 
     BasicEnemy.prototype.tickMovement = function() {
         this.x += this.curDirection * this.xSpeed;
@@ -28,11 +29,12 @@
                 this.y += this.ySpeed;
             }
         }
-    }
+    };
 
     BasicEnemy.prototype.collision = function(object){
         this.takesDamage(101); //HARDCODE
-    }
+    };
+
     BasicEnemy.prototype.dropBomb = function() {
         var ENEMY_BOMB_GRAPHICS = 'assets/images/enemy/enemy_bombv2.png';
 
@@ -45,11 +47,11 @@
         bomb.y = this.y + angleSpeeds.y;
         Game.gameArea.addChild(bomb);
         this.playSound("enemy_shoot");
-    }
+    };
 
    /** Global static vars */
     BasicEnemy.width = 99;
     BasicEnemy.height = 47;
      
     window.BasicEnemy = BasicEnemy;
-}(window))
+}(window));
