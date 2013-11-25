@@ -59,7 +59,7 @@ MDF.rotatePoint = function(px,py,thetaDeg,ox,oy){
 /** Assumes that an object's x and y coords mark the top
  * left corner of the object 
  */
-MDF.getCenterPoint = function(object){
+MDF.getCenterPt = function(object){
     return new createjs.Point((object.x + object.width*0.5),(object.y + object.height*0.5));
 };
 
@@ -73,3 +73,14 @@ MDF.distance = function(object1, object2) {
 
     return Math.sqrt(Math.pow(deltaX,2)+Math.pow(deltaY,2));
 };
+
+/** Returns distance distance of two object's centers projected on the x axis.
+ * Objects need to have x,y,width defined
+ */
+MDF.xCenterDistance = function(object1, object2) {
+    if (object1.parent == null) debugger;
+    var object1GlobalPosition = object1.parent.localToLocal(object1.x,object1.y,Game.gameArea),
+        object2GlobalPosition = object2.parent.localToLocal(object2.x,object2.y,Game.gameArea);
+    return Math.abs(object1GlobalPosition.x-object2GlobalPosition.x);
+};
+
