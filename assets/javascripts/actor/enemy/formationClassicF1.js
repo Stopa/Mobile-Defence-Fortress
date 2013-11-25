@@ -8,14 +8,13 @@
     FormationClassicF1.prototype.swarmTickMovement = FormationClassicF1.prototype.tickMovement;
     FormationClassicF1.prototype.initialize = function(x,y) {
         this.swarmInit(x,y);
-        this.xSpeed = 3;
-        this.ySpeed = BasicEnemy.width; //move down by one bodyheight of tallest enemy in the swarm
 
         this.state = swarmCommon.states.SPAWNED;
+        this.patternSpawnOrbit = new ClassicF1SpawnOrbit(this);
+        this.patternHighOrbit = new ClassicF1HighOrbit(this);
         this.fillSwarm();
-        //this.range = 1200; // https://www.dropbox.com/s/paqyrdnksc5mgqn/Screenshot%202013-11-20%2000.37.09.png
-    };
 
+    };
 
 
     FormationClassicF1.prototype.fillSwarm = function() {
@@ -40,55 +39,75 @@
     };
 
     FormationClassicF1.prototype._tick = function() {
+        this.targetingBehavior();
         this.swarmTick();
 
-        // Check if we have reached some orbit
+        // Check if we have reached some orbit:
         var swarmLowEdge = this.y + this.height;
-        // if (this.flag) debugger;
-        if (swarmLowEdge >= swarmCommon.stateBorders.HIGHORBIT){
+
+        if (swarmLowEdge >= swarmCommon.stateBorders.LOWORBIT){
+            this.state = swarmCommon.states.LOWORBIT;
+            return;
+        }
+        
+        else if (swarmLowEdge >= swarmCommon.stateBorders.MIDORBIT){
+            this.state = swarmCommon.states.MIDORBIT;
+            return;
+        }
+
+        else if (swarmLowEdge >= swarmCommon.stateBorders.HIGHORBIT && this.state !== swarmCommon.states.HIGHORBIT){
             this.state = swarmCommon.states.HIGHORBIT;
-
-            if (swarmLowEdge >= swarmCommon.stateBorders.MIDORBIT){
-                this.state = swarmCommon.states.MIDORBIT;
-
-                if (swarmLowEdge >= swarmCommon.stateBorders.LOWORBIT){
-                    this.state = swarmCommon.states.LOWORBIT;
-                }
-            }
+            return;
         }
     };
 
     FormationClassicF1.prototype.tickMovement = function(){
         switch(this.state){
             case swarmCommon.states.SPAWNED:
-                this.spawnBehavior();
+            this.patternSpawnOrbit.tick();
                 break;
             case swarmCommon.states.HIGHORBIT:
-                this.swarmTickMovement();
+                this.patternHighOrbit.tick();
                 break;
             case swarmCommon.states.MIDORBIT:
+                this.patternHighOrbit.tick();
                 break;
             case swarmCommon.states.LOWORBIT:
                 break;
         }
     };
 
-    FormationClassicF1.prototype.spawnBehavior = function(){
+    /** Chooses a target randomly, if one hasn't been chosen yet / the chosen one is dead.
+     In addition, adjusts x-speed of swarm so that our movement towards the target
+     is in sync with the y-speed */
+    FormationClassicF1.prototype.targetingBehavior = function(){
         //Target someone if we haven't already
         if (!this.currentTarget){
             var targetTypes = [Facility];
             this.currentTarget= AI.findTarget(this, targetTypes, AI.randomTarget);
-            //Adjust our x-speed now that we know where our target is.
-            this.spawnOrbitSpeedX = this.determineXSpeedOnTargeting();
+
+            //!TODO If targeting method fails to find ANY target, handle this case
+            if (!this.currentTarget){console.log("Out of targets in FormationClassicF1");}
+            else { MDF.updateDebugRect(this.currentTarget, "#FF66CC");}
+
         } else {
             //If our target turns out to be dead, get rid of 'em
             if(this.currentTarget.baseHitpoints <= 0) {
+                Game.gameArea.removeChild(this.currentTarget.box); //remove debugging rectangle
                 this.currentTarget = undefined;
-                return;
+
+                this.targetingBehavior(); //keep trying to find a target
             }
         }
-        this.tickSpawnApproachTarget();
+        //Adjust our x-speed for spawning movement now that we know where our target is.
+        if (this.state == swarmCommon.states.SPAWNED) this.patternSpawnOrbit.updateXSpeed();
     };
+
+
+
+    FormationClassicF1.prototype.bodyUnit = 99;
+    FormationClassicF1.prototype.xSpeed = 6;
+    FormationClassicF1.prototype.ySpeed = 2;
 
     window.FormationClassicF1 = FormationClassicF1;
 }(window));
