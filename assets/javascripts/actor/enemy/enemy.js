@@ -15,31 +15,33 @@
         
         this.swarm = swarm;
         this.faction =  Game.factions.aliens;
-    }
+    };
+    
     Enemy.prototype._tick = function() {
         MDF.updateDebugRect(this);
         this.actorTick();
         if (!this.swarm) this.tickMovement(2,30); // HARDCODE: x-speed, y-speed
-    }
+    };
 
     Enemy.prototype._initGraphics = function(width,height,bitmapPath) {
         this.width = width;
         this.height = height;
         this.shipBitmap = new createjs.Bitmap(bitmapPath);
         this.addChild(this.shipBitmap);
-    }
+    };
 
     Enemy.prototype._die = function() {
         if (this.swarm) this.swarm.removeShip(this);
         this.actorDie();
         //call death animation
         //call death sound
-    }
+    };
+
     Enemy.prototype.tickMovement = function() {
-    }
+    };
 
     Enemy.prototype.collision = function(object){
-    }
+    };
 
     window.Enemy = Enemy;
-}(window))
+}(window));
