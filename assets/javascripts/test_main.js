@@ -14,18 +14,20 @@ Game = function() {
   Stage = new createjs.Stage('mainCanvas');
 
   return {
-    controls: {
-        movementKeyPressed: undefined,
-        leftMouseDown: false,
-        rightMouseDown: false
-    },
-    factions: {
-        humans: 0,
-        aliens: 1
-    },
-    colliders : [],
-    debug : false,
-    canvasWidth : 100
+    init: function() 
+      {Test()},
+      controls: {
+          movementKeyPressed: undefined,
+          leftMouseDown: false,
+          rightMouseDown: false
+      },
+      factions: {
+          humans: 0,
+          aliens: 1
+      },
+      colliders : [],
+      debug : false,
+      canvasWidth : 100
   }
 }();
 

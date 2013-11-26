@@ -12,7 +12,11 @@ module.exports = function(grunt) {
       }
     },
     qunit: {
-      files: ['unit_test.html']
+      all: {
+        options: {
+          urls: ['http://localhost:8080/unit_test.html']
+        }
+      }
     },
     jshint: {
       files: ['Gruntfile.js', 'assets/javascripts/*.js'],
@@ -27,25 +31,29 @@ module.exports = function(grunt) {
       }
     },
     connect: {
-    server: {
-      options: {
-        port: 8080,
-        base: '.',
-        keepalive: true
-      }
+      server: {
+        options: {
+          port: 8080,
+          base: '.'
+        }
+      },
+    },
+    watch: {
+      files: ['*'],
+      tasks: ['qunit']
     }
-  }
   });
 
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-qunit');
   grunt.loadNpmTasks('grunt-contrib-connect');
+  grunt.loadNpmTasks('grunt-contrib-watch');
 
-  grunt.registerTask('test', ['jshint', 'qunit']);
+  grunt.registerTask('test', ['connect', 'qunit']);
 
-  grunt.registerTask('default', ['jshint', 'qunit', 'uglify']);
+  grunt.registerTask('default', ['jshint', 'uglify', 'connect', 'qunit']);
 
-  grunt.registerTask('server', ['connect'])
+  grunt.registerTask('server', ['connect']);
 
 };

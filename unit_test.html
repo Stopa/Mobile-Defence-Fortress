@@ -14,10 +14,21 @@
   <script>
     var queue = new createjs.LoadQueue(),
         now = new Date().getTime();
-    queue.addEventListener("complete", Test());
+    queue.addEventListener("complete", Game.init);
     queue.addEventListener("fileload", function(event) {
       if(event.item.type == 'javascript') {
         document.body.appendChild(event.result);
+      }
+    });
+    queue.addEventListener("progress", function(event) {
+      var progress = Math.round(event.progress*100);
+      $(".progress-bar").attr("aria-valuenow", progress);
+      $(".progress-bar").attr("style", "width: " + progress + "%");
+      $("span.sr-only").replaceWith($("<span class='sr-only'>" + progress + "% Complete</span>"));
+      if (progress == 100) {
+        $(".progressBar").fadeOut("slow", function() {
+          $(".blackOverlay").fadeOut("slow");
+        }); 
       }
     });
     var javascriptManifest = [
@@ -42,6 +53,11 @@
           'assets/javascripts/actor/enemy/flyship.js?'+now,
           'assets/javascripts/actor/enemy/swarm.js?'+now,
           'assets/javascripts/actor/enemy/swarmCommon.js?'+now,
+        //swarm movement patterns
+          'assets/javascripts/actor/enemy/patterns/classicF1SpawnOrbit.js?'+now,
+          'assets/javascripts/actor/enemy/patterns/classicF1HighOrbit.js?'+now,
+          'assets/javascripts/actor/enemy/patterns/classicF1LowOrbit.js?'+now,
+
           'assets/javascripts/actor/enemy/formationClassicF1.js?'+now,
           'assets/javascripts/actor/Player.js?'+now,
           'assets/javascripts/actor/PlanetaryTurretBaseLow.js?'+now,
@@ -52,6 +68,7 @@
           'assets/javascripts/projectile/damagingexplosion.js?'+now,
           'assets/javascripts/projectile/projectile.js?'+now,
           'assets/javascripts/projectile/missile.js?'+now,
+          'assets/javascripts/projectile/randomdamageprojectile.js?'+now,
         // weapon
           'assets/javascripts/weapon/weapon.js?'+now,
           'assets/javascripts/weapon/missilelauncher.js?'+now,
