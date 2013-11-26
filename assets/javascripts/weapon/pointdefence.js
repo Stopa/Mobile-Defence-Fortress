@@ -58,6 +58,7 @@
                 this.rotation, angleSpeeds.x*2, angleSpeeds.y*2,
                 this.parent.faction,
                 5, 5);
+            bullet.baseDamage = 10;
             /*
             * Bullet starting point is offset by the weapon length along the weapon rotation axis
             * and offset by 10 pixels by the perpendicular angle depending on which barrel we are currently using
