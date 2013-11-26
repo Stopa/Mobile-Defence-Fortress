@@ -23,7 +23,7 @@
             var globalPosition = this.parent.localToLocal(this.x,this.y,Game.gameArea),
                 deltaX = this.currentTarget.x-globalPosition.x,
                 deltaY = this.currentTarget.y-globalPosition.y,
-                distance = Math.sqrt(Math.pow(deltaX,2)+Math.pow(deltaY,2));
+                distance = Math.sqrt(Math.pow(deltaX,2)+Math.pow(deltaY,2)); // no sense in using MDF.distance here as we need the deltas later anyway
 
             if(distance > this.range) { // the one that got away
                 this.currentTarget = undefined;
@@ -58,6 +58,7 @@
                 this.rotation, angleSpeeds.x*2, angleSpeeds.y*2,
                 this.parent.faction,
                 5, 5);
+            bullet.baseDamage = 10;
             /*
             * Bullet starting point is offset by the weapon length along the weapon rotation axis
             * and offset by 10 pixels by the perpendicular angle depending on which barrel we are currently using
