@@ -34,7 +34,8 @@ module.exports = function(grunt) {
       server: {
         options: {
           port: 8080,
-          base: '.'
+          base: '.',
+          keepalive: true
         }
       },
     },
@@ -50,9 +51,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-watch');
 
-  grunt.registerTask('test', ['connect', 'qunit']);
+  grunt.registerTask('test', ['qunit']);
 
-  grunt.registerTask('default', ['jshint', 'uglify', 'connect', 'qunit']);
+  grunt.registerTask('default', ['jshint', 'qunit', 'uglify', 'connect']);
 
   grunt.registerTask('server', ['connect']);
 
