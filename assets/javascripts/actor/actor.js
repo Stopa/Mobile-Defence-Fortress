@@ -18,4 +18,4 @@
 
 
     window.Actor = Actor;
-}(window))
+}(window));
