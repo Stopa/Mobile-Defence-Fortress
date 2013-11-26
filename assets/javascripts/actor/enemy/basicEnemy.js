@@ -36,15 +36,12 @@
     };
 
     BasicEnemy.prototype.dropBomb = function() {
-        var ENEMY_BOMB_GRAPHICS = 'assets/images/enemy/enemy_bombv2.png';
-
         var angleSpeeds = MDF.angleSpeeds(270);
 
-        var bomb = new Projectile(ENEMY_BOMB_GRAPHICS, this.rotation, angleSpeeds.x, angleSpeeds.y, this.faction, 7, 12);
-        bomb.baseDamage = 10;
-
-        bomb.x = this.x + 35 + angleSpeeds.x; // 35 is bitmap width / 2
+        var bomb = new RandomDamageProjectile(1, 7, this.rotation, angleSpeeds.x, angleSpeeds.y, this.faction);
+        bomb.x = this.x + 35 + angleSpeeds.x;
         bomb.y = this.y + angleSpeeds.y;
+
         Game.gameArea.addChild(bomb);
         this.playSound("enemy_shoot");
     };
