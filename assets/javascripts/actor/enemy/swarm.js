@@ -27,6 +27,24 @@
 
     Swarm.prototype._tick = function() {
         this.displayObjectTick();
+
+        // Check if we have reached some orbit:
+        var swarmLowEdge = this.y + this.height;
+        if (swarmLowEdge >= swarmCommon.stateBorders.GROUND ){
+            this.state = swarmCommon.states.GROUND;
+        }
+        else if (swarmLowEdge >= swarmCommon.stateBorders.LOWORBIT){
+            this.state = swarmCommon.states.LOWORBIT;
+        }
+        
+        else if (swarmLowEdge >= swarmCommon.stateBorders.MIDORBIT){
+            this.state = swarmCommon.states.MIDORBIT;
+        }
+
+        else if (swarmLowEdge >= swarmCommon.stateBorders.HIGHORBIT && this.state !== swarmCommon.states.HIGHORBIT){
+            this.state = swarmCommon.states.HIGHORBIT;
+        }
+
         this.tickMovement();
         MDF.updateDebugRect(this);
     };

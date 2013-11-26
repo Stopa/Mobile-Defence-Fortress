@@ -26,8 +26,8 @@
         if (!this.swarm) this.tickMovement(2,30); // HARDCODE: x-speed, y-speed
 
         if(this.swarm){
-            if ((this.swarm.state == swarmCommon.states.HIGHORBIT ||
-                this.swarm.state == swarmCommon.states.MIDORBIT )&&
+            if ((this.swarm.state !== swarmCommon.states.SPAWNED &&
+                this.swarm.state !== swarmCommon.states.GROUND )&&
                     this.swarm.currentTarget &&
                     MDF.xCenterDistance(this, this.swarm.currentTarget) < this.swarm.currentTarget.width/2){
 

@@ -14,7 +14,7 @@ swarmCommon.stateBorders = {
     HIGHORBIT: swarmCommon.gameAreaHeight * 0,
     MIDORBIT: swarmCommon.gameAreaHeight * 0.27,
     LOWORBIT: swarmCommon.gameAreaHeight * 0.73,
-    GROUND: swarmCommon.gameAreaHeight * 0.82
+    GROUND: swarmCommon.gameAreaHeight * 0.80
     };
 
 swarmCommon.enemyTypes = {
