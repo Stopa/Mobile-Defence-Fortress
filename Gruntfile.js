@@ -7,8 +7,8 @@ module.exports = function(grunt) {
         banner: '/*! <%= pkg.name %> <%= grunt.template.today("dd-mm-yyyy") %> */\n'
       },
       dist: {
-        src: 'assets/javasctipts/*.js',
-        dest: 'public/javascripts/*.min.js'
+        src: 'assets/javasctipts/*/*.js',
+        dest: 'public/javascripts/*/*.min.js'
       }
     },
     qunit: {
@@ -40,7 +40,7 @@ module.exports = function(grunt) {
     },
     watch: {
       files: ['*'],
-      tasks: ['qunit']
+      tasks: ['qunit', 'connect']
     }
   });
 
