@@ -1,18 +1,20 @@
 var swarmCommon = {};
 
-swarmCommon.gameAreaHeight = 1400; //WHOOOA HARDCODING LIEK A MOTHERFUCKER TEHRE 
+swarmCommon.gameAreaHeight = 2100; //WHOOOA HARDCODING LIEK A MOTHERFUCKER TEHRE 
 swarmCommon.states = {
     SPAWNED: 0,
     HIGHORBIT: 1,
     MIDORBIT:  2,
-    LOWORBIT: 3
+    LOWORBIT: 3,
+    GROUND: 4
     };
 
 swarmCommon.stateBorders = {
-    SPAWNED: 0,
-    HIGHORBIT: 500,
-    MIDORBIT: swarmCommon.gameAreaHeight-400,
-    LOWORBIT: swarmCommon.gameAreaHeight-286
+    SPAWNED: swarmCommon.gameAreaHeight * -0.2,
+    HIGHORBIT: swarmCommon.gameAreaHeight * 0,
+    MIDORBIT: swarmCommon.gameAreaHeight * 0.27,
+    LOWORBIT: swarmCommon.gameAreaHeight * 0.73,
+    GROUND: swarmCommon.gameAreaHeight * 0.82
     };
 
 swarmCommon.enemyTypes = {
