@@ -118,18 +118,16 @@
         return this.baseHitpoints;
     };
 
-    Player.prototype.collision = function(object) {
-        if (!Game.godmode) this.takesDamage(10); // HARDCODE
-    };
+    Player.prototype.collision = function(object) {};
 
     Player.prototype.getDeceleration = function() {
         return this.baseMovementSpeed/this.baseMovementDecelerationDuration;
-    }
+    };
 
     Player.prototype.baseMovementSpeed = 5;
     Player.prototype.baseMovementDecelerationDuration = 30;
     Player.prototype.currentMovementSpeed = 0;
-    Player.prototype.currentMovementDecelerationDuration = 0;    
+    Player.prototype.currentMovementDecelerationDuration = 0;
 
     window.Player = Player;
 }(window));

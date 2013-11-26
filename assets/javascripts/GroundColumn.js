@@ -28,8 +28,10 @@
     };
 
     GroundColumn.prototype.collision = function(collisionWith) {
-        var damageTaken = Math.floor(Math.random()*7+1);
-        this.topTileDamageState -= damageTaken;
+    };
+
+    GroundColumn.prototype.takesDamage = function(damage) {
+        this.topTileDamageState -= damage;
         this.updateSprite();
     };
 
