@@ -26,8 +26,6 @@ MDF.updateDebugRect = function (object,color) {
         object.box.regY = object.regY;
 
         Game.gameArea.addChild(object.box);
-        var rectX = 0;
-        var rectY = 0;
 
         object.box.graphics.clear();
         object.box.graphics.beginStroke(object.box.color);
@@ -82,5 +80,32 @@ MDF.xCenterDistance = function(object1, object2) {
     var object1GlobalPosition = object1.parent.localToLocal(object1.x,object1.y,Game.gameArea),
         object2GlobalPosition = object2.parent.localToLocal(object2.x,object2.y,Game.gameArea);
     return Math.abs(object1GlobalPosition.x-object2GlobalPosition.x);
+};
+
+
+MDF.drawOrbits = function(){
+    if (Game.debug){
+        Game.gameArea.removeChild(Game.orbits);
+        Game.orbits = new createjs.Shape();
+        Game.orbits.graphics.setStrokeStyle(5).beginStroke("#F00");
+
+
+        var areaX = Game.gameArea.getBounds().width;
+        
+
+        for (border in swarmCommon.stateBorders){
+
+            var borderY = swarmCommon.stateBorders[border];
+            var text = new createjs.Text(border, "23px Arial", "#ff7700");
+            text.x = 500;
+            text.y = borderY + 60;
+            text.textBaseline = "alphabetic";
+            Game.gameArea.addChild(text);
+
+            Game.orbits.graphics.moveTo(0,borderY);
+            Game.orbits.graphics.lineTo(areaX, borderY);
+        }
+        Game.gameArea.addChild(Game.orbits);
+    }
 };
 

@@ -216,6 +216,7 @@ Game = function() {
             Game.state = GAMESTATES.LOADED;
             createViewport();
             drawBackground();
+            MDF.drawOrbits();
             handleFullscreenChange();
             loadSounds();
 

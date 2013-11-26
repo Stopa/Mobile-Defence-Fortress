@@ -12,6 +12,7 @@
         this.state = swarmCommon.states.SPAWNED;
         this.patternSpawnOrbit = new ClassicF1SpawnOrbit(this);
         this.patternHighOrbit = new ClassicF1HighOrbit(this);
+        this.patternLowOrbit = new ClassicF1LowOrbit(this);
         this.fillSwarm();
 
     };
@@ -44,6 +45,10 @@
 
         // Check if we have reached some orbit:
         var swarmLowEdge = this.y + this.height;
+        if (swarmLowEdge >= swarmCommon.stateBorders.GROUND){
+            this.state = swarmCommon.states.GROUND;
+            return;
+        }
 
         if (swarmLowEdge >= swarmCommon.stateBorders.LOWORBIT){
             this.state = swarmCommon.states.LOWORBIT;
@@ -64,13 +69,16 @@
     FormationClassicF1.prototype.tickMovement = function(){
         switch(this.state){
             case swarmCommon.states.SPAWNED:
-            this.patternSpawnOrbit.tick();
+                this.patternSpawnOrbit.tick();
                 break;
             case swarmCommon.states.HIGHORBIT:
                 this.patternHighOrbit.tick();
                 break;
             case swarmCommon.states.MIDORBIT:
                 this.patternHighOrbit.tick();
+                break;
+            case swarmCommon.states.LOWORBIT:
+                this.patternLowOrbit.tick();
                 break;
             case swarmCommon.states.LOWORBIT:
                 break;
