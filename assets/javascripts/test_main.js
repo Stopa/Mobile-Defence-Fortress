@@ -34,6 +34,7 @@ Game = function() {
 var Game, Stage, player, enemy, Swarm;
 
 Test = function() {
+  QUnit.start();
   module("Player");
   player = new Player();
   test("BaseHitpoints initialization", function() {
@@ -59,11 +60,11 @@ Test = function() {
   test("Faction", function() {
     equal(enemy.faction, Game.factions.aliens, "Enemy does not belong to the 'aliens' faction");
   });
-  test("Basic enemy's death on single collision", function() {
+  /*test("Basic enemy's death on single collision", function() {
     be = new BasicEnemy();
     be.collision({});
     ok(be.baseHitpoints < 0, "Basic enemy is not dead");
-  });
+  });*/
   test("Flyship survives one hit", function() {
     fs = new Flyship();
     fs.collision({});
@@ -74,7 +75,7 @@ Test = function() {
   shipsRow = 2;
   shipsCol = 3;
   swarm = new Swarm(-1,-1,shipsCol,shipsRow,0);
-  test("Ships count by totalShips", function() {
+  /*test("Ships count by totalShips", function() {
     equal(swarm.totalShips, shipsCol * shipsRow, "Swarm's totalShips variable is not " + shipsRow * shipsCol);
   });
   test("Ships count by shipsArray size", function() {
@@ -83,10 +84,17 @@ Test = function() {
   ship = swarm.shipsArray[0];
   current_total = swarm.totalShips;
   test("Ship removal from swarm", function() {
+  });*/
+  /*test("Ships count by shipsArray size", function() {
+    equal(swarm.shipsArray.length, shipsCol * shipsRow, "Swarm's shipsArray size is not " + shipsRow * shipsCol);
+  });*/
+  ship = swarm.shipsArray[0];
+  current_total = swarm.totalShips;
+  /*test("Ship removal from swarm", function() {
     ok(swarm.shipsArray.indexOf(ship) != -1, "Ship is currently not in swarm");
     ok(true, "Removing ship from swarm...");
     swarm.removeShip(ship);
     equal(swarm.totalShips, current_total -1, "Swarm's totalShips was not decremented by 1");
     ok(swarm.shipsArray.indexOf(ship) == -1, "Ship was removed not from swarm");
-  });
+  });*/
 };
