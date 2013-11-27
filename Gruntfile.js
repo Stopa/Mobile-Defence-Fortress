@@ -6,9 +6,10 @@ module.exports = function(grunt) {
       options: {
         banner: '/*! <%= pkg.name %> <%= grunt.template.today("dd-mm-yyyy") %> */\n'
       },
-      dist: {
-        src: 'assets/javasctipts/*/*.js',
-        dest: 'public/javascripts/*/*.min.js'
+      my_target: {
+        files: {
+          'public/app.min.js': ['assets/**/*.js']
+        }
       }
     },
     qunit: {
