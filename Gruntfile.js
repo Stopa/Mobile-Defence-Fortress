@@ -6,9 +6,14 @@ module.exports = function(grunt) {
       options: {
         banner: '/*! <%= pkg.name %> <%= grunt.template.today("dd-mm-yyyy") %> */\n'
       },
-      my_target: {
+      javascripts: {
         files: {
-          'public/app.min.js': ['assets/**/*.js']
+          'public/app.min.js': ['assets/javascripts/*.js']
+        }
+      },
+      css: {
+        files: {
+          'public/app.min.css': ['assets/stylesheets/*.css']
         }
       }
     },
@@ -39,7 +44,13 @@ module.exports = function(grunt) {
     watch: {
       files: ['*'],
       tasks: ['qunit', 'connect']
-    }
+    },
+    copy: {
+      main: {
+        src: ['*.js', '*.html'],
+        dest: 'public/'
+      }
+    },
   });
 
   grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -47,10 +58,11 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-qunit');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-copy');
 
   grunt.registerTask('test', ['qunit']);
 
-  grunt.registerTask('default', ['jshint', 'qunit', 'uglify', 'connect']);
+  grunt.registerTask('default', ['jshint', 'qunit', 'uglify', 'copy', 'connect']);
 
   grunt.registerTask('server', ['connect']);
 

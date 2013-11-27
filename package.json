@@ -11,10 +11,10 @@
     "grunt-contrib-jshint",
     "grunt-contrib-qunit",
     "grunt-contrib-watch",
-    "grunt-contrib-connect"
+    "grunt-contrib-connect",
+    "grunt-contrib-copy"
   ],
   "devDependencies": {
-    "grunt": "~0.4.1",
-    "grunt-contrib-watch": "~0.5.3"
+    "grunt": "~0.4.1"
   }
 }
