@@ -88,7 +88,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('test', ['connect', 'qunit']);
 
-  grunt.registerTask('default', ['jshint', 'qunit', 'cssmin', 'copy', 'connect']);
+  grunt.registerTask('default', ['jshint', 'test', 'cssmin', 'copy']);
 
   grunt.registerTask('server', ['connect', 'watch']);
 
