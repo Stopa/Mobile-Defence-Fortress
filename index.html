@@ -97,19 +97,27 @@
     ];
 
     var imageManifest = [
-      {src:'assets/images/level_0/sky.png',                   id:'sky'},
-      {src:'assets/images/level_0/terrain_destroyed.png',     id:'terrain_destroyed'},
-      {src:'assets/images/level_0/earth_tiles/dmgState0.png', id:'dmgState0'},
-      {src:'assets/images/level_0/earth_tiles/dmgState1.png', id:'dmgState1'},
-      {src:'assets/images/level_0/earth_tiles/dmgState2.png', id:'dmgState2'},
-      {src:'assets/images/level_0/earth_tiles/dmgState3.png', id:'dmgState3'},
-      {src:'assets/images/level_0/earth_tiles/dmgState4.png', id:'dmgState4'},
-      {src:'assets/images/level_0/earth_tiles/dmgState5.png', id:'dmgState5'},
-      {src:'assets/images/level_0/earth_tiles/dmgState6.png', id:'dmgState6'} 
+      {src:'assets/images/level_0/sky.png',                         id:'sky'},
+      {src:'assets/images/level_0/terrain_destroyed.png',           id:'terrain_destroyed'},
+      {src:'assets/images/level_0/earth_tiles/dmgState0.png',       id:'dmgState0'},
+      {src:'assets/images/level_0/earth_tiles/dmgState1.png',       id:'dmgState1'},
+      {src:'assets/images/level_0/earth_tiles/dmgState2.png',       id:'dmgState2'},
+      {src:'assets/images/level_0/earth_tiles/dmgState3.png',       id:'dmgState3'},
+      {src:'assets/images/level_0/earth_tiles/dmgState4.png',       id:'dmgState4'},
+      {src:'assets/images/level_0/earth_tiles/dmgState5.png',       id:'dmgState5'},
+      {src:'assets/images/level_0/earth_tiles/dmgState6.png',       id:'dmgState6'},
+      // Player ship 
+      {src:'assets/images/player_ship/1a/1a_mdf_body.png',          id:'mdfBody'},
+      {src:'assets/images/player_ship/1a/1a_mdf_jetflame_down.png', id:'mdfJetFlameDown'},
+      {src:'assets/images/player_ship/1a/1a_mdf_jetflame_left.png', id:'mdfJetFlameLeft'},
+      {src:'assets/images/player_ship/1a/1a_mdf_jetflame_right.png',id:'mdfJetFlameRight'},
+      // Orbital defence
+      {src:'assets/images/orbital_defence/orbital_defence.png',     id:'orbitalDefence'} 
     ];
 
-    queue.loadManifest(javascriptManifest);
     queue.loadManifest(imageManifest);
+    queue.loadManifest(javascriptManifest);
+    
   </script>
 
   <!-- Spawn Engine -->
