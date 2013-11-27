@@ -18,7 +18,7 @@
             if(this.currentTarget.baseHitpoints <= 0) { // it's already dead!
                 this.currentTarget = undefined;
                 return; // i am so done
-        }
+            }
 
             var globalPosition = this.parent.localToLocal(this.x,this.y,Game.gameArea),
                 deltaX = this.currentTarget.x-globalPosition.x,
