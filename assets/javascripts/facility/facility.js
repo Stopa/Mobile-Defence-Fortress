@@ -15,6 +15,8 @@
         this.faction =  Game.factions.humans;
         
         this.graphics = this._initGraphics();
+
+        this.baseHitpoints = 14;
     };
 
     Facility.prototype._tick = function() {
@@ -50,8 +52,7 @@
     };
 
     Facility.prototype.collision = function(object) {
-        if (!Game.godmode) this.takesDamage(50); // HARDCODE
-        if (this.getHitpoints() <= 50) {
+        if (this.getHitpoints() <= 7) {
             this.removeChild(this.pointDefence);
             this.graphics.visible = false;
             this.graphics = this._initDamagedGraphics();

@@ -22,6 +22,8 @@
         this.addChild(this.pointDefence);
         
         this.graphics = this._initGraphics();
+
+        this.baseHitpoints = 7;
     };
 
     PlanetaryTurretBaseLow.prototype._tick = function() {
@@ -46,7 +48,6 @@
     };
 
     PlanetaryTurretBaseLow.prototype.collision = function(object) {
-        if (!Game.godmode) this.takesDamage(50); // HARDCODE
         if (this.getHitpoints() <= 0) {
             this._die();
         }

@@ -1,6 +1,6 @@
 (function(window) {
     function Destructible(baseHitpoints) {
-        this.initialize();
+        this.initialize(baseHitpoints);
     }
     Destructible.prototype = new createjs.Container();
     Destructible.prototype.containerInit = Destructible.prototype.initialize;

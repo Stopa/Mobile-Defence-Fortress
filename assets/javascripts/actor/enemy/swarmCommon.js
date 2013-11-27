@@ -1,10 +1,20 @@
 var swarmCommon = {};
 
+swarmCommon.gameAreaHeight = 2100; //WHOOOA HARDCODING LIEK A MOTHERFUCKER TEHRE 
 swarmCommon.states = {
     SPAWNED: 0,
     HIGHORBIT: 1,
     MIDORBIT:  2,
-    LOWORBIT: 3
+    LOWORBIT: 3,
+    GROUND: 4
+    };
+
+swarmCommon.stateBorders = {
+    SPAWNED: swarmCommon.gameAreaHeight * -0.2,
+    HIGHORBIT: swarmCommon.gameAreaHeight * 0,
+    MIDORBIT: swarmCommon.gameAreaHeight * 0.27,
+    LOWORBIT: swarmCommon.gameAreaHeight * 0.73,
+    GROUND: swarmCommon.gameAreaHeight * 0.80
     };
 
 swarmCommon.enemyTypes = {
@@ -32,10 +42,10 @@ swarmCommon.fillWithEnemies = function(swarm, enemyType, rows, cols, paddingX, p
                 enemy.swarm = swarm;
                 swarm.shipsArray.push( Game.gameArea.addChild(enemy));
 
-                swarm.width += enemy.width + paddingX;
+                if (row === 1) swarm.width += enemy.width + paddingX;
                 if (col === 0) swarm.height += enemy.height + paddingY;
             }
-            swarm.totalShips = enemiesToAdd;
+            swarm.totalShips += enemiesToAdd;
     };
 
 /** Creates an instance of a given enemy type and returns it

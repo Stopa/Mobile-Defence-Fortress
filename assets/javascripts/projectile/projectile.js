@@ -1,7 +1,5 @@
 (function(window) {
     function Projectile(imagePath, rotation, xspeed, yspeed, faction, width, height) {
-        this.xspeed = xspeed*this.speed;
-        this.yspeed = yspeed*this.speed;
         this.initialize(imagePath, rotation, xspeed, yspeed, faction, width, height);
     }
     Projectile.prototype = new Destructible();
@@ -10,6 +8,9 @@
 
     Projectile.prototype.initialize = function(imagePath, rotation, xspeed, yspeed, faction, width, height) {
         this.destructibleInit();
+
+        this.xspeed = xspeed*this.speed;
+        this.yspeed = yspeed*this.speed;
 
         this.width = width;
         this.height = height;
@@ -38,7 +39,7 @@
         this.projectileGraphics.rotation = 0;
         this.addChild(this.projectileGraphics);
         return this.projectileGraphics;
-    }
+    };
 
     Projectile.prototype.collision = function(object) {
         this.hasCollided = 1;
@@ -47,8 +48,10 @@
         Game.gameArea.addChild(explosion);
         this._die();
 
-        if(object.takesDamage) object.takesDamage(this.baseDamage);
-    }
+        if(object.takesDamage && !Game.godmode) {
+            object.takesDamage(this.baseDamage);
+        }
+    };
 
     Projectile.prototype.speed = 5;
     // Boolean

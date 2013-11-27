@@ -7,6 +7,11 @@
     Swarm.prototype.displayObjectTick = Swarm.prototype._tick;
 
     Swarm.prototype.initialize = function(x,y) {
+        if (y >= swarmCommon.stateBorders.HIGHORBIT){
+            alert("You are trying to spawn swarm at a position lower than the spawning Orbits boundaries!");
+            return;
+        }
+
         this.displayObjectInit();
 
         this.x = x;
@@ -15,7 +20,6 @@
         this.width = 0;
         this.height = 0;
 
-        this.curDirection = 1;
 
         this.totalShips = 0;
         this.shipsArray = [];
@@ -23,6 +27,24 @@
 
     Swarm.prototype._tick = function() {
         this.displayObjectTick();
+
+        // Check if we have reached some orbit:
+        var swarmLowEdge = this.y + this.height;
+        if (swarmLowEdge >= swarmCommon.stateBorders.GROUND ){
+            this.state = swarmCommon.states.GROUND;
+        }
+        else if (swarmLowEdge >= swarmCommon.stateBorders.LOWORBIT){
+            this.state = swarmCommon.states.LOWORBIT;
+        }
+        
+        else if (swarmLowEdge >= swarmCommon.stateBorders.MIDORBIT){
+            this.state = swarmCommon.states.MIDORBIT;
+        }
+
+        else if (swarmLowEdge >= swarmCommon.stateBorders.HIGHORBIT && this.state !== swarmCommon.states.HIGHORBIT){
+            this.state = swarmCommon.states.HIGHORBIT;
+        }
+
         this.tickMovement();
         MDF.updateDebugRect(this);
     };
@@ -34,37 +56,31 @@
         if (this.totalShips === 0){
             this._die();
         }
-    }
+    };
+
+    Swarm.prototype.move = function (xStepsize, yStepsize){
+        this.x += xStepsize;
+        this.y += yStepsize;
+        this.moveEachShip(xStepsize, yStepsize);
+
+    };
 
     Swarm.prototype.moveEachShip = function(xStepsize, yStepsize) {
         for (var i=0; i < this.shipsArray.length; i ++) {
             var ship = this.shipsArray[i];
-            ship.x += this.curDirection* xStepsize;
+            ship.x += xStepsize;
             ship.y += yStepsize;
         }
-    }
+    };
 
 
     Swarm.prototype._die = function() {
         Game.gameArea.removeChild(this.box); //remove debugging rectangle
         Game.gameArea.removeChild(this);
-    }
+    };
 
-    Swarm.prototype.tickMovement = function() {
-        this.x += this.curDirection * this.xSpeed;
-        this.moveEachShip(this.xSpeed, 0);
-        if (this.x < 0 + this.regX || this.x >= (Game.transformedSize.x -this.width) ){
-            this.curDirection *=-1;
-            if(this.y < Game.transformedSize.y*0.5) {
-                this.y += this.ySpeed;
-                this.moveEachShip(0, this.ySpeed);
-            }
-        }
 
-        if (Math.floor(Math.random()*1000) % 50 == 0) {
-            this.shipsArray[Math.floor(Math.random()*this.shipsArray.length)].dropBomb();
-        }
-    }
+
     
     window.Swarm = Swarm;
 }(window));

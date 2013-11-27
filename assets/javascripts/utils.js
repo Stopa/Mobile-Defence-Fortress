@@ -8,7 +8,7 @@ MDF.angleSpeeds = function(angle) {
         x: Math.cos(angle*Math.PI/180),
         y: -1*Math.sin(angle*Math.PI/180)
     };
-}
+};
 
 /*
 * Clear and draw the debug rectangle around the argument object,
@@ -26,8 +26,6 @@ MDF.updateDebugRect = function (object,color) {
         object.box.regY = object.regY;
 
         Game.gameArea.addChild(object.box);
-        var rectX = 0;
-        var rectY = 0;
 
         object.box.graphics.clear();
         object.box.graphics.beginStroke(object.box.color);
@@ -38,13 +36,13 @@ MDF.updateDebugRect = function (object,color) {
             object.box.height
         );
     }
-}
+};
 
 /** remove an object from some argument array */
 MDF.removeFromArray = function (object, array){
     var index = array.indexOf(object);
     array.splice(index,1);
-}
+};
 
 /** Rotate a 2D point (px,py) by some angle theta in degrees (counterclockwise)
     around some point (ox,oy) */
@@ -54,4 +52,60 @@ MDF.rotatePoint = function(px,py,thetaDeg,ox,oy){
         x : Math.cos(thetaRad) * (px-ox) - Math.sin(thetaRad) * (py-oy) + ox,
         y : Math.sin(thetaRad) * (px-ox) + Math.cos(thetaRad) * (py-oy) + oy
     };
-}
+};
+
+/** Assumes that an object's x and y coords mark the top
+ * left corner of the object 
+ */
+MDF.getCenterPt = function(object){
+    return new createjs.Point((object.x + object.width*0.5),(object.y + object.height*0.5));
+};
+
+/** Returns distance between two given objects. Objects need to have x and y defined
+ */
+MDF.distance = function(object1, object2) {
+    var object1GlobalPosition = object1.parent.localToLocal(object1.x,object1.y,Game.gameArea),
+        object2GlobalPosition = object2.parent.localToLocal(object2.x,object2.y,Game.gameArea),
+        deltaX = object1GlobalPosition.x-object2GlobalPosition.x,
+        deltaY = object1GlobalPosition.y-object2GlobalPosition.y;
+
+    return Math.sqrt(Math.pow(deltaX,2)+Math.pow(deltaY,2));
+};
+
+/** Returns distance distance of two object's centers projected on the x axis.
+ * Objects need to have x,y,width defined
+ */
+MDF.xCenterDistance = function(object1, object2) {
+    if (object1.parent == null) debugger;
+    var object1GlobalPosition = object1.parent.localToLocal(object1.x,object1.y,Game.gameArea),
+        object2GlobalPosition = object2.parent.localToLocal(object2.x,object2.y,Game.gameArea);
+    return Math.abs(object1GlobalPosition.x-object2GlobalPosition.x);
+};
+
+
+MDF.drawOrbits = function(){
+    if (Game.debug){
+        Game.gameArea.removeChild(Game.orbits);
+        Game.orbits = new createjs.Shape();
+        Game.orbits.graphics.setStrokeStyle(5).beginStroke("#F00");
+
+
+        var areaX = Game.gameArea.getBounds().width;
+        
+
+        for (border in swarmCommon.stateBorders){
+
+            var borderY = swarmCommon.stateBorders[border];
+            var text = new createjs.Text(border, "23px Arial", "#ff7700");
+            text.x = 500;
+            text.y = borderY + 60;
+            text.textBaseline = "alphabetic";
+            Game.gameArea.addChild(text);
+
+            Game.orbits.graphics.moveTo(0,borderY);
+            Game.orbits.graphics.lineTo(areaX, borderY);
+        }
+        Game.gameArea.addChild(Game.orbits);
+    }
+};
+
