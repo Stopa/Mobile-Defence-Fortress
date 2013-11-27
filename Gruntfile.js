@@ -18,7 +18,11 @@ module.exports = function(grunt) {
       }
     },
     qunit: {
-      files: ['unit_test.html']
+      all: {
+        options: {
+          urls: ['http://localhost:8080/unit_test.html'] // TODO: WE NEEDS TA RUN GRUNT SERVER BEFORE WE CAN TEST, B0SS
+        }
+      }
     },
     jshint: {
       files: ['Gruntfile.js', 'assets/javascripts/*.js'],
