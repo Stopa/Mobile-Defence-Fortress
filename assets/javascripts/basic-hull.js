@@ -25,25 +25,29 @@
     };
 
     BasicHull.prototype._initGraphics = function() {
-        this.body = new createjs.Bitmap('assets/images/player_ship/1a/1a_mdf_body.png');
+        var mdfBody = queue.getResult('mdfBody');
+        this.body = new createjs.Bitmap(mdfBody);
         this.body.x = 0;
         this.body.y = 0;
         this.addChild(this.body);
 
-        this.engineFlames = new createjs.Bitmap('assets/images/player_ship/1a/1a_mdf_jetflame_down.png');
+        var mdfJetFlameDown = queue.getResult('mdfJetFlameDown');
+        this.engineFlames = new createjs.Bitmap(mdfJetFlameDown);
         this.engineFlames.compositeOperation = 'lighten';
         this.engineFlames.x = 0;
         this.engineFlames.y = 78;
         this.addChild(this.engineFlames);
 
-        this.leftJetLight = new createjs.Bitmap('assets/images/player_ship/1a/1a_mdf_jetflame_left.png');
+        var mdfJetFlameLeft = queue.getResult('mdfJetFlameLeft');
+        this.leftJetLight = new createjs.Bitmap(mdfJetFlameLeft);
         this.leftJetLight.compositeOperation = 'lighten';
         this.leftJetLight.visible = false;
         this.leftJetLight.x = -33;
         this.leftJetLight.y = 47;
         this.addChild(this.leftJetLight);
 
-        this.rightJetLight = new createjs.Bitmap('assets/images/player_ship/1a/1a_mdf_jetflame_right.png');
+        var mdfJetFlameRight = queue.getResult('mdfJetFlameRight');
+        this.rightJetLight = new createjs.Bitmap(mdfJetFlameRight);
         this.rightJetLight.compositeOperation = 'lighten';
         this.rightJetLight.visible = false;
         this.rightJetLight.x = 121;
