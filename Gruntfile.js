@@ -20,7 +20,7 @@ module.exports = function(grunt) {
     qunit: {
       all: {
         options: {
-          urls: ['http://localhost:8080/unit_test.html'] // TODO: WE NEEDS TA RUN GRUNT SERVER BEFORE WE CAN TEST, B0SS
+          urls: ['http://localhost:8080/unit_test.html']
         }
       }
     },
