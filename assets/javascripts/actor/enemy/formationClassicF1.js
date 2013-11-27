@@ -13,6 +13,7 @@
         this.patternSpawnOrbit = new ClassicF1SpawnOrbit(this);
         this.patternHighOrbit = new ClassicF1HighOrbit(this);
         this.patternLowOrbit = new ClassicF1LowOrbit(this);
+        this.patternGround = new ClassicF1Ground(this);
         this.fillSwarm();
 
     };
@@ -43,27 +44,7 @@
         this.targetingBehavior();
         this.swarmTick();
 
-        // Check if we have reached some orbit:
-        var swarmLowEdge = this.y + this.height;
-        if (swarmLowEdge >= swarmCommon.stateBorders.GROUND){
-            this.state = swarmCommon.states.GROUND;
-            return;
-        }
-
-        if (swarmLowEdge >= swarmCommon.stateBorders.LOWORBIT){
-            this.state = swarmCommon.states.LOWORBIT;
-            return;
-        }
         
-        else if (swarmLowEdge >= swarmCommon.stateBorders.MIDORBIT){
-            this.state = swarmCommon.states.MIDORBIT;
-            return;
-        }
-
-        else if (swarmLowEdge >= swarmCommon.stateBorders.HIGHORBIT && this.state !== swarmCommon.states.HIGHORBIT){
-            this.state = swarmCommon.states.HIGHORBIT;
-            return;
-        }
     };
 
     FormationClassicF1.prototype.tickMovement = function(){
@@ -80,7 +61,8 @@
             case swarmCommon.states.LOWORBIT:
                 this.patternLowOrbit.tick();
                 break;
-            case swarmCommon.states.LOWORBIT:
+            case swarmCommon.states.GROUND:
+                this.patternGround.tick();
                 break;
         }
     };
@@ -95,7 +77,12 @@
             this.currentTarget= AI.findTarget(this, targetTypes, AI.randomTarget);
 
             //!TODO If targeting method fails to find ANY target, handle this case
-            if (!this.currentTarget){console.log("Out of targets in FormationClassicF1");}
+            //This is a quick cheap workaround wich chooses a random groundcolumn if out of
+            //targets
+            if (!this.currentTarget){
+                console.log("Out of targets in FormationClassicF1");
+                this.currentTarget= AI.findTarget(this, [GroundColumn], AI.randomTarget);
+            }
             else { MDF.updateDebugRect(this.currentTarget, "#FF66CC");}
 
         } else {

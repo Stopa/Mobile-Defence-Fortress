@@ -243,11 +243,11 @@ Game = function() {
             /*
             *   Orbital Defence
             */
-            OrbitalDefence1 = new OrbitalDefence(200,450);
+            OrbitalDefence1 = new OrbitalDefence(200,Game.transformedSize.y-550);
             Game.gameArea.addChild(OrbitalDefence1);
-            OrbitalDefence2 = new OrbitalDefence(600,450);
+            OrbitalDefence2 = new OrbitalDefence(800,Game.transformedSize.y-550);
             Game.gameArea.addChild(OrbitalDefence2);
-            OrbitalDefence3 = new OrbitalDefence(1000,450);
+            OrbitalDefence3 = new OrbitalDefence(1200,Game.transformedSize.y-550);
             Game.gameArea.addChild(OrbitalDefence3);
 
             /*
