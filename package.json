@@ -12,7 +12,8 @@
     "grunt-contrib-qunit",
     "grunt-contrib-watch",
     "grunt-contrib-connect",
-    "grunt-contrib-copy"
+    "grunt-contrib-copy",
+    "grunt-contrib-cssmin"
   ],
   "devDependencies": {
     "grunt": "~0.4.1"

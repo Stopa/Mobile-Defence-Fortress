@@ -8,24 +8,46 @@ module.exports = function(grunt) {
       },
       javascripts: {
         files: {
-          'public/app.min.js': ['assets/javascripts/*.js']
+          'public/javascripts/actors.min.js' : ['assets/javascripts/actor/*.js'],
+          'public/javascripts/collisions.min.js' : ['assets/javascripts/collision/*.js'],
+          'public/javascripts/facilities.min.js' : ['assets/javascripts/facility/*.js'],
+          'public/javascripts/projectiles.min.js' : ['assets/javascripts/projectile/*.js'],
+          'public/javascripts/sounds.min.js' : ['assets/javascripts/sound/*.js'],
+          'public/javascripts/spawn_engine.min.js' : ['assets/javascripts/spawn_engine/*.js'],
+          'public/javascripts/ui.min.js' : ['assets/javascripts/ui/*.js'],
+          'public/javascripts/weapons.min.js' : ['assets/javascripts/weapon/*.js'],
+          'public/javascripts/default.min.js' : ['assets/javascripts/*.js'],
+          'public/javascripts/libs.min.js' : ['assets/javascripts/lib/*.js']
         }
-      },
-      css: {
+      }
+    },
+    cssmin: {
+      combine: {
         files: {
-          'public/app.min.css': ['assets/stylesheets/*.css']
+          'public/stylesheet.css': ['assets/stylesheets/*.css']
         }
       }
     },
     qunit: {
       all: {
         options: {
-          urls: ['http://localhost:8080/unit_test.html'] // TODO: WE NEEDS TA RUN GRUNT SERVER BEFORE WE CAN TEST, B0SS
+          urls: ['http://localhost:8080/unit_test.html']
         }
       }
     },
     jshint: {
-      files: ['Gruntfile.js', 'assets/javascripts/*.js'],
+      files: [
+        'Gruntfile.js', 
+        'assets/javascripts/actor/*.js',
+        'assets/javascripts/collision/*.js',
+        'assets/javascripts/facility/*.js',
+        'assets/javascripts/projectile/*.js',
+        'assets/javascripts/sound/*.js',
+        'assets/javascripts/spawn_engine/*.js',
+        'assets/javascripts/ui/*.js',
+        'assets/javascripts/weapon/*.js',
+        'assets/javascripts/*.js'
+      ],
       options: {
         // options here to override JSHint defaults
         globals: {
@@ -62,10 +84,11 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
 
   grunt.registerTask('test', ['connect', 'qunit']);
 
-  grunt.registerTask('default', ['jshint', 'qunit', 'uglify', 'copy', 'connect']);
+  grunt.registerTask('default', ['jshint', 'qunit', 'cssmin', 'copy', 'connect']);
 
   grunt.registerTask('server', ['connect', 'watch']);
 
