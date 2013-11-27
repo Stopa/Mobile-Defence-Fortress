@@ -96,9 +96,10 @@
      * objects to their corresponding nodes.
      */
     QuadTree.prototype.insert = function (pRect) {
+        var index;
         //if this quadtree node isnt partitioned, add it to the current nodes objects
         if (this.nodes[0] !== undefined){
-            var index = this.getIndex(pRect);
+            index = this.getIndex(pRect);
 
             if (index != -1) {
                 this.nodes[index].insert(pRect);
@@ -116,7 +117,7 @@
 
             var i = 0;
             while (i < this.objects.length){
-                var index = this.getIndex(this.objects[i]);
+                index = this.getIndex(this.objects[i]);
                 if (index != -1){
                     this.nodes[index].insert(this.objects.splice(i,1)[0]);
                 }
@@ -141,4 +142,4 @@
     };
 
     window.QuadTree = QuadTree;
-}(window))
+}(window));

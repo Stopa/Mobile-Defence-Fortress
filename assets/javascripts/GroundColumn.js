@@ -31,7 +31,7 @@
     };
     GroundColumn.prototype._die = function() {
         this.parent.removeChild(this);
-    }
+    };
     GroundColumn.prototype.takesDamage = function(damage) {
         this.topTileDamageState -= damage;
         this.updateSprite();

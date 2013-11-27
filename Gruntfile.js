@@ -39,7 +39,7 @@ module.exports = function(grunt) {
     jshint: {
       files: [
         'Gruntfile.js',
-        'assets/javascripts/actor/*.js',
+        'assets/javascripts/actor/**/*.js',
         'assets/javascripts/collision/*.js',
         'assets/javascripts/facility/*.js',
         'assets/javascripts/projectile/*.js',
