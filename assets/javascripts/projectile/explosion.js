@@ -8,12 +8,12 @@
   Explosion.prototype.containerTick = Explosion.prototype._tick;
   Explosion.prototype.initialize = function(imagePath,x,y,maxScale) {
     this.containerInit();
-    this._initExplosionGraphics(imagePath);
     this.maxScale = maxScale || 1;
-    this.height = 166; // HARDCODE
-    this.width = 166; // HARDCODE
-    this.x = x-166/2; // HARDCODE
-    this.y = y-166/2; // HARDCODE
+    this.height = 166*this.maxScale; // HARDCODE
+    this.width = 166*this.maxScale; // HARDCODE
+    this.x = x-(166*this.maxScale)/2; // HARDCODE
+    this.y = y-(166*this.maxScale)/2; // HARDCODE
+    this._initExplosionGraphics(imagePath);
   };
 
   Explosion.prototype._tick = function() {
@@ -23,8 +23,8 @@
 
   Explosion.prototype._initExplosionGraphics = function(imagePath) {
     this.explosionGraphics = new createjs.Bitmap(imagePath);
-    this.explosionGraphics.x = 166/2; // HARDCODE
-    this.explosionGraphics.y = 166/2; // HARDCODE
+    this.explosionGraphics.x = 166*this.maxScale/2; // HARDCODE
+    this.explosionGraphics.y = 166*this.maxScale/2; // HARDCODE
     this.explosionGraphics.scaleX = 0;
     this.explosionGraphics.scaleY = 0;
     this.addChild(this.explosionGraphics);

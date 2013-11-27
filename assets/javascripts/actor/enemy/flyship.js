@@ -26,7 +26,7 @@
 
         var angleSpeeds = MDF.angleSpeeds(270);
 
-        var bomb = new Projectile(ENEMY_BOMB_GRAPHICS, this.rotation, angleSpeeds.x, angleSpeeds.y, this.faction, 7, 12);
+        var bomb = new RandomAOEBomb(1,7,this.rotation, angleSpeeds.x, angleSpeeds.y, this.faction);
         bomb.baseDamage = 10;
 
         bomb.x = this.x + 35 + angleSpeeds.x; // 35 is bitmap width / 2

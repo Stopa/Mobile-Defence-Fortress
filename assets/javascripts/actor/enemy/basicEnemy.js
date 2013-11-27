@@ -37,7 +37,7 @@
     BasicEnemy.prototype.dropBomb = function() {
         var angleSpeeds = MDF.angleSpeeds(270);
 
-        var bomb = new RandomDamageProjectile(1, 7, this.rotation, angleSpeeds.x, angleSpeeds.y, this.faction);
+        var bomb = new RandomAOEBomb(1,7,this.rotation, angleSpeeds.x, angleSpeeds.y, this.faction);
         bomb.x = this.x + 35 + angleSpeeds.x;
         bomb.y = this.y + angleSpeeds.y;
 
