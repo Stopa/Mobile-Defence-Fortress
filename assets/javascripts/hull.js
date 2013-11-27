@@ -20,4 +20,4 @@
     };
 
     window.Hull = Hull;
-}(window))
+}(window));

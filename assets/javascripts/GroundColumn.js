@@ -2,7 +2,7 @@
 
     //The idea is to translate different HP levels to certain tile images using these
     //constants
-    const damageStates = {
+    var damageStates = {
         dmgState0: 7,    // 0dmgState art displayed when hp is 7 (full)
         dmgState1: 6,    // etc
         dmgState2: 5,
@@ -10,7 +10,7 @@
         dmgState4: 3,
         dmgState5: 2,
         dmgState6: 1
-    }
+    };
     function GroundColumn(imagePath, x, y) {
         this.initialize(imagePath, x, y);
     }
@@ -86,4 +86,4 @@
     };
 
     window.GroundColumn = GroundColumn;
-}(window))
+}(window));

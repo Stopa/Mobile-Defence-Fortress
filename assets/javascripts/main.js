@@ -1,11 +1,11 @@
-const GAMESTATES = {
+var GAMESTATES = {
     STOPPED: 0,
     LOADING: 1,
     LOADED:  2,
     STARTED: 3
 };
 
-const KEYS =  {
+var KEYS =  {
     LEFT:  0,
     RIGHT: 1
 };
@@ -114,9 +114,13 @@ Game = function() {
     };
 
     var handleMuteSoundClick = function() {
-        Volume == 0 ? Volume = 0.7 : Volume = 0;
+        if(Volume === 0) {
+            Volume = 0.7;
+        } else {
+            Volume = 0;
+        }
         createjs.Sound.setVolume(Volume);
-    }
+    };
 
     var handleFullscreenClick = function() {
         var canvas = document.getElementById('mainCanvas');
