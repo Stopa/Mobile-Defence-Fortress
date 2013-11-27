@@ -29,10 +29,13 @@
 
     GroundColumn.prototype.collision = function(collisionWith) {
     };
-
+    GroundColumn.prototype._die = function() {
+        this.parent.removeChild(this);
+    }
     GroundColumn.prototype.takesDamage = function(damage) {
         this.topTileDamageState -= damage;
         this.updateSprite();
+        if (this.height <= 0) this._die();
     };
 
     GroundColumn.prototype.initSprite = function() {
