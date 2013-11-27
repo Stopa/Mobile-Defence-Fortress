@@ -24,6 +24,7 @@
                 this.rotation, angleSpeeds.x*1.5, angleSpeeds.y*1.5,
                 this.parent.faction,
                 5, 5);
+            bullet.baseDamage = 30;
             /*
             * Bullet starting point is offset by the weapon length along the weapon rotation axis
             * and offset by 10 pixels by the perpendicular angle depending on which barrel we are currently using
@@ -31,7 +32,7 @@
             bullet.x = weaponAbsX+angleSpeeds.x*(this.height)+barrelPositionSpeeds.x*5*(this._nextShotLeft?-1:1);
             bullet.y = weaponAbsY+angleSpeeds.y*(this.height)+barrelPositionSpeeds.y*5*(this._nextShotLeft?-1:1);
             Game.gameArea.addChild(bullet);
-            this.playSound("cannon", 0.7);
+            this.playSound("cannon");
 
             if(this._nextShotLeft) {
                 this.weaponGraphics.gotoAndPlay('shootLeft');

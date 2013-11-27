@@ -40,14 +40,14 @@
 
     OrbitalDefence.prototype._tickMovement = function() {
         // Random direction when the orbital defence first starts moving
-        if (this.currentMovementDirection == 0) this.currentMovementDirection = Math.random() < 0.5 ? -1 : 1;
+        if (this.currentMovementDirection === 0) this.currentMovementDirection = Math.random() < 0.5 ? -1 : 1;
 
         this.x += this.movementSpeed*this.currentMovementDirection;
 
         if (Math.abs(this.originalX - this.x) > this.movementRange) {
             this.currentMovementDirection = this.currentMovementDirection*-1;
         }
-    }
+    };
 
     OrbitalDefence.prototype.collision = function(object){
     };

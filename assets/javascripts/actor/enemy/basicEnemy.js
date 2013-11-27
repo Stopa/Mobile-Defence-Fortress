@@ -32,7 +32,6 @@
     };
 
     BasicEnemy.prototype.collision = function(object){
-        this.takesDamage(101); //HARDCODE
     };
 
     BasicEnemy.prototype.dropBomb = function() {
