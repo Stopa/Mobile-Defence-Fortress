@@ -1,13 +1,13 @@
 (function(window) {
-    function DamagingExplosion(x,y) {
-        this.initialize(x,y);
+    function DamagingExplosion(x,y,maxScale) {
+        this.initialize(x,y,maxScale);
     }
 
     DamagingExplosion.prototype = new Explosion();
     DamagingExplosion.prototype.explosionInit = DamagingExplosion.prototype.initialize;
     DamagingExplosion.prototype.explosionTick = DamagingExplosion.prototype._tick;
-    DamagingExplosion.prototype.initialize = function(x,y) {
-        this.explosionInit('assets/images/enemy/explosion.png',x,y);
+    DamagingExplosion.prototype.initialize = function(x,y,maxScale) {
+        this.explosionInit('assets/images/enemy/explosion.png',x,y,maxScale);
     };
 
     DamagingExplosion.prototype.collision = function(collisionTarget) {

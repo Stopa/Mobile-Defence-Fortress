@@ -1,14 +1,15 @@
 (function(window) {
-  function Explosion(imagePath,x,y) {
-    this.initialize(imagePath,x,y);
+  function Explosion(imagePath,x,y,maxScale) {
+    this.initialize(imagePath,x,y,maxScale);
   }
 
   Explosion.prototype = new createjs.Container();
   Explosion.prototype.containerInit = Explosion.prototype.initialize;
   Explosion.prototype.containerTick = Explosion.prototype._tick;
-  Explosion.prototype.initialize = function(imagePath,x,y) {
+  Explosion.prototype.initialize = function(imagePath,x,y,maxScale) {
     this.containerInit();
     this._initExplosionGraphics(imagePath);
+    this.maxScale = maxScale || 1;
     this.height = 166; // HARDCODE
     this.width = 166; // HARDCODE
     this.x = x-166/2; // HARDCODE
@@ -30,7 +31,7 @@
   };
 
   Explosion.prototype.animateExplosion = function() {
-    if (this.explosionGraphics.scaleX < 1) {
+    if (this.explosionGraphics.scaleX < this.maxScale) {
       this.explosionGraphics.x -= 4.15;
       this.explosionGraphics.y -= 4.15;
       this.explosionGraphics.scaleX += 0.05;
