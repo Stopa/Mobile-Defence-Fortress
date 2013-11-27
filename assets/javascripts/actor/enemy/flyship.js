@@ -10,14 +10,14 @@
         this.enemyInit(x,y,swarm);
 
         this._initGraphics(Flyship.width,Flyship.height,'assets/images/enemy/enemy1.png');
-    }
+    };
 
     Flyship.prototype._tick = function() {
         this.enemyTick();
-    }
+    };
+
     Flyship.prototype.collision = function(object){
-        this.takesDamage(51); //HARDCODE
-    }
+    };
 
     /** The following function is currently identical to the one in basicEnemy.js 
     !TODO describe a separate attack/shot/bomb behaviour function here */
@@ -32,7 +32,7 @@
         bomb.x = this.x + 35 + angleSpeeds.x; // 35 is bitmap width / 2
         bomb.y = this.y + angleSpeeds.y;
         Game.gameArea.addChild(bomb);
-    }
+    };
 
 
     /** Global static vars */
@@ -40,4 +40,4 @@
     Flyship.height = 48;
     
     window.Flyship = Flyship;
-}(window))
+}(window));
