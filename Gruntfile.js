@@ -12,11 +12,7 @@ module.exports = function(grunt) {
       }
     },
     qunit: {
-      all: {
-        options: {
-          urls: ['http://localhost:8080/unit_test.html']
-        }
-      }
+      files: ['unit_test.html']
     },
     jshint: {
       files: ['Gruntfile.js', 'assets/javascripts/*.js'],
