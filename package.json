@@ -13,7 +13,8 @@
     "grunt-contrib-watch",
     "grunt-contrib-connect",
     "grunt-contrib-copy",
-    "grunt-contrib-cssmin"
+    "grunt-contrib-cssmin",
+    "grunt-contrib-clean"
   ],
   "devDependencies": {
     "grunt": "~0.4.1"

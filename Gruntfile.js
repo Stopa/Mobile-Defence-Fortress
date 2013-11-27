@@ -2,6 +2,7 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+    clean: ["public/*"],
     uglify: {
       options: {
         banner: '/*! <%= pkg.name %> <%= grunt.template.today("dd-mm-yyyy") %> */\n'
@@ -24,7 +25,7 @@ module.exports = function(grunt) {
     cssmin: {
       combine: {
         files: {
-          'public/stylesheet.css': ['assets/stylesheets/*.css']
+          'public/stylesheets/app.css': ['assets/stylesheets/*.css']
         }
       }
     },
@@ -85,10 +86,11 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
+  grunt.loadNpmTasks('grunt-contrib-clean');
 
   grunt.registerTask('test', ['connect', 'qunit']);
 
-  grunt.registerTask('default', ['jshint', 'test', 'cssmin', 'copy']);
+  grunt.registerTask('default', ['clean', 'jshint', 'test', 'cssmin', 'uglify', 'copy']);
 
   grunt.registerTask('server', ['connect', 'watch']);
 
