@@ -1,49 +1,102 @@
+<!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>QUnit testsuit</title>
-    <link rel="stylesheet" href="assets/stylesheets/qunit-1.12.0.css">
-  </head>
-  <body>
-    <div id="qunit"></div>
-    <div id="qunit-fixture"></div>
-    <script src="assets/javascripts/lib/qunit-1.12.0.js"></script>
-    <script src="assets/javascripts/lib/createjs-2013.09.25.min.js?1"></script>
-    <script src="assets/javascripts/lib/underscore.js"></script>
-    <script src="assets/javascripts/test_main.js"></script>
-    <script>
-      var queue = new createjs.LoadQueue();
-      queue.addEventListener("complete", Game.init);
-      queue.addEventListener("fileload", function(event) {
+<head>
+  <link rel="stylesheet" href="assets/stylesheets/qunit-1.12.0.css">
+</head>
+<body>
+  <div id="qunit"></div>
+  <div id="qunit-fixture"></div>
+  <script src="assets/javascripts/lib/jquery-1.10.2.min.js?1"></script>
+  <script src="assets/javascripts/lib/createjs-2013.09.25.min.js?1"></script>
+  <script src="assets/javascripts/lib/underscore.js"></script>
+  <script src="assets/javascripts/lib/qunit-1.12.0.js"></script>
+  <script src="assets/javascripts/test_main.js"></script>
+  <script>
+    var queue = new createjs.LoadQueue(),
+        now = new Date().getTime();
+    queue.addEventListener("complete", Game.init);
+    queue.addEventListener("fileload", function(event) {
+      if(event.item.type == 'javascript') {
         document.body.appendChild(event.result);
-      });
-      queue.loadManifest([
+      }
+    });
+    queue.addEventListener("progress", function(event) {
+      var progress = Math.round(event.progress*100);
+      $(".progress-bar").attr("aria-valuenow", progress);
+      $(".progress-bar").attr("style", "width: " + progress + "%");
+      $("span.sr-only").replaceWith($("<span class='sr-only'>" + progress + "% Complete</span>"));
+      if (progress == 100) {
+        $(".progressBar").fadeOut("slow", function() {
+          $(".blackOverlay").fadeOut("slow");
+        }); 
+      }
+    });
+    var javascriptManifest = [
       // utilities
-      'assets/javascripts/utils.js',
-      'assets/javascripts/collision/Quadtree.js',
-      'assets/javascripts/collision/Collision.js',
+      {src:'assets/javascripts/utils.js?'+now},
+      {src:'assets/javascripts/collision/Quadtree.js?'+now},
+      {src:'assets/javascripts/collision/Collision.js?'+now},
+      {src:'assets/javascripts/collision/Hitbox.js?'+now},
+      {src:'assets/javascripts/lib/SAT.js?'+now},
+      
       // base classes
-      'assets/javascripts/destructible.js',
-      'assets/javascripts/hull.js',
-      'assets/javascripts/GroundPiece.js',
-      'assets/javascripts/orbitaldefence.js',
+      'assets/javascripts/destructible.js?'+now,
+      'assets/javascripts/hull.js?'+now,
+      'assets/javascripts/GroundColumn.js?'+now,
+      'assets/javascripts/orbitaldefence.js?'+now,
         // actor
-          'assets/javascripts/actor/actor.js',
-          'assets/javascripts/actor/Player.js?1',
-          'assets/javascripts/actor/Enemy.js',
-          'assets/javascripts/actor/Swarm.js',
+          'assets/javascripts/actor/actor.js?'+now,
+          'assets/javascripts/actor/ai.js?'+now,
+        // enemy
+          'assets/javascripts/actor/enemy/enemy.js?'+now,
+          'assets/javascripts/actor/enemy/basicEnemy.js?'+now,
+          'assets/javascripts/actor/enemy/flyship.js?'+now,
+          'assets/javascripts/actor/enemy/swarm.js?'+now,
+          'assets/javascripts/actor/enemy/swarmCommon.js?'+now,
+        //swarm movement patterns
+          'assets/javascripts/actor/enemy/patterns/classicF1SpawnOrbit.js?'+now,
+          'assets/javascripts/actor/enemy/patterns/classicF1HighOrbit.js?'+now,
+          'assets/javascripts/actor/enemy/patterns/classicF1LowOrbit.js?'+now,
+
+          'assets/javascripts/actor/enemy/formationClassicF1.js?'+now,
+          'assets/javascripts/actor/Player.js?'+now,
+          'assets/javascripts/actor/PlanetaryTurretBaseLow.js?'+now,
+          'assets/javascripts/actor/PlanetaryTurretBaseHigh.js?'+now,
+          'assets/javascripts/facility/facility.js?'+now,
         // projectile
-          'assets/javascripts/projectile/projectile.js',
-          'assets/javascripts/projectile/missile.js',
+          'assets/javascripts/projectile/explosion.js?'+now,
+          'assets/javascripts/projectile/damagingexplosion.js?'+now,
+          'assets/javascripts/projectile/projectile.js?'+now,
+          'assets/javascripts/projectile/missile.js?'+now,
+          'assets/javascripts/projectile/randomdamageprojectile.js?'+now,
         // weapon
-          'assets/javascripts/weapon/weapon.js',
-          'assets/javascripts/weapon/missilelauncher.js',
-          'assets/javascripts/weapon/cannon.js',
+          'assets/javascripts/weapon/weapon.js?'+now,
+          'assets/javascripts/weapon/missilelauncher.js?'+now,
+          'assets/javascripts/weapon/cannon.js?'+now,
+          'assets/javascripts/weapon/pointdefence.js?'+now,
         // ui
-          'assets/javascripts/ui/hud.js',
+          'assets/javascripts/ui/hud.js?'+now,
       // content, subclasses
-      'assets/javascripts/basic-hull.js'
-      ]);
-    </script>
-  </body>
+      {src:'assets/javascripts/basic-hull.js?'+now},
+
+      // spawn engine
+      {src:'assets/javascripts/spawn_engine/spawn_engine.js?'+now}
+    ];
+
+    var imageManifest = [
+      {src:'assets/images/level_0/sky.png',                   id:'sky'},
+      {src:'assets/images/level_0/terrain_destroyed.png',     id:'terrain_destroyed'},
+      {src:'assets/images/level_0/earth_tiles/dmgState0.png', id:'dmgState0'},
+      {src:'assets/images/level_0/earth_tiles/dmgState1.png', id:'dmgState1'},
+      {src:'assets/images/level_0/earth_tiles/dmgState2.png', id:'dmgState2'},
+      {src:'assets/images/level_0/earth_tiles/dmgState3.png', id:'dmgState3'},
+      {src:'assets/images/level_0/earth_tiles/dmgState4.png', id:'dmgState4'},
+      {src:'assets/images/level_0/earth_tiles/dmgState5.png', id:'dmgState5'},
+      {src:'assets/images/level_0/earth_tiles/dmgState6.png', id:'dmgState6'} 
+    ];
+
+    queue.loadManifest(javascriptManifest);
+    queue.loadManifest(imageManifest);
+  </script>
+</body>
 </html>
