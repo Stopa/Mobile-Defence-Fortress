@@ -91,4 +91,4 @@
     Cannon.prototype.attackSpeed = 14;
 
     window.Cannon = Cannon;
-}(window))
+}(window));

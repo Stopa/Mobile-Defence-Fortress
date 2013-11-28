@@ -64,4 +64,4 @@
     Projectile.prototype.baseDamage = 100;
 
     window.Projectile = Projectile;
-}(window))
+}(window));

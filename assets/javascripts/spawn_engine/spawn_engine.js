@@ -8,7 +8,7 @@ $(document).ready(function(){
 var waveCount = 0;
 var swarmCount = 0;
 var spawns = [];
-var	spawnedSwarms = 0; 
+var	spawnedSwarms = 0;
 
 function newWave() {
 	waveCount++;
@@ -63,12 +63,12 @@ function deleteSwarm(swarm) {
 function spawnWaves() {
   swarmsArray = getWaves();
 
-  for (var i = 0; i < swarmsArray.length; i++) {  
+  for (var i = 0; i < swarmsArray.length; i++) { 
     var spawn = {
-      x : parseInt(swarmsArray[i][1]),
-      y : parseInt(swarmsArray[i][2]),
-      ticksLeft: parseInt(swarmsArray[i][3]*60) // Ticks per second = 60
-    }
+      x : parseInt(swarmsArray[i][1],10),
+      y : parseInt(swarmsArray[i][2],10),
+      ticksLeft: parseInt(swarmsArray[i][3]*60,10) // Ticks per second = 60
+    };
 
     spawns.push(spawn);
     spawnedSwarms++;
@@ -76,7 +76,7 @@ function spawnWaves() {
 }
 
 function getWaves() {
-  var swarmsArray = new Array();
+  var swarmsArray = [];
   for (var i = 1; i <= swarmCount; i++) {
     var swarmType = '#swarm_' + i + ' .form-group:nth-child(1) option:selected';
     var swarmX = '#swarm_' + i + ' .form-group:nth-child(2) input';

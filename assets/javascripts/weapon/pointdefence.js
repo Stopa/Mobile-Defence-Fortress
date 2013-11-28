@@ -18,7 +18,7 @@
             if(this.currentTarget.baseHitpoints <= 0) { // it's already dead!
                 this.currentTarget = undefined;
                 return; // i am so done
-        }
+            }
 
             var globalPosition = this.parent.localToLocal(this.x,this.y,Game.gameArea),
                 deltaX = this.currentTarget.x-globalPosition.x,
@@ -31,10 +31,11 @@
             }
 
             var degrees = (Math.atan2(deltaY, deltaX)*180/Math.PI)+90,
-                difference = degrees-this.rotation;
+                difference = degrees-this.rotation,
+                modifier = (Math.abs(difference) > this.rotationSpeed? this.rotationSpeed*(difference<0?-1:1) : difference);
             
-            if(Math.abs(this.rotation) < this.maxAngle)
-                this.rotation += (Math.abs(difference) > this.rotationSpeed? this.rotationSpeed*(difference<0?-1:1) : difference);
+            if(Math.abs(this.rotation+modifier) < this.maxAngle)
+                this.rotation += modifier;
 
             if(Math.abs(difference) < 10 && Math.abs(this.rotation) < this.maxShootingAngle) { // TODO - should try to get ahead of the enemy?
                 this.shoot();
