@@ -8,19 +8,27 @@
   <link rel="stylesheet" href="assets/stylesheets/bootstrap.custom.css">
 </head>
 <body>
-  <div class="blackOverlay"></div>
-  <div class="progressBar">
-    <div class="progress progress-striped active">
-      <div class="progress-bar"  role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
-        <span class="sr-only">0% Complete</span>
+  
+  <div class="holder">
+    <div class="blackOverlay"></div>
+    <div class="splash">
+      <h1>Mobile Defence Fortress &alpha;</h1>
+      <p>Aliens are attacking! You must act fast! Move your fortress with <strong>left and right arrow buttons</strong> or <strong>A and D keys</strong>, aim with your <strong>mouse</strong>, shoot your cannon with <strong>left mouse button</strong> and fire missiles with <strong>right mouse button</strong>.</p>
+      <button type="button" class="btn btn-primary" disabled id="start">New game</button>
+    </div>
+    <div class="progressBar">
+      <div class="progress progress-striped active">
+        <div class="progress-bar"  role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+          <span class="sr-only">0% Complete</span>
+        </div>
       </div>
     </div>
+    <canvas id="mainCanvas" height="720" width="1280"></canvas><!-- NOTE: canvas is dynamically resized in javascript later -->
+    <p>
+      <button type="button" class="btn btn-primary" id="gofullscreen">Fullscreen</button>
+      <button type="button" class="btn btn-primary" id="muteSound">Mute sound</button>
+    </p>
   </div>
-  <canvas id="mainCanvas" height="720" width="1280"></canvas><!-- NOTE: canvas is dynamically resized in javascript later -->
-  <p>
-  <button type="button" class="btn btn-primary" id="gofullscreen">Fullscreen</button>
-  <button type="button" class="btn btn-primary" id="muteSound">Mute sound</button>
-  </p>
   <!-- External libraries -->
   <script src="assets/javascripts/lib/jquery-1.10.2.min.js?1"></script>
   <script src="assets/javascripts/lib/createjs-2013.09.25.min.js?1"></script>
@@ -29,7 +37,14 @@
   <script>
     var queue = new createjs.LoadQueue(),
         now = new Date().getTime();
-    queue.addEventListener("complete", Game.init);
+    queue.addEventListener("complete", function() {
+      $(".progressBar").fadeOut("slow");
+      $('#start').attr('disabled', false);
+    });
+    $('#start').click(function() {
+      $('.blackOverlay, .splash').fadeOut('fast');
+      Game.init();
+    });
     queue.addEventListener("fileload", function(event) {
       if(event.item.type == 'javascript') {
         document.body.appendChild(event.result);
@@ -40,11 +55,6 @@
       $(".progress-bar").attr("aria-valuenow", progress);
       $(".progress-bar").attr("style", "width: " + progress + "%");
       $("span.sr-only").replaceWith($("<span class='sr-only'>" + progress + "% Complete</span>"));
-      if (progress == 100) {
-        $(".progressBar").fadeOut("slow", function() {
-          $(".blackOverlay").fadeOut("slow");
-        }); 
-      }
     });
     var javascriptManifest = [
       // utilities
@@ -144,7 +154,7 @@
   </script>
 
   <!-- Spawn Engine -->
-  <div class="spawn-engine">
+  <div class="spawn-engine" style="display: none;">
   </div>
 
 </body>
