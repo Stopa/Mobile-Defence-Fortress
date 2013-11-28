@@ -72,7 +72,7 @@ function deleteSwarm(swarm) {
 function spawnWaves() {
   swarmsArray = getWaves();
 
-  for (var i = 0; i < swarmsArray.length; i++) { 
+  for (var i = 0; i < swarmsArray.length; i++) {
     var spawn = {
       x : parseInt(swarmsArray[i][1],10),
       y : parseInt(swarmsArray[i][2],10),
