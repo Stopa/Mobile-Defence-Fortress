@@ -89,6 +89,7 @@ Game = function() {
     * Handle Click event on Stage, release a bullet
     * */
     var handleMouseDown = function(event) {
+        event.preventDefault();
         switch(event.which) {
             case 1:
                 Game.controls.leftMouseDown = true;
