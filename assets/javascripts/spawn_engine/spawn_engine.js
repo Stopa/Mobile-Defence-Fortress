@@ -2,6 +2,13 @@ $(document).ready(function(){
 	$('.spawn-engine').load('spawn_engine.html', function() {
 		newWave();
 		newSwarm(1);
+
+        // Hardcode some swarms to appear for demo purposes:
+        var spawn1 = {x:1000,y:-300,ticksLeft: 20*60};
+        var spawn2 = {x:1000,y:-300,ticksLeft: 45*60};
+        spawns.push(spawn1);
+        spawns.push(spawn2);
+
 	});
 });
 
