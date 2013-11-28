@@ -76,7 +76,7 @@ MDF.distance = function(object1, object2) {
  * Objects need to have x,y,width defined
  */
 MDF.xCenterDistance = function(object1, object2) {
-    if (object1.parent == null) debugger;
+    if (object1.parent === null) console.error("Object1 has no parent");
     var object1GlobalPosition = object1.parent.localToLocal(object1.x,object1.y,Game.gameArea),
         object2GlobalPosition = object2.parent.localToLocal(object2.x,object2.y,Game.gameArea);
     return Math.abs(object1GlobalPosition.x-object2GlobalPosition.x);
@@ -93,7 +93,7 @@ MDF.drawOrbits = function(){
         var areaX = Game.gameArea.getBounds().width;
         
 
-        for (border in swarmCommon.stateBorders){
+        for (var border in swarmCommon.stateBorders){
 
             var borderY = swarmCommon.stateBorders[border];
             var text = new createjs.Text(border, "23px Arial", "#ff7700");

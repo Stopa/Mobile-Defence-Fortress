@@ -42,12 +42,17 @@
             this.swarm.move(this.swarm.xSpeed * this.substates.curDirection, 0);
             this.substates.xDistTravelled += this.swarm.xSpeed;
 
-            //Check if we've travelled too far from our target
-            if ((Math.abs(targetXPosition-this.substates.lastDescentX) < this.swarm.width+this.swarm.xSpeed &&
-                (Math.abs(targetXPosition-swarmXPosition) > (this.swarm.width / 2) &&
-                (this.substates.xDistTravelled > this.swarm.bodyUnit)) ||
-                this.substates.xDistTravelled >= 6*this.swarm.bodyUnit)){
-
+            /* Check if we've travelled too far from our target using these criteria:
+                 (1) if weve traveled more than half our swarm width AND
+                 (2) were further from the target than half the swarm width AND
+                 (3) we're further from the last descent than half our bodywidth
+                      OR
+                 (4) we've travelled more than 6 bodyUnits.
+            */
+            if ((Math.abs(targetXPosition-swarmXPosition) > (this.swarm.width / 2) &&               // (1)
+                    (this.substates.xDistTravelled > (this.swarm.width / 2))&&                      // (2)
+                    (Math.abs(targetXPosition-this.substates.lastDescentX) < this.swarm.width/2)) ||// (3)
+                    this.substates.xDistTravelled >= 6*this.swarm.bodyUnit){                        // (4)
                 //we're done travelling sideways, reset x axis related info
                 this.substates.descending = true;
                 this.substates.xDistTravelled = 0;
@@ -56,4 +61,4 @@
         }
     };
 window.ClassicF1HighOrbit = ClassicF1HighOrbit;
-}(window))
+}(window));

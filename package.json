@@ -1,0 +1,22 @@
+{
+  "name": "Mobile-Defence-Fortress",
+  "version": "0.0.0",
+  "description": "A Space Invaders like game for the Software Project course (MTAT.03.13), University of Tartu",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Stopa/Mobile-Defence-Fortress.git"
+  },
+  "dependencies": [
+    "grunt-contrib-uglify",
+    "grunt-contrib-jshint",
+    "grunt-contrib-qunit",
+    "grunt-contrib-watch",
+    "grunt-contrib-connect",
+    "grunt-contrib-copy",
+    "grunt-contrib-cssmin",
+    "grunt-contrib-clean"
+  ],
+  "devDependencies": {
+    "grunt": "~0.4.1"
+  }
+}

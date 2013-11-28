@@ -11,7 +11,7 @@
         this.xSpeed = 2;
         this.ySpeed = 30;
         this.curDirection = 1; //1 for right, -1 for left
-        this._initGraphics(BasicEnemy.width, BasicEnemy.height,'assets/images/enemy/enemy4.png');
+        this._initGraphics(BasicEnemy.width, BasicEnemy.height,queue.getResult('enemy4'));
     };
 
     BasicEnemy.prototype._tick = function() {
@@ -32,15 +32,14 @@
     };
 
     BasicEnemy.prototype.collision = function(object){
-        this.takesDamage(101); //HARDCODE
     };
 
     BasicEnemy.prototype.dropBomb = function() {
         var angleSpeeds = MDF.angleSpeeds(270);
 
-        var bomb = new RandomDamageProjectile(1, 7, this.rotation, angleSpeeds.x, angleSpeeds.y, this.faction);
-        bomb.x = this.x + 35 + angleSpeeds.x;
-        bomb.y = this.y + angleSpeeds.y;
+        var bomb = new RandomAOEBomb(1,7,this.rotation, angleSpeeds.x, angleSpeeds.y, this.faction);
+        bomb.x = this.x + this.width/2 + angleSpeeds.x;
+        bomb.y = this.y + this.height/2 + angleSpeeds.y;
 
         Game.gameArea.addChild(bomb);
         this.playSound("enemy_shoot");

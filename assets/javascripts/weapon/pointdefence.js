@@ -18,7 +18,7 @@
             if(this.currentTarget.baseHitpoints <= 0) { // it's already dead!
                 this.currentTarget = undefined;
                 return; // i am so done
-        }
+            }
 
             var globalPosition = this.parent.localToLocal(this.x,this.y,Game.gameArea),
                 deltaX = this.currentTarget.x-globalPosition.x,
@@ -31,10 +31,11 @@
             }
 
             var degrees = (Math.atan2(deltaY, deltaX)*180/Math.PI)+90,
-                difference = degrees-this.rotation;
+                difference = degrees-this.rotation,
+                modifier = (Math.abs(difference) > this.rotationSpeed? this.rotationSpeed*(difference<0?-1:1) : difference);
             
-            if(Math.abs(this.rotation) < this.maxAngle)
-                this.rotation += (Math.abs(difference) > this.rotationSpeed? this.rotationSpeed*(difference<0?-1:1) : difference);
+            if(Math.abs(this.rotation+modifier) < this.maxAngle)
+                this.rotation += modifier;
 
             if(Math.abs(difference) < 10 && Math.abs(this.rotation) < this.maxShootingAngle) { // TODO - should try to get ahead of the enemy?
                 this.shoot();
@@ -45,7 +46,7 @@
     PointDefence.prototype._nextShotLeft = false; // whether the next shot will be fired from the left or right cannon
     PointDefence.prototype.shoot = function() {
         if(this.cooldown <= 0) {
-            var CANNON_BULLET_GRAPHICS = 'assets/images/player_ship/bullet.png';
+            var cannonProjectile = queue.getResult('cannonProjectile');
 
             var realAngle = (this.rotation-90)*-1,
                 angleSpeeds = MDF.angleSpeeds(realAngle),
@@ -54,7 +55,7 @@
                 barrelPositionSpeeds = MDF.angleSpeeds(realAngle-90);
 
 
-            var bullet = new Projectile(CANNON_BULLET_GRAPHICS,
+            var bullet = new Projectile(cannonProjectile,
                 this.rotation, angleSpeeds.x*2, angleSpeeds.y*2,
                 this.parent.faction,
                 5, 5);
@@ -85,7 +86,7 @@
     PointDefence.prototype._initGraphics = function() {
         this.gunSpriteSheet = new createjs.SpriteSheet({
             framerate: 10,
-            images: ['assets/images/player_ship/1a/1a_mdf_cannon_left.png'],
+            images: [queue.getResult('mdfCannonLeft')],
             frames: {
                 width: 50,
                 height: 70
@@ -97,7 +98,7 @@
             }
         });
         this.gunFlameSpriteSheet = new createjs.SpriteSheet({
-            images: ['assets/images/player_ship/1a/1a_mdf_cannon_left_flame.png'],
+            images: [queue.getResult('mdfCannonLeftFlame')],
             frames: {
                 width: 50,
                 height: 70

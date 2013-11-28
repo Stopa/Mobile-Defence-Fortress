@@ -1,6 +1,9 @@
 var Collision = {};
 
 Collision.QuadtreeTick = function (game, quadtree, stage){
+    var child,
+        i,
+        j;
     if(!this.destructableClasses) {
         this.destructableClasses = [Destructible,GroundColumn];
     }
@@ -9,19 +12,19 @@ Collision.QuadtreeTick = function (game, quadtree, stage){
     }
     //Clear the quadtree and add all collider objects
     quadtree.clear();
-    for (var i = 0; i < stage.children.length; i++) {
-        var child = stage.getChildAt(i);
-        for(var j = 0;j < this.destructableClasses.length;j++) {
+    for (i = 0; i < stage.children.length; i++) {
+        child = stage.getChildAt(i);
+        for(j = 0;j < this.destructableClasses.length;j++) {
             if(child instanceof this.destructableClasses[j]) quadtree.insert(child);
         }
     }
     //go through each object and retrieve a list of objects it could 
     //possibly collide with.
     var returnObjects = [];
-    for (var i = 0; i < stage.children.length; i++) {
-        var child = stage.getChildAt(i);
+    for (i = 0; i < stage.children.length; i++) {
+        child = stage.getChildAt(i);
         var rightKind = false;
-        for(var j = 0; j < this.destructingClasses.length; j++) {
+        for(j = 0; j < this.destructingClasses.length; j++) {
             if(child instanceof this.destructingClasses[j]) {
                 rightKind = true;
             }
@@ -30,7 +33,7 @@ Collision.QuadtreeTick = function (game, quadtree, stage){
             returnObjects.length = 0;
             quadtree.retrieve(returnObjects, child);
             
-            for (var j = 0; j < returnObjects.length; j++) {
+            for (j = 0; j < returnObjects.length; j++) {
                 if (Collision.algorithm(child, returnObjects[j])) {
                     Collision.handleCollision(child, returnObjects[j]);
                     break;
@@ -38,7 +41,7 @@ Collision.QuadtreeTick = function (game, quadtree, stage){
             }
         }
     }
-}
+};
 
 Collision.handleCollision = function(object1, object2){
     //should projectile and actor stats be taken into account here or
@@ -49,8 +52,7 @@ Collision.handleCollision = function(object1, object2){
     object1.collidedWith.push(object2.id);
     object1.collision(object2);
     object2.collision(object1);
-
-}
+};
 
 /**
 *   Uses Separated Axes Theorem (SAT) to check if two shapes collide
@@ -63,12 +65,13 @@ Collision.algorithm = function (object1, object2){
         , 2nd check: did B collide with A? */
     var object1IsDestructing = false,
         object2IsDestructible = false,
-        object2IsNotDestructing = true;
+        object2IsNotDestructing = true,
+        i;
 
-    for(var i = 0; i < this.destructableClasses.length; i++) {
+    for(i = 0; i < this.destructableClasses.length; i++) {
         if(object2 instanceof this.destructableClasses[i]) object2IsDestructible = true;
     }
-    for(var i = 0; i < this.destructingClasses.length; i++) {
+    for(i = 0; i < this.destructingClasses.length; i++) {
         if(object1 instanceof this.destructingClasses[i]) object1IsDestructing = true;
         if(object2 instanceof this.destructingClasses[i]) object2IsNotDestructing = false;
     }

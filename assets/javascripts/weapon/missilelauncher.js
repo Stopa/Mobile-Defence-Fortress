@@ -39,7 +39,7 @@
 
     MissileLauncher.prototype._initGraphics = function() {
         this.gunSpriteSheet = new createjs.SpriteSheet({
-            images: ['assets/images/player_ship/1a/1a_mdf_cannon_right.png'],
+            images: [queue.getResult('mdfCannonRight')],
             frames: {
                 width: 51,
                 height: 99
@@ -50,7 +50,7 @@
             }
         });
         this.gunFlameSpriteSheet = new createjs.SpriteSheet({
-            images: ['assets/images/player_ship/1a/1a_mdf_cannon_right_flame.png'],
+            images: [queue.getResult('mdfCannonRightFlame')],
             frames: {
                 width: 51,
                 height: 99

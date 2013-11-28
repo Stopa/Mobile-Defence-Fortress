@@ -11,7 +11,7 @@
     Cannon.prototype._nextShotLeft = false; // whether the next shot will be fired from the left or right cannon
     Cannon.prototype.shoot = function() {
         if(this.cooldown <= 0) {
-            var CANNON_BULLET_GRAPHICS = 'assets/images/player_ship/bullet.png';
+            var cannonProjectile = queue.getResult('cannonProjectile');
 
             var realAngle = (this.rotation-90)*-1,
                 angleSpeeds = MDF.angleSpeeds(realAngle),
@@ -20,10 +20,11 @@
                 barrelPositionSpeeds = MDF.angleSpeeds(realAngle-90);
 
 
-            var bullet = new Projectile(CANNON_BULLET_GRAPHICS,
+            var bullet = new Projectile(cannonProjectile,
                 this.rotation, angleSpeeds.x*1.5, angleSpeeds.y*1.5,
                 this.parent.faction,
                 5, 5);
+            bullet.baseDamage = 50;
             /*
             * Bullet starting point is offset by the weapon length along the weapon rotation axis
             * and offset by 10 pixels by the perpendicular angle depending on which barrel we are currently using
@@ -31,7 +32,7 @@
             bullet.x = weaponAbsX+angleSpeeds.x*(this.height)+barrelPositionSpeeds.x*5*(this._nextShotLeft?-1:1);
             bullet.y = weaponAbsY+angleSpeeds.y*(this.height)+barrelPositionSpeeds.y*5*(this._nextShotLeft?-1:1);
             Game.gameArea.addChild(bullet);
-            this.playSound("cannon", 0.7);
+            this.playSound("cannon");
 
             if(this._nextShotLeft) {
                 this.weaponGraphics.gotoAndPlay('shootLeft');
@@ -50,7 +51,7 @@
     Cannon.prototype._initGraphics = function() {
         this.gunSpriteSheet = new createjs.SpriteSheet({
             framerate: 10,
-            images: ['assets/images/player_ship/1a/1a_mdf_cannon_left.png'],
+            images: [queue.getResult('mdfCannonLeft')],
             frames: {
                 width: 50,
                 height: 70
@@ -62,7 +63,7 @@
             }
         });
         this.gunFlameSpriteSheet = new createjs.SpriteSheet({
-            images: ['assets/images/player_ship/1a/1a_mdf_cannon_left_flame.png'],
+            images: [queue.getResult('mdfCannonLeftFlame')],
             frames: {
                 width: 50,
                 height: 70
@@ -90,4 +91,4 @@
     Cannon.prototype.attackSpeed = 14;
 
     window.Cannon = Cannon;
-}(window))
+}(window));

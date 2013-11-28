@@ -26,7 +26,7 @@
     Facility.prototype._initGraphics = function() {
         this.width = 65*1.5;
         this.height = 43*1.5;
-        this.facilityBitmap = new createjs.Bitmap('assets/images/facility/building.png');
+        this.facilityBitmap = new createjs.Bitmap(queue.getResult('building'));
         this.facilityBitmap.scaleX = 1.5;
         this.facilityBitmap.scaleY = 1.5;
         this.addChild(this.facilityBitmap);
@@ -36,7 +36,7 @@
     Facility.prototype._initDamagedGraphics = function() {
         this.width = 65*1.5;
         this.height = 43*1.5;
-        this.facilityBitmap = new createjs.Bitmap('assets/images/facility/building_damaged.png');
+        this.facilityBitmap = new createjs.Bitmap(queue.getResult('buildingDamaged'));
         this.facilityBitmap.scaleX = 1.5;
         this.facilityBitmap.scaleY = 1.5;
         this.addChild(this.facilityBitmap);

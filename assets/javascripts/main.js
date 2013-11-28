@@ -1,16 +1,16 @@
-const GAMESTATES = {
+var GAMESTATES = {
     STOPPED: 0,
     LOADING: 1,
     LOADED:  2,
     STARTED: 3
 };
 
-const KEYS =  {
+var KEYS =  {
     LEFT:  0,
     RIGHT: 1
 };
 
-var Game, Quadtree, Player, Stage, EnemyShip, Swarm1, Facility1;
+var Game, Quadtree, Player, Stage, EnemyShip, Swarm1, Facility1, Volume;
 
 Game = function() {
     /*
@@ -27,6 +27,8 @@ Game = function() {
     */
     var loadSounds = function() {
         // if initializeDefaultPlugins returns false, we cannot play sound in this browser
+        Volume = 0.7;
+        
         if (!createjs.Sound.initializeDefaultPlugins()) {return;}
         var audioPath = "assets/sounds/";
         var manifest = [
@@ -36,7 +38,9 @@ Game = function() {
         ];
 
         createjs.Sound.registerManifest(manifest);
+        createjs.Sound.setVolume(Volume);
     };
+
     /* 
     * Handle KeyDown event on window,
     * mark if any control keys are pressed
@@ -85,6 +89,7 @@ Game = function() {
     * Handle Click event on Stage, release a bullet
     * */
     var handleMouseDown = function(event) {
+        event.preventDefault();
         switch(event.which) {
             case 1:
                 Game.controls.leftMouseDown = true;
@@ -108,6 +113,16 @@ Game = function() {
         // prevent browser from opening a context menu
         event.preventDefault();
     };
+
+    var handleMuteSoundClick = function() {
+        if(Volume === 0) {
+            Volume = 0.7;
+        } else {
+            Volume = 0;
+        }
+        createjs.Sound.setVolume(Volume);
+    };
+
     var handleFullscreenClick = function() {
         var canvas = document.getElementById('mainCanvas');
         canvas.webkitRequestFullscreen();
@@ -303,6 +318,7 @@ Game = function() {
             document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
 
             document.getElementById('gofullscreen').addEventListener('click', handleFullscreenClick);
+            document.getElementById('muteSound').addEventListener('click', handleMuteSoundClick);
         },
         controls: {
             movementKeyPressed: undefined,
