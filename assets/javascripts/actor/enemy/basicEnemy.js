@@ -38,8 +38,8 @@
         var angleSpeeds = MDF.angleSpeeds(270);
 
         var bomb = new RandomAOEBomb(1,7,this.rotation, angleSpeeds.x, angleSpeeds.y, this.faction);
-        bomb.x = this.x + 35 + angleSpeeds.x;
-        bomb.y = this.y + angleSpeeds.y;
+        bomb.x = this.x + this.width/2 + angleSpeeds.x;
+        bomb.y = this.y + this.height/2 + angleSpeeds.y;
 
         Game.gameArea.addChild(bomb);
         this.playSound("enemy_shoot");

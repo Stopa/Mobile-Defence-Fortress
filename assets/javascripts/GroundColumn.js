@@ -23,6 +23,7 @@
 
         this.width = 22;
         this.height = 286; // 13*22
+        // this.baseHitpoints=1; //This is only used for targeters. see ._die() 
         this.topTileDamageState = damageStates.dmgState0;
         this.initSprite();
     };
@@ -31,7 +32,11 @@
     };
     GroundColumn.prototype._die = function() {
         this.parent.removeChild(this);
-    }
+
+        //A hack, which allows targeters
+        //to detect that this isn't a valid target anymore:
+        this.baseHitpoints=0;
+    };
     GroundColumn.prototype.takesDamage = function(damage) {
         this.topTileDamageState -= damage;
         this.updateSprite();
