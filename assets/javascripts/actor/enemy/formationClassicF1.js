@@ -41,7 +41,7 @@
     };
 
     FormationClassicF1.prototype._tick = function() {
-        this.targetingBehavior();
+        this.updateTarget();
         this.swarmTick();
 
         
@@ -70,7 +70,7 @@
     /** Chooses a target randomly, if one hasn't been chosen yet / the chosen one is dead.
      In addition, adjusts x-speed of swarm so that our movement towards the target
      is in sync with the y-speed */
-    FormationClassicF1.prototype.targetingBehavior = function(){
+    FormationClassicF1.prototype.updateTarget = function(){
         //Target someone if we haven't already
         if (!this.currentTarget){
             var targetTypes = [Facility];
@@ -91,7 +91,7 @@
                 Game.gameArea.removeChild(this.currentTarget.box); //remove debugging rectangle
                 this.currentTarget = undefined;
 
-                this.targetingBehavior(); //keep trying to find a target
+                this.updateTarget(); //keep trying to find a target
             }
         }
         //Adjust our x-speed for spawning movement now that we know where our target is.
