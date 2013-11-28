@@ -9,13 +9,13 @@
         this.minDamage = minDamage;
         this.maxDamage = maxDamage;
 
-        this.projectileInit('assets/images/enemy/enemy_bombv2.png', rotation, xspeed, yspeed, faction, 7, 12);
+        this.projectileInit(queue.getResult('enemyBombV2'), rotation, xspeed, yspeed, faction, 7, 12);
     };
 
     RandomDamageProjectile.prototype.collision = function(object) {
         this.hasCollided = 1;
         this.graphics.visible = false;
-        var explosion = new Explosion('assets/images/enemy/explosion.png',this.x,this.y);
+        var explosion = new Explosion(queue.getResult('explosion'),this.x,this.y);
         Game.gameArea.addChild(explosion);
         this._die();
 

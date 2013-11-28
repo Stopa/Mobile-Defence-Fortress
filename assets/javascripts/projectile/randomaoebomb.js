@@ -9,7 +9,7 @@
         this.minDamage = minDamage;
         this.maxDamage = maxDamage;
 
-        this.projectileInit('assets/images/enemy/enemy_bombv2.png', rotation, xspeed, yspeed, faction, 7, 12);
+        this.projectileInit(queue.getResult('enemyBombV2'), rotation, xspeed, yspeed, faction, 7, 12);
     };
 
     RandomAOEBomb.prototype.collision = function(object) {

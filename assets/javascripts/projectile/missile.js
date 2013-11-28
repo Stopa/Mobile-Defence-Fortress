@@ -27,7 +27,7 @@
     };
 
     Missile.prototype.initGraphics = function() {
-        this.graphics = new createjs.Bitmap('assets/images/player_ship/bullet.png');
+        this.graphics = new createjs.Bitmap(queue.getResult('cannonProjectile'));
         this.graphics.x = 0;
         this.graphics.y = 0;
         this.addChild(this.graphics);

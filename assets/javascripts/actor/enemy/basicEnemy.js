@@ -11,7 +11,7 @@
         this.xSpeed = 2;
         this.ySpeed = 30;
         this.curDirection = 1; //1 for right, -1 for left
-        this._initGraphics(BasicEnemy.width, BasicEnemy.height,'assets/images/enemy/enemy4.png');
+        this._initGraphics(BasicEnemy.width, BasicEnemy.height,queue.getResult('enemy4'));
     };
 
     BasicEnemy.prototype._tick = function() {

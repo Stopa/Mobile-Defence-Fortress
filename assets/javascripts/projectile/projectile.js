@@ -44,7 +44,7 @@
     Projectile.prototype.collision = function(object) {
         this.hasCollided = 1;
         this.graphics.visible = false;
-        var explosion = new Explosion('assets/images/enemy/explosion.png',this.x,this.y);
+        var explosion = new Explosion(queue.getResult('explosion'),this.x,this.y);
         Game.gameArea.addChild(explosion);
         this._die();
 
