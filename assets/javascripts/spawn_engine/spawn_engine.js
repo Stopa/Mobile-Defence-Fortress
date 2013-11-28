@@ -6,8 +6,10 @@ $(document).ready(function(){
         // Hardcode some swarms to appear for demo purposes:
         var spawn1 = {x:1000,y:-300,ticksLeft: 20*60};
         var spawn2 = {x:1000,y:-300,ticksLeft: 45*60};
+        var spawn3 = {x:1000,y:-300,ticksLeft: 60*60};
         spawns.push(spawn1);
         spawns.push(spawn2);
+        spawns.push(spawn3);
 
 	});
 });
