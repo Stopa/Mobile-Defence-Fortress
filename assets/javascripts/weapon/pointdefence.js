@@ -59,7 +59,7 @@
                 this.rotation, angleSpeeds.x*2, angleSpeeds.y*2,
                 this.parent.faction,
                 5, 5);
-            bullet.baseDamage = 10;
+            bullet.baseDamage = 40;
             /*
             * Bullet starting point is offset by the weapon length along the weapon rotation axis
             * and offset by 10 pixels by the perpendicular angle depending on which barrel we are currently using
@@ -123,8 +123,9 @@
         this.regY = 63;
     };
 
-    PointDefence.prototype.attackSpeed = 45;
-    PointDefence.prototype.rotationSpeed = 0.2;
+    PointDefence.prototype.attackSpeed = 20;
+    PointDefence.prototype.maxAngle = 80;
+    PointDefence.prototype.rotationSpeed = 1.2;
     PointDefence.prototype.range = 1000;
     PointDefence.prototype.isAutomatic = true;
     // maximum angle at which the point defence turret will shoot

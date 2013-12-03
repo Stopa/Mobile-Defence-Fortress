@@ -29,8 +29,8 @@
             if (this.swarm.state !== swarmCommon.states.SPAWNED&&
                     this.swarm.currentTarget &&
                     MDF.xCenterDistance(this, this.swarm.currentTarget) <= this.swarm.bodyUnit/2){
-
-                if (Math.floor(Math.random()*1000) % 50 === 0) this.dropBomb();
+                if(Math.random() < 0.006) this.dropBomb();
+                //if (Math.floor(Math.random()*1000) % 50 === 0) this.dropBomb();
             }
         }
     };

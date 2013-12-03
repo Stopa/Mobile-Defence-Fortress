@@ -27,7 +27,8 @@ Game = function() {
     */
     var loadSounds = function() {
         // if initializeDefaultPlugins returns false, we cannot play sound in this browser
-        Volume = 0.7;
+        //Volume = 0.7;
+        Volume = 0;
         
         if (!createjs.Sound.initializeDefaultPlugins()) {return;}
         var audioPath = "assets/sounds/";
