@@ -34,7 +34,7 @@
         this.width = 65;
         this.height = 43;
         this.PlanetaryTurretBaseHighBitmap = new createjs.Bitmap(
-            'assets/images/turret/planetary_turret_base_high.png');
+            queue.getResult('planetaryTurretBaseHigh'));
         this.addChild(this.PlanetaryTurretBaseHighBitmap);
         return this.PlanetaryTurretBaseHighBitmap;
     };

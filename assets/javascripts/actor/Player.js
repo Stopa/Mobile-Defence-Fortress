@@ -124,7 +124,7 @@
         return this.baseMovementSpeed/this.baseMovementDecelerationDuration;
     };
 
-    Player.prototype.baseMovementSpeed = 5;
+    Player.prototype.baseMovementSpeed = 10;
     Player.prototype.baseMovementDecelerationDuration = 30;
     Player.prototype.currentMovementSpeed = 0;
     Player.prototype.currentMovementDecelerationDuration = 0;

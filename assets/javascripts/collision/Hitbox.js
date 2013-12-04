@@ -39,13 +39,13 @@
             case 4: //top-left corner
                 break;
         }
-        if (this.rotation === undefined || this.rotation == 0) {
+        if (this.rotation === undefined || this.rotation === 0) {
             return new createjs.Point(dotX,dotY);
         } else {
             //return the transformation of the dot around this rects CENTER
             return new MDF.rotatePoint (dotX, dotY, this.rotation, 0.5*this.width, 0.5*this.height);
         }
-    }
+    };
 
     Hitbox.prototype.drawCorners= function (){
         var cornerPt;
@@ -57,7 +57,7 @@
             circle.y = this.vectorBox.pos.y + cornerPt.y;
             Game.gameArea.addChild(circle);
         }
-}
+};
 
     window.Hitbox = Hitbox;
-}(window))
+}(window));

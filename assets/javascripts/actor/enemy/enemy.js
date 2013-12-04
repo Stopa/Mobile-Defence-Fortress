@@ -26,12 +26,11 @@
         if (!this.swarm) this.tickMovement(2,30); // HARDCODE: x-speed, y-speed
 
         if(this.swarm){
-            if ((this.swarm.state !== swarmCommon.states.SPAWNED &&
-                this.swarm.state !== swarmCommon.states.GROUND )&&
+            if (this.swarm.state !== swarmCommon.states.SPAWNED&&
                     this.swarm.currentTarget &&
-                    MDF.xCenterDistance(this, this.swarm.currentTarget) < this.swarm.currentTarget.width/2){
-
-                if (Math.floor(Math.random()*1000) % 50 === 0) this.dropBomb();
+                    MDF.xCenterDistance(this, this.swarm.currentTarget) <= this.swarm.bodyUnit/2){
+                if(Math.random() < 0.006) this.dropBomb();
+                //if (Math.floor(Math.random()*1000) % 50 === 0) this.dropBomb();
             }
         }
     };

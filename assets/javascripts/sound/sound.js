@@ -5,7 +5,7 @@ function initSounds() {
   var manifest = [
     {id:"enemy_shoot", src:audioPath+"enemy/enemy_shoot.wav"},
     {id:"cannon", src:audioPath+"player_ship/cannon.wav"},
-    {id:"turret_shoot", src:audioPath"turret/turret_shoot.wav"}
+    {id:"turret_shoot", src:audioPath+"turret/turret_shoot.wav"}
   ];
    
   createjs.Sound.addEventListener("loadComplete", handleLoadSound);

@@ -2,7 +2,7 @@
 
     //The idea is to translate different HP levels to certain tile images using these
     //constants
-    const damageStates = {
+    var damageStates = {
         dmgState0: 7,    // 0dmgState art displayed when hp is 7 (full)
         dmgState1: 6,    // etc
         dmgState2: 5,
@@ -10,7 +10,7 @@
         dmgState4: 3,
         dmgState5: 2,
         dmgState6: 1
-    }
+    };
     function GroundColumn(imagePath, x, y) {
         this.initialize(imagePath, x, y);
     }
@@ -23,16 +23,24 @@
 
         this.width = 22;
         this.height = 286; // 13*22
+        // this.baseHitpoints=1; //This is only used for targeters. see ._die() 
         this.topTileDamageState = damageStates.dmgState0;
         this.initSprite();
     };
 
     GroundColumn.prototype.collision = function(collisionWith) {
     };
+    GroundColumn.prototype._die = function() {
+        this.parent.removeChild(this);
 
+        //A hack, which allows targeters
+        //to detect that this isn't a valid target anymore:
+        this.baseHitpoints=0;
+    };
     GroundColumn.prototype.takesDamage = function(damage) {
         this.topTileDamageState -= damage;
         this.updateSprite();
+        if (this.height <= 0) this._die();
     };
 
     GroundColumn.prototype.initSprite = function() {
@@ -86,4 +94,4 @@
     };
 
     window.GroundColumn = GroundColumn;
-}(window))
+}(window));

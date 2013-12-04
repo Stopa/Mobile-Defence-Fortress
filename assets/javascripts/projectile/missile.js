@@ -27,7 +27,7 @@
     };
 
     Missile.prototype.initGraphics = function() {
-        this.graphics = new createjs.Bitmap('assets/images/player_ship/bullet.png');
+        this.graphics = new createjs.Bitmap(queue.getResult('cannonProjectile'));
         this.graphics.x = 0;
         this.graphics.y = 0;
         this.addChild(this.graphics);
@@ -35,7 +35,7 @@
 
     Missile.prototype.explode = function() {
         this._die();
-        Game.gameArea.addChild(new DamagingExplosion(this.x,this.y));
+        Game.gameArea.addChild(new DamagingExplosion(this.x,this.y,this.faction,100,2));
     };
 
     Missile.prototype.hasReachedTarget = function() {
@@ -46,7 +46,7 @@
         this.parent.removeChild(this);
     };
 
-    Missile.prototype.speed = 2;
+    Missile.prototype.speed = 5;
     Missile.prototype.missile = Missile;
     Missile.prototype.explosionTimeToLive = 100;
 
